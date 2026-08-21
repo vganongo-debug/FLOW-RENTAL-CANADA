@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0B6E6E" />
+
+    <!--
+      Defence-in-depth security meta tags.
+      In production, the same headers MUST be set as real HTTP response
+      headers — meta tags are a fallback, not authoritative.
+
+      `unsafe-inline` is required for Vite dev's HMR. Production builds
+      can tighten this to `'self'` + hashed/script-src nonces.
+    -->
+    <!--
+      Stripe Elements requires: script-src js.stripe.com, frame-src
+      js.stripe.com hooks.stripe.com, connect-src api.stripe.com.
+      Ref: https://stripe.com/docs/security/guide#content-security-policy
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; connect-src 'self' ws: wss: https: https://api.stripe.com; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; font-src 'self' data: https://js.stripe.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()" />
+
+    <title>Flow Rentals OS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
