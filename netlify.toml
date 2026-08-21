@@ -1,0 +1,64 @@
+# Netlify deploy config for Flow Rentals OS.
+#
+# Vite SPA → static dist/ folder.
+# React Router needs a catch-all rewrite so deep links resolve.
+# Security headers mirror the meta-tag CSP in index.html so production
+# enforcement happens at the response layer (see SECURITY.md §5).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Bundle functions with esbuild · faster cold-start, smaller artifact, and
+# transparent TypeScript support (no separate compile step).
+[functions]
+  node_bundler = "esbuild"
+
+[build.environment]
+  # Pin Node to the active LTS · Vite 5 requires ≥ 18.
+  NODE_VERSION = "20"
+
+# ------------------------------------------------------------------ #
+# API · pretty alias for the Stripe Payment Intents function.        #
+# Must come BEFORE the SPA catch-all.                                #
+# ------------------------------------------------------------------ #
+[[redirects]]
+  from = "/api/payment-intents"
+  to = "/.netlify/functions/payment-intents"
+  status = 200
+
+# ------------------------------------------------------------------ #
+# SPA fallback · every unmatched path serves index.html (status 200) #
+# ------------------------------------------------------------------ #
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ------------------------------------------------------------------ #
+# Security headers · enforced at the edge                            #
+# ------------------------------------------------------------------ #
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # CSP mirrors index.html · allow Stripe Elements + self.
+    Content-Security-Policy = "default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://js.stripe.com; connect-src 'self' https://api.stripe.com; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; font-src 'self' data: https://js.stripe.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+
+# ------------------------------------------------------------------ #
+# Cache · hashed assets are immutable · HTML always revalidates      #
+# ------------------------------------------------------------------ #
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
