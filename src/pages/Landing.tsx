@@ -42,11 +42,12 @@ const LIVE_ROOMS_COUNT = LIVE_PROPERTIES.reduce((s, p) => s + (p.rooms ?? 0), 0)
 const LIVE_PROVINCES = new Set(LIVE_PROPERTIES.map((p) => p.countryCode)).size
 const NETWORK_AIRPORTS = AIRPORTS.length
 
-const STATUS_LABEL: Record<DeploymentStatus, string> = {
-  live:     'Live',
-  pilot:    'Commissioning',
-  prospect: 'Phase 2',
-  future:   'Phase 3',
+/** Clé i18n par statut — les badges reprennent les libellés de la légende. */
+const STATUS_KEY: Record<DeploymentStatus, string> = {
+  live:     'landing.network.legendLive',
+  pilot:    'landing.network.legendCommissioning',
+  prospect: 'landing.network.legendPhase2',
+  future:   'landing.network.legendPhase3',
 }
 
 const STATUS_TONE: Record<DeploymentStatus, string> = {
@@ -88,37 +89,38 @@ export default function Landing() {
 /* ------------------------------------------------------------------ */
 
 function Hero() {
+  const { t } = useTranslation()
   return (
     <section className="relative overflow-hidden bg-coal text-ivory">
       <div className="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_20%_30%,rgba(184,115,51,0.55),transparent_60%),radial-gradient(circle_at_80%_70%,rgba(11,110,110,0.65),transparent_55%)]" aria-hidden="true" />
       <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
         <FlowWordmark size="xl" variant="dark" tagline className="mx-auto" />
         <h1 className="mt-8 font-display text-4xl sm:text-5xl lg:text-6xl leading-tight max-w-3xl mx-auto">
-          One operating system for{' '}
-          <span className="text-copper">Stay &amp; Drive</span> across northern Canada.
+          {t('landing.hero.title1')}{' '}
+          <span className="text-copper">{t('landing.hero.titleAccent')}</span>{' '}
+          {t('landing.hero.title2')}
         </h1>
         <p className="mt-5 text-base sm:text-lg text-g80 max-w-2xl mx-auto">
-          Book your room and your airport vehicle in a single confirmation.
-          Earn one rewards balance that travels with you from Blanc-Sablon to Natashquan to Sept-Îles — and soon Happy Valley-Goose Bay, Wabush and the whole Labrador coast.
+          {t('landing.hero.body')}
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             to="/booking/search"
             className="inline-flex items-center gap-1.5 px-5 py-3 rounded-input bg-copper text-white hover:bg-copper-dark font-medium shadow-panel"
           >
-            Book a stay <ArrowRight className="h-4 w-4" />
+            {t('landing.hero.bookStay')} <ArrowRight className="h-4 w-4" />
           </Link>
           <a
             href="#partners"
             className="inline-flex items-center gap-1.5 px-5 py-3 rounded-input border border-ivory/30 text-ivory hover:bg-ivory/10 font-medium"
           >
-            Partner with Flow
+            {t('landing.hero.partner')}
           </a>
           <Link
             to="/login"
             className="inline-flex items-center gap-1.5 px-5 py-3 rounded-input text-ivory/80 hover:text-ivory text-sm"
           >
-            Staff sign-in <ChevronRight className="h-3.5 w-3.5" />
+            {t('landing.hero.staffSignIn')} <ChevronRight className="h-3.5 w-3.5" />
           </Link>
         </div>
       </div>
@@ -131,13 +133,18 @@ function Hero() {
 /* ------------------------------------------------------------------ */
 
 function TrustStrip() {
+  const { t } = useTranslation()
   return (
     <section className="bg-white dark:bg-panel-mid border-b border-g20/60">
       <div className="max-w-6xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <Stat value={String(LIVE_PROVINCES)} label="Live provinces" hint="Québec · (phase 2) Labrador" />
-        <Stat value={String(LIVE_PROPERTIES.length)} label="Active locations" hint={`${LIVE_HOTELS.length} stations + ${LIVE_PROPERTIES.length - LIVE_HOTELS.length} rental desks`} />
-        <Stat value={String(LIVE_VEHICLES_COUNT)} label="Vehicles on platform" hint="Flow-owned + partner fleet" />
-        <Stat value={REWARDS_MEMBERS.length.toLocaleString()} label="Rewards members" hint="Across the Côte-Nord network" />
+        <Stat value={String(LIVE_PROVINCES)} label={t('landing.stats.provinces')} hint={t('landing.stats.provincesHint')} />
+        <Stat
+          value={String(LIVE_PROPERTIES.length)}
+          label={t('landing.stats.locations')}
+          hint={t('landing.stats.locationsHint', { stations: LIVE_HOTELS.length, desks: LIVE_PROPERTIES.length - LIVE_HOTELS.length })}
+        />
+        <Stat value={String(LIVE_VEHICLES_COUNT)} label={t('landing.stats.vehicles')} hint={t('landing.stats.vehiclesHint')} />
+        <Stat value={REWARDS_MEMBERS.length.toLocaleString()} label={t('landing.stats.members')} hint={t('landing.stats.membersHint')} />
       </div>
     </section>
   )
@@ -162,7 +169,7 @@ function WhyFlow() {
   return (
     <section className="max-w-6xl mx-auto px-6 py-20">
       <div className="text-center max-w-2xl mx-auto">
-        <span className="label-caps text-copper">Why Flow</span>
+        <span className="label-caps text-copper">{t('landing.whyEyebrow')}</span>
         <h2 className="font-display text-3xl sm:text-4xl text-ink dark:text-ivory mt-2">{t('booking.why.title')}</h2>
         <p className="text-g40 dark:text-g60 mt-3">{t('booking.why.subtitle')}</p>
       </div>
@@ -204,6 +211,8 @@ function ValueCard({ icon, title, body }: { icon: React.ReactNode; title: string
 /* ------------------------------------------------------------------ */
 
 function Network() {
+  const { t, i18n } = useTranslation()
+  const isFr = i18n.language === 'fr'
   // Regroupement par région pour une grille lisible · provinces en service d'abord.
   const byRegion = PROVINCES.reduce<Record<string, typeof PROVINCES>>((acc, p) => {
     (acc[p.region] ??= []).push(p)
@@ -219,20 +228,19 @@ function Network() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-end justify-between flex-wrap gap-4 mb-8">
           <div>
-            <span className="label-caps text-copper">The network</span>
+            <span className="label-caps text-copper">{t('landing.network.eyebrow')}</span>
             <h2 className="font-display text-3xl sm:text-4xl text-ink dark:text-ivory mt-2">
-              {PROVINCES.length} provinces &amp; territories. {NETWORK_AIRPORTS} regional airports.
+              {t('landing.network.title', { provinces: PROVINCES.length, airports: NETWORK_AIRPORTS })}
             </h2>
             <p className="text-g40 dark:text-g60 mt-2 max-w-2xl">
-              One Rewards balance across the whole country. {liveCount} province live today,{' '}
-              {prospectCount} in phase 2 — every remaining regional airport is on the phase 3 roadmap.
+              {t('landing.network.body', { live: liveCount, phase2: prospectCount })}
             </p>
           </div>
           <div className="flex gap-2 text-xs">
-            <Legend tone="live" label={`Live · ${liveCount}`} />
-            <Legend tone="pilot" label={`Commissioning · ${pilotCount}`} />
-            <Legend tone="prospect" label={`Phase 2 · ${prospectCount}`} />
-            <Legend tone="future" label="Phase 3" />
+            <Legend tone="live" label={`${t('landing.network.legendLive')} · ${liveCount}`} />
+            <Legend tone="pilot" label={`${t('landing.network.legendCommissioning')} · ${pilotCount}`} />
+            <Legend tone="prospect" label={`${t('landing.network.legendPhase2')} · ${prospectCount}`} />
+            <Legend tone="future" label={t('landing.network.legendPhase3')} />
           </div>
         </div>
 
@@ -242,13 +250,13 @@ function Network() {
               const rank: Record<DeploymentStatus, number> = { live: 0, pilot: 1, prospect: 2, future: 3 }
               const sa = rank[MARKET_STATUS[a.code] ?? 'future']
               const sb = rank[MARKET_STATUS[b.code] ?? 'future']
-              return sa - sb || a.name.localeCompare(b.name, 'fr')
+              return sa - sb || a.name.localeCompare(b.name, isFr ? 'fr' : 'en')
             })
             const airports = provinces.reduce((sum, p) => sum + AIRPORT_COUNT[p.code], 0)
             return (
               <div key={region}>
                 <h3 className="label-caps text-g40 dark:text-g60 mb-3">
-                  {region} · {provinces.length} province{provinces.length > 1 ? 's' : ''} · {airports} regional airports
+                  {t('landing.network.regionLine', { region: t(`landing.network.regions.${region}`), count: provinces.length, airports })}
                 </h3>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {provinces.map((p) => {
@@ -263,13 +271,13 @@ function Network() {
                       >
                         <span className="font-display font-semibold text-copper w-7 shrink-0" aria-hidden="true">{p.code}</span>
                         <span className="flex-1 min-w-0">
-                          <span className="block truncate text-ink dark:text-ivory">{p.name}</span>
+                          <span className="block truncate text-ink dark:text-ivory">{isFr ? p.name : p.nameEn}</span>
                           <span className="block text-[10px] text-g40 dark:text-g60">
-                            {AIRPORT_COUNT[p.code]} airports · {p.taxName} {p.taxRate}%
+                            {t('landing.network.airportsTax', { airports: AIRPORT_COUNT[p.code], tax: isFr ? p.taxName : p.taxNameEn, rate: p.taxRate.toLocaleString(isFr ? 'fr-CA' : 'en-CA') })}
                           </span>
                         </span>
                         <span className={cn('text-[9px] label-caps px-1.5 py-0.5 rounded-badge shrink-0', STATUS_TONE[status])}>
-                          {STATUS_LABEL[status]}
+                          {t(STATUS_KEY[status])}
                         </span>
                       </li>
                     )
@@ -298,15 +306,16 @@ function Legend({ tone, label }: { tone: DeploymentStatus; label: string }) {
 /* ------------------------------------------------------------------ */
 
 function Hotels() {
+  const { t } = useTranslation()
   return (
     <section id="hotels" className="max-w-6xl mx-auto px-6 py-20">
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <span className="label-caps text-copper">The properties</span>
+        <span className="label-caps text-copper">{t('landing.properties.eyebrow')}</span>
         <h2 className="font-display text-3xl sm:text-4xl text-ink dark:text-ivory mt-2">
-          {LIVE_PROPERTIES.length} locations across the Basse-Côte-Nord.
+          {t('landing.properties.title', { count: LIVE_PROPERTIES.length })}
         </h2>
         <p className="text-g40 dark:text-g60 mt-3">
-          Community stations paired with regional-airport rental desks — built for how the North actually travels.
+          {t('landing.properties.body')}
         </p>
       </div>
 
@@ -353,7 +362,7 @@ function Hotels() {
                     to="/booking/search"
                     className="text-xs inline-flex items-center gap-1 px-3 py-1.5 rounded-input bg-teal text-white hover:bg-teal-dark font-medium"
                   >
-                    Book <ArrowRight className="h-3 w-3" />
+                    {t('landing.properties.book')} <ArrowRight className="h-3 w-3" />
                   </Link>
                 </div>
               </div>
@@ -370,16 +379,17 @@ function Hotels() {
 /* ------------------------------------------------------------------ */
 
 function Rewards() {
+  const { t } = useTranslation()
   return (
     <section id="rewards" className="bg-coal text-ivory py-20">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="label-caps text-copper">Flow Rewards</span>
+          <span className="label-caps text-copper">{t('landing.rewards.eyebrow')}</span>
           <h2 className="font-display text-3xl sm:text-4xl text-ivory mt-2">
-            Earn in Sept-Îles. Redeem in Blanc-Sablon.
+            {t('landing.rewards.title')}
           </h2>
           <p className="text-g80 mt-3">
-            One programme. Every market. Points never expire while your account stays active —
+            {t('landing.rewards.body')}
             and your tier multiplier compounds every dollar you spend.
           </p>
         </div>
@@ -430,7 +440,7 @@ function Rewards() {
         </div>
 
         <p className="text-center text-xs text-g60 mt-8 max-w-xl mx-auto">
-          Tiers reset on a rolling 12-month basis · qualifying stays and rentals count toward the next level the moment they post.
+          {t('landing.rewards.footnote')}
         </p>
       </div>
     </section>
@@ -442,15 +452,16 @@ function Rewards() {
 /* ------------------------------------------------------------------ */
 
 function Pricing() {
+  const { t } = useTranslation()
   return (
     <section id="pricing" className="max-w-6xl mx-auto px-6 py-20">
       <div className="text-center max-w-2xl mx-auto mb-12">
-        <span className="label-caps text-copper">Transparent pricing</span>
+        <span className="label-caps text-copper">{t('landing.pricing.eyebrow')}</span>
         <h2 className="font-display text-3xl sm:text-4xl text-ink dark:text-ivory mt-2">
-          Pay what's posted. Earn what you spend.
+          {t('landing.pricing.title')}
         </h2>
         <p className="text-g40 dark:text-g60 mt-3">
-          No member-only fees. No hidden booking charges. Local currency at checkout, USD at settlement.
+          {t('landing.pricing.body')}
         </p>
       </div>
 
@@ -458,8 +469,8 @@ function Pricing() {
         {/* Stay rates */}
         <article className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid p-6 shadow-card">
           <Hotel className="h-6 w-6 text-teal" aria-hidden="true" />
-          <h3 className="font-display text-xl text-ink dark:text-ivory mt-3">Stay rates</h3>
-          <p className="text-xs text-g40 dark:text-g60 mt-1">Per room, per night</p>
+          <h3 className="font-display text-xl text-ink dark:text-ivory mt-3">{t('landing.pricing.stayTitle')}</h3>
+          <p className="text-xs text-g40 dark:text-g60 mt-1">{t('landing.pricing.staySub')}</p>
           <ul className="mt-4 space-y-3 text-sm">
             <RateRow label="Standard"  range="155 $ – 179 $" />
             <RateRow label="Deluxe"    range="185 $ – 225 $" />
@@ -467,15 +478,15 @@ function Pricing() {
             <RateRow label="Executive" range="295 $ – 355 $" />
           </ul>
           <p className="text-[11px] text-g40 dark:text-g60 mt-4 border-t border-g20/40 pt-3">
-            Includes breakfast for Gold+ members · GST/QST or HST per province.
+            {t('landing.pricing.stayNote')}
           </p>
         </article>
 
         {/* Drive rates */}
         <article className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid p-6 shadow-card">
           <Car className="h-6 w-6 text-copper" aria-hidden="true" />
-          <h3 className="font-display text-xl text-ink dark:text-ivory mt-3">Drive rates</h3>
-          <p className="text-xs text-g40 dark:text-g60 mt-1">Per vehicle, per day</p>
+          <h3 className="font-display text-xl text-ink dark:text-ivory mt-3">{t('landing.pricing.driveTitle')}</h3>
+          <p className="text-xs text-g40 dark:text-g60 mt-1">{t('landing.pricing.driveSub')}</p>
           <ul className="mt-4 space-y-3 text-sm">
             <RateRow label="Flow GO"       range="75 $" />
             <RateRow label="Flow Drive"    range="105 $ – 115 $" />
@@ -484,28 +495,28 @@ function Pricing() {
             <RateRow label="Flow Elite"    range="275 $" />
           </ul>
           <p className="text-[11px] text-g40 dark:text-g60 mt-4 border-t border-g20/40 pt-3">
-            Unlimited mileage in-city · airport pick-up included on all tiers.
+            {t('landing.pricing.driveNote')}
           </p>
         </article>
 
         {/* Rewards economics */}
         <article className="rounded-card border-2 border-copper bg-white dark:bg-panel-mid p-6 shadow-panel relative">
           <span className="absolute -top-3 left-6 px-2 py-0.5 rounded-badge bg-copper text-white text-[10px] label-caps">
-            Best value
+            {t('landing.pricing.bestValue')}
           </span>
           <Award className="h-6 w-6 text-copper" aria-hidden="true" />
-          <h3 className="font-display text-xl text-ink dark:text-ivory mt-3">Rewards economics</h3>
-          <p className="text-xs text-g40 dark:text-g60 mt-1">Earn and burn rates</p>
+          <h3 className="font-display text-xl text-ink dark:text-ivory mt-3">{t('landing.pricing.rewardsTitle')}</h3>
+          <p className="text-xs text-g40 dark:text-g60 mt-1">{t('landing.pricing.rewardsSub')}</p>
           <ul className="mt-4 space-y-3 text-sm">
-            <RateRow label="Earn"              range="10 pts / $1" />
-            <RateRow label="Gold multiplier"   range="× 1.5" />
-            <RateRow label="Platinum mult."    range="× 2" />
-            <RateRow label="Black multiplier"  range="× 3" />
-            <RateRow label="Free night from"   range="20,000 pts" />
-            <RateRow label="Free GO day from"  range="6,000 pts" />
+            <RateRow label={t('landing.pricing.earn')}         range={t('landing.pricing.earnRate')} />
+            <RateRow label={t('landing.pricing.goldMult')}     range="× 1.5" />
+            <RateRow label={t('landing.pricing.platinumMult')} range="× 2" />
+            <RateRow label={t('landing.pricing.blackMult')}    range="× 3" />
+            <RateRow label={t('landing.pricing.freeNight')}    range="20 000 pts" />
+            <RateRow label={t('landing.pricing.freeDay')}      range="6 000 pts" />
           </ul>
           <p className="text-[11px] text-g40 dark:text-g60 mt-4 border-t border-g20/40 pt-3">
-            Points stay valid as long as the account sees activity every 18 months.
+            {t('landing.pricing.rewardsNote')}
           </p>
         </article>
       </div>
@@ -527,39 +538,40 @@ function RateRow({ label, range }: { label: string; range: string }) {
 /* ------------------------------------------------------------------ */
 
 function Partners() {
+  const { t } = useTranslation()
   return (
     <section id="partners" className="bg-ivory dark:bg-panel py-20">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="label-caps text-copper">For property &amp; fleet owners</span>
+            <span className="label-caps text-copper">{t('landing.partners.eyebrow')}</span>
             <h2 className="font-display text-3xl sm:text-4xl text-ink dark:text-ivory mt-2">
-              List your hotel or fleet. Powered by Flow.
+              {t('landing.partners.title')}
             </h2>
             <p className="text-g40 dark:text-g60 mt-3">
-              The same OS your booking guests see — channel manager, payments,
+              {t('landing.partners.body')}
               housekeeping, partner payouts, audit-grade reporting — comes with the marketplace.
               No setup fees. You only pay when Flow Pay clears revenue for you.
             </p>
             <ul className="mt-6 space-y-3">
               <Bullet>Multi-channel inventory (Booking.com, Expedia, Direct, Flow App) from one calendar</Bullet>
-              <Bullet>Weekly settlement in your local currency · USD or EUR available on request</Bullet>
-              <Bullet>Live housekeeping, F&amp;B, and inventory modules included</Bullet>
-              <Bullet>Stripe + mobile money (Interac, Apple Pay, Google Pay, Nordia) on day one</Bullet>
-              <Bullet>Country managers in every live market for white-glove onboarding</Bullet>
+              <Bullet>{t('landing.partners.b1')}</Bullet>
+              <Bullet>{t('landing.partners.b2')}</Bullet>
+              <Bullet>{t('landing.partners.b3')}</Bullet>
+              <Bullet>{t('landing.partners.b4')}</Bullet>
             </ul>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href="mailto:partners@flowrentals.com?subject=Flow%20partnership%20enquiry"
                 className="inline-flex items-center gap-1.5 px-5 py-3 rounded-input bg-copper text-white hover:bg-copper-dark font-medium"
               >
-                Apply to become a partner <ArrowRight className="h-4 w-4" />
+                {t('landing.partners.apply')} <ArrowRight className="h-4 w-4" />
               </a>
               <Link
                 to="/login"
                 className="inline-flex items-center gap-1.5 px-5 py-3 rounded-input border border-g20 text-ink dark:text-ivory hover:border-teal font-medium"
               >
-                Already a partner? Sign in
+                {t('landing.partners.already')}
               </Link>
             </div>
           </div>
@@ -609,6 +621,7 @@ function PartnerTier({ name, audience, fee, feeDetail, perks, highlighted }: {
   perks: string[]
   highlighted?: boolean
 }) {
+  const { t } = useTranslation()
   return (
     <article
       className={cn(
@@ -618,7 +631,7 @@ function PartnerTier({ name, audience, fee, feeDetail, perks, highlighted }: {
     >
       <div className="flex items-center justify-between">
         <h4 className="font-display text-lg text-ink dark:text-ivory">{name}</h4>
-        {highlighted && <span className="text-[9px] label-caps px-1.5 py-0.5 rounded-badge bg-copper text-white">Popular</span>}
+        {highlighted && <span className="text-[9px] label-caps px-1.5 py-0.5 rounded-badge bg-copper text-white">{t('landing.rewards.popular')}</span>}
       </div>
       <p className="text-xs text-g40 dark:text-g60 mt-0.5">{audience}</p>
       <div className="mt-3">
@@ -651,14 +664,15 @@ function Bullet({ children }: { children: React.ReactNode }) {
 /* ------------------------------------------------------------------ */
 
 function FinalCta() {
+  const { t } = useTranslation()
   return (
     <section className="relative overflow-hidden bg-teal text-ivory">
       <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_50%,rgba(184,115,51,0.65),transparent_55%)]" aria-hidden="true" />
       <div className="relative max-w-4xl mx-auto px-6 py-20 text-center">
         <Globe2 className="h-10 w-10 text-copper mx-auto" aria-hidden="true" />
-        <h2 className="font-display text-3xl sm:text-4xl mt-4">Your next trip across the North starts here.</h2>
+        <h2 className="font-display text-3xl sm:text-4xl mt-4">{t('landing.closing.title')}</h2>
         <p className="text-ivory/90 mt-3 max-w-xl mx-auto">
-          One booking. One account. One Rewards balance — for the whole continent.
+          {t('landing.closing.body')}
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link

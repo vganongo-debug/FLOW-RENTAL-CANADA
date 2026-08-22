@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useLocale } from '../../context/LocaleContext'
 import type { Currency } from '../../lib/types'
 
@@ -14,6 +15,7 @@ const CURRENCIES: { code: Currency; label: string }[] = [
 ]
 
 export function FlowCurrencySelector() {
+  const { t } = useTranslation()
   const { currency, setCurrency } = useLocale()
 
   return (
@@ -21,13 +23,13 @@ export function FlowCurrencySelector() {
       value={currency}
       onChange={(e) => setCurrency(e.target.value as Currency)}
       className="text-xs font-medium px-2 py-1 rounded-input bg-ivory dark:bg-panel border border-g20/60 text-ink dark:text-ivory focus:outline-none focus:ring-2 focus:ring-teal/30"
-      aria-label="Devise d'affichage"
-      title="Devise d'affichage · CAD est la devise de référence"
+      aria-label={t('nav.currency')}
+      title={t('nav.currencyHint')}
     >
-      <optgroup label="Référence">
+      <optgroup label={t('nav.currencyReference')}>
         <option value="CAD">CAD</option>
       </optgroup>
-      <optgroup label="Affichage international">
+      <optgroup label={t('nav.currencyIntl')}>
         {CURRENCIES.filter((c) => c.code !== 'CAD').map((c) => (
           <option key={c.code} value={c.code}>{c.code}</option>
         ))}
