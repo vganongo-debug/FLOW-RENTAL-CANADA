@@ -7,14 +7,14 @@ import { useCurrencyFormatter } from '../../lib/useCurrencyFormatter'
 import { FlowSignaturePad } from '../../components/flow/FlowSignaturePad'
 import { FlowStripeCard } from '../../components/flow/FlowStripeCard'
 
-type Method = 'card' | 'mtn' | 'airtel' | 'mpesa' | 'bgfi' | 'cash'
+type Method = 'card' | 'interac' | 'applepay' | 'googlepay' | 'transfer' | 'cash'
 
 const METHODS: { id: Method; label: string; icon: React.ComponentType<{ className?: string }>; sub: string }[] = [
   { id: 'card',   label: 'Visa / Mastercard',   icon: CreditCard, sub: 'Stripe' },
-  { id: 'mtn',    label: 'MTN Mobile Money',    icon: Smartphone, sub: 'UG · CG · CI · GH' },
-  { id: 'airtel', label: 'Airtel Money',        icon: Smartphone, sub: 'UG · KE · RW · TZ' },
-  { id: 'mpesa',  label: 'M-Pesa',              icon: Smartphone, sub: 'Kenya · Tanzania' },
-  { id: 'bgfi',   label: 'BGFI Bank transfer',  icon: CreditCard, sub: 'Congo basin' },
+  { id: 'interac', label: 'Interac',   icon: Smartphone, sub: 'Toutes les banques canadiennes' },
+  { id: 'applepay', label: 'Apple Pay',  icon: Smartphone, sub: 'iPhone · Apple Watch' },
+  { id: 'googlepay', label: 'Google Pay', icon: Smartphone, sub: 'Android · navigateur' },
+  { id: 'transfer', label: 'Virement bancaire',  icon: CreditCard, sub: 'Desjardins · RBC · BMO' },
   { id: 'cash',   label: 'Pay at property',     icon: Banknote,   sub: 'On arrival' },
 ]
 
@@ -38,7 +38,7 @@ export default function Checkout() {
   const baseRate = 130
   const subtotal = baseRate * nights
   const addonsTotal = ADDONS_STAY.filter((a) => addons[a.id]).reduce((s, a) => s + a.price * (a.id === 'breakfast' ? nights : 1), 0)
-  const tax = Math.round((subtotal + addonsTotal) * 0.18)
+  const tax = Math.round((subtotal + addonsTotal) * 0.14975)
   const total = subtotal + addonsTotal + tax
 
   const next = () => setStep((s) => Math.min(3, s + 1))
@@ -60,7 +60,7 @@ export default function Checkout() {
       <h1 className="font-display text-3xl text-ink dark:text-ivory mt-2">
         {t('booking.checkout.title', { defaultValue: 'Complete your booking' })}
       </h1>
-      <p className="text-sm text-g40 mt-1">Flow Hotels Kampala · 14–18 May 2026 · {nights} nights</p>
+      <p className="text-sm text-g40 mt-1">Flow Station Natashquan · 14–18 May 2026 · {nights} nights</p>
 
       {/* Progress */}
       <ol className="mt-6 flex items-center gap-1 overflow-x-auto flow-scroll">
@@ -128,7 +128,7 @@ export default function Checkout() {
           <div className="aspect-[16/9] bg-gradient-to-br from-teal to-teal-dark relative">
             <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle,rgba(184,115,51,0.6),transparent_60%)]" />
             <div className="absolute bottom-3 left-4 text-ivory">
-              <div className="font-display text-xl">Flow Hotels Kampala</div>
+              <div className="font-display text-xl">Flow Station Natashquan</div>
               <div className="text-xs opacity-80">Deluxe · King · City view</div>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function Checkout() {
             <hr className="border-g20/60" />
             <Line label={`${format(baseRate)} × ${nights} nights`} amount={format(subtotal)} />
             {addonsTotal > 0 && <Line label="Add-ons" amount={format(addonsTotal)} />}
-            <Line label="VAT (Uganda 18%)" amount={format(tax)} muted />
+            <Line label="TPS + TVQ (14,975 %)" amount={format(tax)} muted />
             <div className="flex items-center justify-between pt-2 border-t border-g20/60">
               <span className="label-caps text-g40">{t('common.total')}</span>
               <span className="font-display font-bold text-2xl text-copper">{format(total)}</span>
@@ -150,7 +150,7 @@ export default function Checkout() {
             </div>
             <div className="flex items-start gap-2 text-xs text-g40">
               <ShieldCheck className="h-3.5 w-3.5 text-teal mt-0.5 shrink-0" />
-              <span>Free cancellation until 13 May 14:00 EAT.</span>
+              <span>Free cancellation until 13 May 14:00 EST.</span>
             </div>
           </div>
         </aside>
@@ -189,7 +189,7 @@ function StepGuest({ agreed, setAgreed }: { agreed: boolean; setAgreed: (v: bool
         <Field label="Last name" defaultValue="Bennett" />
         <Field label="Email" defaultValue="sarah.bennett@example.com" type="email" />
         <Field label="Phone" defaultValue="+44 7700 900142" type="tel" />
-        <Field label="Nationality" defaultValue="Uganda" select options={['Uganda','Congo','Ethiopia','Kenya','Rwanda','Tanzania','Nigeria','Ghana','Senegal','Côte d\'Ivoire','South Africa','Morocco','Egypt','United Kingdom','France','United States']} />
+        <Field label="Nationality" defaultValue="Canada" select options={['Canada','United States','France','United Kingdom','Germany','Belgium','Switzerland','Netherlands','Italy','Spain','Australia','Japan','China','India','Brazil','Other']} />
         <Field label="Passport / ID number" defaultValue="GB-PA 5483-92021" />
       </div>
       <div className="grid sm:grid-cols-2 gap-3 mt-4">
@@ -199,7 +199,7 @@ function StepGuest({ agreed, setAgreed }: { agreed: boolean; setAgreed: (v: bool
       <div className="mt-5 rounded-input border border-g20/60 bg-ivory dark:bg-panel p-3">
         <div className="text-xs text-g40 mb-2 label-caps">Stay agreement summary</div>
         <p className="text-xs text-ink dark:text-ivory">
-          Check-in 14:00 · Check-out 11:00 · Free cancellation until 13 May 14:00 EAT ·
+          Check-in 14:00 · Check-out 11:00 · Free cancellation until 13 May 14:00 EST ·
           Damages and incidentals will be charged to the payment method on file ·
           Smoking inside the room incurs a USD 200 deep-cleaning fee.
         </p>
@@ -294,21 +294,21 @@ function StepPayment({ method, setMethod }: { method: Method; setMethod: (m: Met
           }}
         />
       )}
-      {method === 'bgfi' && (
+      {method === 'transfer' && (
         <div className="grid sm:grid-cols-2 gap-3">
           <PciNote />
           <Field label="Account number" placeholder="0000000000" maxLength={20} inputMode="numeric" autoComplete="off" />
           <Field label="Account holder" placeholder="As shown on bank statement" maxLength={100} autoComplete="off" />
-          <Field label="BGFI branch" select options={['Brazzaville · Plateau','Pointe-Noire','Owando']} />
+          <Field label="Institution" select options={['Desjardins · Basse-Côte-Nord','RBC · Sept-Îles','BMO · Baie-Comeau']} />
           <Field label="Authorisation code" placeholder="Sent via SMS" maxLength={8} inputMode="numeric" autoComplete="off" />
         </div>
       )}
-      {(method === 'mtn' || method === 'airtel' || method === 'mpesa') && (
+      {(method === 'interac' || method === 'applepay' || method === 'googlepay') && (
         <div className="grid sm:grid-cols-2 gap-3">
-          <Field label="Mobile number" defaultValue="+256 778 991 042" type="tel" />
+          <Field label="Mobile number" defaultValue="+1 418 962 3300" type="tel" />
           <Field label="Account name" defaultValue="Sarah Bennett" />
           <div className="sm:col-span-2 rounded-input border border-teal/30 bg-teal-light/40 dark:bg-teal-dark/20 p-3 text-xs text-ink dark:text-ivory">
-            You'll receive a payment prompt on your phone — approve to complete the booking.
+            You'll receive a payment prompt on your device — approve to complete the booking.
           </div>
         </div>
       )}

@@ -83,7 +83,7 @@ export default function Tiers() {
               { activity: 'Hotel stay · Booking.com',                  base: '2 pts / USD',  notes: 'Reduced rate · OTA cost passed through' },
               { activity: 'Hotel stay · Expedia / others',             base: '0 pts',        notes: 'Excluded by programme T&Cs' },
               { activity: 'Car rental · Flow-owned',                   base: '3 pts / USD',  notes: 'Eligible from return · multiplied by tier' },
-              { activity: 'Car rental · Partner fleet (e.g. Mercantile)', base: '1.5 pts / USD', notes: 'Reduced · partner commission already paid' },
+              { activity: 'Car rental · Partner fleet (e.g. Nord-Côtier)', base: '1.5 pts / USD', notes: 'Reduced · partner commission already paid' },
               { activity: 'Add-on (CDW, transfer, etc.)',              base: '2 pts / USD',  notes: 'Counts toward tier qualification' },
               { activity: 'Co-brand card spend',                       base: '1 pt / USD',   notes: 'Verified via partner monthly reconciliation' },
             ].map((r, i) => (

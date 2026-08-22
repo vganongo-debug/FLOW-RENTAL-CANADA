@@ -129,7 +129,7 @@ export const en = {
     subtitle: 'Choose a demo role to enter the experience tailored to that user.',
     continueAs: 'Continue as {{role}}',
     pitch: 'One operating system for lodging, mobility and services across the North Shore and Labrador.',
-    marketsLive: 'Markets live',
+    marketsLive: 'Stations live',
     rooms: 'Rooms',
     vehicles: 'Vehicles on platform',
     skipToBooking: 'Skip to the booking app',

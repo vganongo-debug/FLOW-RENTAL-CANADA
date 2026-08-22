@@ -129,7 +129,7 @@ export const fr = {
     subtitle: 'Choisissez un rôle de démonstration pour entrer dans l\'expérience adaptée.',
     continueAs: 'Continuer en tant que {{role}}',
     pitch: "Un seul système d'exploitation pour l'hébergement, la mobilité et les services sur la Côte-Nord et au Labrador.",
-    marketsLive: 'Marchés actifs',
+    marketsLive: 'Stations en service',
     rooms: 'Chambres',
     vehicles: 'Véhicules sur la plateforme',
     skipToBooking: 'Aller à l\'application de réservation',

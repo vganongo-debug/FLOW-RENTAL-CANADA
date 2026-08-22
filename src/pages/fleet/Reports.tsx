@@ -11,7 +11,7 @@ const REPORTS = [
   { id: 'revtier',     title: 'Revenue by Tier',         desc: 'Tier mix · GO / Drive / Terrain / Prestige / Elite' },
   { id: 'addons',      title: 'Add-ons Revenue',         desc: 'CDW / GPS / driver / child seat / late fee' },
   { id: 'drivers',     title: 'Driver Performance',      desc: 'Missions, rating, on-time pickups' },
-  { id: 'payouts',     title: 'Partner Payout Summary',  desc: 'Weekly partner payouts · Mercantile and others' },
+  { id: 'payouts',     title: 'Partner Payout Summary',  desc: 'Weekly partner payouts · Nord-Côtier and others' },
 ] as const
 
 type ReportId = typeof REPORTS[number]['id']
@@ -48,11 +48,11 @@ const ADDONS = [
 ]
 
 const DRIVER_PERF = [
-  { driver: 'Daniel Okello',    missions: 14, rating: 4.9, onTime: 98 },
-  { driver: 'Jean-Marc Tati',   missions: 13, rating: 4.7, onTime: 96 },
-  { driver: 'Henry Mukasa',     missions: 11, rating: 4.8, onTime: 99 },
-  { driver: 'Tesfaye Bekele',   missions:  9, rating: 4.8, onTime: 95 },
-  { driver: 'Aisha Nakato',     missions:  8, rating: 4.9, onTime: 100 },
+  { driver: 'Simon Lapierre',    missions: 14, rating: 4.9, onTime: 98 },
+  { driver: 'Mathieu Tremblay',   missions: 13, rating: 4.7, onTime: 96 },
+  { driver: 'Hugo Cormier',     missions: 11, rating: 4.8, onTime: 99 },
+  { driver: 'Thomas Bérubé',   missions:  9, rating: 4.8, onTime: 95 },
+  { driver: 'Marie-Claude Boudreau',     missions:  8, rating: 4.9, onTime: 100 },
 ]
 
 export default function FleetReports() {

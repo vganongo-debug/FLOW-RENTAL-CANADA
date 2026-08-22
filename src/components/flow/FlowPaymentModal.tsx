@@ -5,14 +5,14 @@ import { useFocusTrap } from '../../lib/useFocusTrap'
 import { FlowStripeCard } from './FlowStripeCard'
 import type { Currency } from '../../lib/types'
 
-type Method = 'card' | 'mtn' | 'airtel' | 'mpesa' | 'bgfi' | 'cash'
+type Method = 'card' | 'interac' | 'applepay' | 'googlepay' | 'transfer' | 'cash'
 
 const METHODS: { id: Method; label: string; icon: React.ComponentType<{ className?: string }>; sub: string }[] = [
   { id: 'card',   label: 'Visa / Mastercard',  icon: CreditCard, sub: 'Stripe processing' },
-  { id: 'mtn',    label: 'MTN Mobile Money',   icon: Smartphone, sub: 'UG · CG · CI · GH' },
-  { id: 'airtel', label: 'Airtel Money',       icon: Smartphone, sub: 'UG · KE · RW · TZ' },
-  { id: 'mpesa',  label: 'M-Pesa',             icon: Smartphone, sub: 'Kenya · Tanzania' },
-  { id: 'bgfi',   label: 'BGFI Bank transfer', icon: CreditCard, sub: 'Congo basin' },
+  { id: 'interac', label: 'Interac',   icon: Smartphone, sub: 'Toutes les banques canadiennes' },
+  { id: 'applepay', label: 'Apple Pay',  icon: Smartphone, sub: 'iPhone · Apple Watch' },
+  { id: 'googlepay', label: 'Google Pay', icon: Smartphone, sub: 'Android · navigateur' },
+  { id: 'transfer', label: 'Virement bancaire', icon: CreditCard, sub: 'Desjardins · RBC · BMO' },
   { id: 'cash',   label: 'Cash · front desk',  icon: Banknote,   sub: 'On site' },
 ]
 

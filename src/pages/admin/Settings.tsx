@@ -232,7 +232,7 @@ function EmailSection() {
 
 function SmsSection() {
   return (
-    <Card title="SMS & WhatsApp" subtitle="Twilio · MTN bulk · WhatsApp Business API">
+    <Card title="SMS & WhatsApp" subtitle="Twilio · Interac bulk · WhatsApp Business API">
       <div className="space-y-3">
         <Field label="Twilio account SID" defaultValue="ACxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
         <Field label="WhatsApp Business number" defaultValue="+256 200 121 248" />
@@ -312,7 +312,7 @@ function VersionSection() {
 function BackupSection() {
   return (
     <div className="space-y-4">
-      <Card title="Backups" subtitle="Daily snapshots · 90-day retention · stored in Nairobi and Cape Town regions">
+      <Card title="Backups" subtitle="Daily snapshots · 90-day retention · stored in Baie-Comeau and Cape Town regions">
         <ul className="space-y-2">
           {[
             { when: '2026-05-10 02:00 UTC', size: '4.2 GB', status: 'ok' },

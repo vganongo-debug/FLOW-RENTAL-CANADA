@@ -9,20 +9,20 @@ import { cn, formatCurrency } from '../../lib/utils'
 
 const PAYMENT_METHODS = [
   { method: 'Visa / Mastercard', amount: 142_840, share: 38, color: '#0B6E6E', icon: CreditCard },
-  { method: 'MTN Mobile Money',   amount:  88_220, share: 23, color: '#0D8888', icon: Smartphone },
-  { method: 'Airtel Money',       amount:  48_180, share: 13, color: '#B87333', icon: Smartphone },
-  { method: 'M-Pesa',             amount:  32_980, share:  9, color: '#7A4B20', icon: Smartphone },
-  { method: 'BGFI Bank',          amount:  28_640, share:  8, color: '#5A7070', icon: CreditCard },
+  { method: 'Interac',   amount:  88_220, share: 23, color: '#0D8888', icon: Smartphone },
+  { method: 'Apple Pay',       amount:  48_180, share: 13, color: '#B87333', icon: Smartphone },
+  { method: 'Google Pay',             amount:  32_980, share:  9, color: '#7A4B20', icon: Smartphone },
+  { method: 'Banque Nordia',          amount:  28_640, share:  8, color: '#5A7070', icon: CreditCard },
   { method: 'Cash',               amount:  33_240, share:  9, color: '#8FA0A0', icon: Banknote },
 ]
 
 const RECENT_TRANSACTIONS = [
   { id: 'TXN-50441', when: '12:48', client: 'Sarah Bennett',     ref: 'RES-2026001 · Room 102',    method: 'Visa ··· 4242',     amount: 780,   status: 'captured' as const },
-  { id: 'TXN-50440', when: '12:32', client: 'Olusegun Adeyemi',  ref: 'RNT-900101 · Toyota Prado', method: 'MTN MoMo · *0142',  amount: 660,   status: 'captured' as const },
-  { id: 'TXN-50439', when: '11:58', client: 'Mercantile Payout', ref: 'Week W18',                  method: 'Bank transfer',     amount: 8_420, status: 'queued'   as const },
-  { id: 'TXN-50438', when: '11:42', client: 'Jean-Marc Loubaki', ref: 'RNT-900102 · Hilux',        method: 'Airtel · *3380',    amount: 550,   status: 'captured' as const },
-  { id: 'TXN-50437', when: '11:10', client: 'Aïcha Toure',       ref: 'RES-2026003 · Executive',   method: 'M-Pesa · *2208',    amount: 960,   status: 'failed'   as const },
-  { id: 'TXN-50436', when: '10:55', client: 'Pierre Bayoko',     ref: 'Walk-in · Maya-Maya',       method: 'Cash',              amount: 390,   status: 'captured' as const },
+  { id: 'TXN-50440', when: '12:32', client: 'Olivier Deschênes',  ref: 'RNT-900101 · Toyota Highlander AWD', method: 'Interac · *0142',  amount: 660,   status: 'captured' as const },
+  { id: 'TXN-50439', when: '11:58', client: 'Nord-Côtier Payout', ref: 'Week W18',                  method: 'Bank transfer',     amount: 8_420, status: 'queued'   as const },
+  { id: 'TXN-50438', when: '11:42', client: 'Jean-Marc Landry', ref: 'RNT-900102 · Sierra 1500',  method: 'Apple Pay · *3380',    amount: 550,   status: 'captured' as const },
+  { id: 'TXN-50437', when: '11:10', client: 'Anouk Thériault',       ref: 'RES-2026003 · Executive',   method: 'Google Pay · *2208',    amount: 960,   status: 'failed'   as const },
+  { id: 'TXN-50436', when: '10:55', client: 'Pierre Bourque',     ref: 'Walk-in · YBX',       method: 'Cash',              amount: 390,   status: 'captured' as const },
 ]
 
 const STATUS_TONE = {
@@ -159,8 +159,8 @@ export default function PaymentsDashboard() {
           <li className="flex items-start gap-3 p-3 rounded-input border border-copper/40 bg-copper-light/30 dark:bg-copper-dark/20">
             <AlertCircle className="h-4 w-4 text-copper mt-0.5 shrink-0" />
             <div className="flex-1">
-              <div className="font-medium text-ink dark:text-ivory text-sm">TXN-50437 · M-Pesa payment failed</div>
-              <div className="text-xs text-g40 dark:text-g60">Aïcha Toure · $960 · client retry requested</div>
+              <div className="font-medium text-ink dark:text-ivory text-sm">TXN-50437 · Google Pay payment failed</div>
+              <div className="text-xs text-g40 dark:text-g60">Anouk Thériault · $960 · client retry requested</div>
             </div>
             <button className="text-xs text-copper-dark hover:text-copper font-medium inline-flex items-center gap-1">
               Retry <ArrowRight className="h-3 w-3" />

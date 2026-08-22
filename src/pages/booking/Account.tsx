@@ -21,14 +21,14 @@ interface BookingRow {
 }
 
 const UPCOMING: BookingRow[] = [
-  { id:'FRG-2026-0420', kind:'hotel', title:'Flow Hotels Kampala',     sub:'Deluxe King · 4 nights', from:'2026-05-14', to:'2026-05-18', amount: 825, status:'confirmed' },
-  { id:'RNT-900105',   kind:'car',   title:'Toyota Prado',             sub:'Entebbe Intl · 3 days · CDW included', from:'2026-05-14', to:'2026-05-17', amount: 495, status:'confirmed' },
+  { id:'FRG-2026-0420', kind:'hotel', title:'Flow Station Natashquan',     sub:'Deluxe King · 4 nights', from:'2026-05-14', to:'2026-05-18', amount: 825, status:'confirmed' },
+  { id:'RNT-900105',   kind:'car',   title:'Toyota Highlander AWD',             sub:'Aéroport YZV · 3 days · CDW included', from:'2026-05-14', to:'2026-05-17', amount: 495, status:'confirmed' },
 ]
 const PAST: BookingRow[] = [
-  { id:'FRG-2026-0418', kind:'hotel', title:'Flow Hotels Kampala',     sub:'Suite 207 · 4 nights', from:'2026-04-22', to:'2026-04-25', amount: 780, status:'completed' },
-  { id:'RNT-900090',   kind:'car',   title:'Nissan X-Trail',           sub:'Mercantile · Kampala · 4 days', from:'2026-04-22', to:'2026-04-25', amount: 340, status:'completed' },
-  { id:'FRG-2026-0388', kind:'hotel', title:'Flow Hotels Brazzaville', sub:'Executive · 3 nights', from:'2026-02-18', to:'2026-02-21', amount: 780, status:'completed' },
-  { id:'FRG-2026-0367', kind:'hotel', title:'Flow Hotels Addis Ababa', sub:'Deluxe · 1 night',     from:'2026-01-05', to:'2026-01-06', amount: 130, status:'completed' },
+  { id:'FRG-2026-0418', kind:'hotel', title:'Flow Station Natashquan',     sub:'Suite 207 · 4 nights', from:'2026-04-22', to:'2026-04-25', amount: 780, status:'completed' },
+  { id:'RNT-900090',   kind:'car',   title:'Nissan Rogue AWD',           sub:'Nord-Côtier · Natashquan · 4 days', from:'2026-04-22', to:'2026-04-25', amount: 340, status:'completed' },
+  { id:'FRG-2026-0388', kind:'hotel', title:'Flow Station Blanc-Sablon', sub:'Executive · 3 nights', from:'2026-02-18', to:'2026-02-21', amount: 780, status:'completed' },
+  { id:'FRG-2026-0367', kind:'hotel', title:'Flow Station Saint-Augustin', sub:'Deluxe · 1 night',     from:'2026-01-05', to:'2026-01-06', amount: 130, status:'completed' },
 ]
 
 const STATUS_TONE = {
@@ -39,10 +39,10 @@ const STATUS_TONE = {
 } as const
 
 const REWARD_LEDGER = [
-  { date:'2026-04-25', type:'earn'   as const, delta:+480,  reason:'Stay · Flow Hotels Kampala · Suite 207' },
-  { date:'2026-04-22', type:'earn'   as const, delta:+340,  reason:'Car rental · Nissan X-Trail · 4 days' },
-  { date:'2026-03-08', type:'burn'   as const, delta:-2000, reason:'Free night redemption · Brazzaville' },
-  { date:'2026-02-21', type:'earn'   as const, delta:+780,  reason:'Stay · Flow Hotels Brazzaville · Executive' },
+  { date:'2026-04-25', type:'earn'   as const, delta:+480,  reason:'Stay · Flow Station Natashquan · Suite 207' },
+  { date:'2026-04-22', type:'earn'   as const, delta:+340,  reason:'Car rental · Nissan Rogue AWD · 4 days' },
+  { date:'2026-03-08', type:'burn'   as const, delta:-2000, reason:'Free night redemption · Blanc-Sablon' },
+  { date:'2026-02-21', type:'earn'   as const, delta:+780,  reason:'Stay · Flow Station Blanc-Sablon · Executive' },
 ]
 
 export default function Account() {
@@ -154,8 +154,8 @@ function RewardsTab({ format }: { format: (n: number) => string }) {
         <section className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid p-5 shadow-card">
           <h3 className="font-display text-lg text-ink dark:text-ivory mb-3">Cross-market loyalty</h3>
           <p className="text-sm text-g40">
-            Earn points everywhere Flow operates. Redeem them anywhere — including a free night in Brazzaville
-            or a Prestige tier upgrade in Kampala.
+            Earn points everywhere Flow operates. Redeem them anywhere — including a free night in Blanc-Sablon
+            or a Prestige tier upgrade in Natashquan.
           </p>
         </section>
 
@@ -204,7 +204,7 @@ function RewardsTab({ format }: { format: (n: number) => string }) {
             ))}
           </div>
           <p className="text-[11px] text-g40 mt-3">
-            * Points earned in Kampala are redeemable in Brazzaville, Addis Ababa, and any future Flow market.
+            * Points earned in Natashquan are redeemable in Blanc-Sablon, Saint-Augustin, and any future Flow market.
             We don't restrict by country — that's the whole point.
           </p>
         </section>
@@ -226,7 +226,7 @@ function PaymentsTab() {
   const methods = [
     { id: 'pm-1', kind: 'Visa',       label: 'Visa ··· 4242',         expires: '12/28', primary: true  },
     { id: 'pm-2', kind: 'Mastercard', label: 'Mastercard ··· 8801',   expires: '09/27', primary: false },
-    { id: 'pm-3', kind: 'MTN',        label: 'MTN MoMo · +256 778 ··· 042', expires: '—', primary: false },
+    { id: 'pm-3', kind: 'Interac',        label: 'Interac · +256 778 ··· 042', expires: '—', primary: false },
   ]
   return (
     <div className="space-y-4">

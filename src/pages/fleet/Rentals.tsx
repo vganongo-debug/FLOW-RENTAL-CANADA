@@ -163,7 +163,7 @@ function ConditionInspection() {
     <section className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid p-5 shadow-card">
       <header className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <div>
-          <h2 className="font-display text-xl text-ink dark:text-ivory">Pre-rental condition · UAJ 042X · Toyota Land Cruiser V8</h2>
+          <h2 className="font-display text-xl text-ink dark:text-ivory">Pre-rental condition · H24 JKL · Ford F-150 XLT 4x4</h2>
           <p className="text-xs text-g40 dark:text-g60">Captured at hand-over · 6 photos required for digital agreement</p>
         </div>
         <div className="flex gap-2 text-xs">

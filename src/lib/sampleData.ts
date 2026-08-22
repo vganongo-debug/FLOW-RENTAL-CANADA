@@ -46,28 +46,28 @@ export const SAMPLE_USERS: User[] = [
   },
   {
     id: 'u-3',
-    name: 'Aisha Nakato',
-    email: 'aisha@flowrentals.com',
+    name: 'Marie-Claude Boudreau',
+    email: 'marie-claude@flowrentals.com',
     role: 'country_manager',
     countryCode: 'QC',
-    avatarInitials: 'AN',
+    avatarInitials: 'MB',
   },
   {
     id: 'u-4',
-    name: 'Jean-Paul Mboungou',
+    name: 'Jean-Philippe Bouchard',
     email: 'jp@flowrentals.com',
     role: 'hotel_manager',
     countryCode: 'QC',
     propertyId: 'p-ybx',
-    avatarInitials: 'JM',
+    avatarInitials: 'JB',
   },
   {
     id: 'u-5',
-    name: 'Daniel Okello',
-    email: 'daniel@flowrentals.com',
+    name: 'Simon Lapierre',
+    email: 'simon@flowrentals.com',
     role: 'car_agent',
     countryCode: 'QC',
-    avatarInitials: 'DO',
+    avatarInitials: 'SL',
   },
   {
     id: 'u-6',
@@ -76,7 +76,7 @@ export const SAMPLE_USERS: User[] = [
     role: 'fleet_partner',
     countryCode: 'QC',
     partnerId: 'fp-nordcotier',
-    avatarInitials: 'MC',
+    avatarInitials: 'NC',
   },
   {
     id: 'u-7',
@@ -87,10 +87,10 @@ export const SAMPLE_USERS: User[] = [
   },
   {
     id: 'u-8',
-    name: 'Naledi Botha',
-    email: 'naledi.botha@flowrentals.com',
+    name: 'Karine Lévesque',
+    email: 'karine.levesque@flowrentals.com',
     role: 'reward_manager',
-    avatarInitials: 'NB',
+    avatarInitials: 'KL',
   },
 ]
 
@@ -287,18 +287,18 @@ export const SAMPLE_ROOMS: Room[] = Array.from({ length: 30 }, (_, i) => {
 
 function randomGuestName(seed: number) {
   const names = [
-    'Ahmed Yusuf', 'Sarah Bennett', 'Jean-Marc Loubaki', 'Priya Patel',
-    'Olusegun Adeyemi', 'Fatima Diop', 'Marcus O\'Brien', 'Zhang Wei',
+    'Alexis Gagnon', 'Sarah Bennett', 'Jean-Marc Landry', 'Priya Patel',
+    'Olivier Deschênes', 'Fatima Diop', 'Marcus O\'Brien', 'Zhang Wei',
     'Émilie Tremblay', 'Kwame Asante', 'Nadia Haddad', 'Ben Okafor',
-    'Léa Dubois', 'Henry Mukasa', 'Sofia Rodríguez', 'Daniel Tessema',
-    'Aïcha Toure', 'James Kelly', 'Mei Tanaka', 'Pierre Bayoko',
+    'Léa Dubois', 'Hugo Cormier', 'Sofia Rodríguez', 'Daniel Tessema',
+    'Anouk Thériault', 'James Kelly', 'Mei Tanaka', 'Pierre Bourque',
   ]
   return names[seed % names.length]
 }
 
 const NATIONALITIES = [
-  'Ugandan', 'Congolese', 'French', 'Canadian', 'Nigerian',
-  'British', 'Ethiopian', 'Kenyan', 'American', 'Senegalese',
+  'Canadienne', 'Québécoise', 'Française', 'Canadienne', 'Américaine',
+  'Britannique', 'Québécoise', 'Terre-Neuvienne', 'Américaine', 'Innue',
 ]
 
 const CHANNELS: Reservation['channel'][] = [
@@ -423,10 +423,10 @@ export const COUNTRY_PERFORMANCE = [
 
 export const ARRIVALS_TODAY = [
   { name: 'Sarah Bennett', roomType: 'Suite', eta: '14:30', status: 'confirmed' },
-  { name: 'Olusegun Adeyemi', roomType: 'Deluxe', eta: '15:10', status: 'confirmed' },
+  { name: 'Olivier Deschênes', roomType: 'Deluxe', eta: '15:10', status: 'confirmed' },
   { name: 'Émilie Tremblay', roomType: 'Executive', eta: '16:45', status: 'pending' },
-  { name: 'Henry Mukasa', roomType: 'Standard', eta: '18:00', status: 'confirmed' },
-  { name: 'Pierre Bayoko', roomType: 'Suite', eta: '20:15', status: 'confirmed' },
+  { name: 'Hugo Cormier', roomType: 'Standard', eta: '18:00', status: 'confirmed' },
+  { name: 'Pierre Bourque', roomType: 'Suite', eta: '20:15', status: 'confirmed' },
 ]
 
 export const NOTIFICATIONS = [
@@ -467,27 +467,27 @@ export const SUPPLIERS: Supplier[] = [
 
 const inventoryFor = (propertyId: string): InventoryItem[] => [
   // Linens
-  { id: `${propertyId}-lin-1`, propertyId, category: 'linens',     name: 'King-size bed sheet set',  unit: 'set',         currentStock: 18, parLevel: 40,  reorderPoint: 24, reorderQty: 30, unitCostCad: 28,    supplierId: 'sup-vbms-tn',    lastReceived: '2026-04-12' },
-  { id: `${propertyId}-lin-2`, propertyId, category: 'linens',     name: 'Bath towel · 600 GSM',     unit: 'unit',        currentStock: 62, parLevel: 120, reorderPoint: 70, reorderQty: 80, unitCostCad: 8.5,   supplierId: 'sup-vbms-tn',    lastReceived: '2026-04-22' },
-  { id: `${propertyId}-lin-3`, propertyId, category: 'linens',     name: 'Pillow case · cotton',     unit: 'unit',        currentStock: 90, parLevel: 120, reorderPoint: 60, reorderQty: 60, unitCostCad: 3.2,   supplierId: 'sup-vbms-tn' },
+  { id: `${propertyId}-lin-1`, propertyId, category: 'linens',     name: 'King-size bed sheet set',  unit: 'set',         currentStock: 18, parLevel: 40,  reorderPoint: 24, reorderQty: 30, unitCostCad: 28,    supplierId: 'sup-vbms-mtl',    lastReceived: '2026-04-12' },
+  { id: `${propertyId}-lin-2`, propertyId, category: 'linens',     name: 'Bath towel · 600 GSM',     unit: 'unit',        currentStock: 62, parLevel: 120, reorderPoint: 70, reorderQty: 80, unitCostCad: 8.5,   supplierId: 'sup-vbms-mtl',    lastReceived: '2026-04-22' },
+  { id: `${propertyId}-lin-3`, propertyId, category: 'linens',     name: 'Pillow case · cotton',     unit: 'unit',        currentStock: 90, parLevel: 120, reorderPoint: 60, reorderQty: 60, unitCostCad: 3.2,   supplierId: 'sup-vbms-mtl' },
   // Toiletries
-  { id: `${propertyId}-toi-1`, propertyId, category: 'toiletries', name: 'Shampoo bottle · 50ml',    unit: 'box of 100',  currentStock: 4,  parLevel: 10,  reorderPoint: 5,  reorderQty: 6,  unitCostCad: 42,    supplierId: 'sup-vbms-tn' },
-  { id: `${propertyId}-toi-2`, propertyId, category: 'toiletries', name: 'Branded soap bar',         unit: 'box of 200',  currentStock: 2,  parLevel: 8,   reorderPoint: 4,  reorderQty: 6,  unitCostCad: 78,    supplierId: 'sup-vbms-tn' },
-  { id: `${propertyId}-toi-3`, propertyId, category: 'toiletries', name: 'Body lotion · 50ml',       unit: 'box of 100',  currentStock: 7,  parLevel: 10,  reorderPoint: 5,  reorderQty: 5,  unitCostCad: 38,    supplierId: 'sup-vbms-tn' },
+  { id: `${propertyId}-toi-1`, propertyId, category: 'toiletries', name: 'Shampoo bottle · 50ml',    unit: 'box of 100',  currentStock: 4,  parLevel: 10,  reorderPoint: 5,  reorderQty: 6,  unitCostCad: 42,    supplierId: 'sup-vbms-mtl' },
+  { id: `${propertyId}-toi-2`, propertyId, category: 'toiletries', name: 'Branded soap bar',         unit: 'box of 200',  currentStock: 2,  parLevel: 8,   reorderPoint: 4,  reorderQty: 6,  unitCostCad: 78,    supplierId: 'sup-vbms-mtl' },
+  { id: `${propertyId}-toi-3`, propertyId, category: 'toiletries', name: 'Body lotion · 50ml',       unit: 'box of 100',  currentStock: 7,  parLevel: 10,  reorderPoint: 5,  reorderQty: 5,  unitCostCad: 38,    supplierId: 'sup-vbms-mtl' },
   // Cleaning
-  { id: `${propertyId}-cln-1`, propertyId, category: 'cleaning',   name: 'Multi-surface cleaner',    unit: '5L jerrycan', currentStock: 6,  parLevel: 12,  reorderPoint: 6,  reorderQty: 8,  unitCostCad: 12,    supplierId: 'sup-tradelinks' },
-  { id: `${propertyId}-cln-2`, propertyId, category: 'cleaning',   name: 'Disinfectant',             unit: '5L jerrycan', currentStock: 3,  parLevel:  8,  reorderPoint: 4,  reorderQty: 6,  unitCostCad: 15,    supplierId: 'sup-tradelinks' },
-  { id: `${propertyId}-cln-3`, propertyId, category: 'cleaning',   name: 'Trash liner · 80L',        unit: 'pack of 100', currentStock: 12, parLevel: 20,  reorderPoint: 10, reorderQty: 12, unitCostCad: 9,     supplierId: 'sup-tradelinks' },
+  { id: `${propertyId}-cln-1`, propertyId, category: 'cleaning',   name: 'Multi-surface cleaner',    unit: '5L jerrycan', currentStock: 6,  parLevel: 12,  reorderPoint: 6,  reorderQty: 8,  unitCostCad: 12,    supplierId: 'sup-nordik' },
+  { id: `${propertyId}-cln-2`, propertyId, category: 'cleaning',   name: 'Disinfectant',             unit: '5L jerrycan', currentStock: 3,  parLevel:  8,  reorderPoint: 4,  reorderQty: 6,  unitCostCad: 15,    supplierId: 'sup-nordik' },
+  { id: `${propertyId}-cln-3`, propertyId, category: 'cleaning',   name: 'Trash liner · 80L',        unit: 'pack of 100', currentStock: 12, parLevel: 20,  reorderPoint: 10, reorderQty: 12, unitCostCad: 9,     supplierId: 'sup-nordik' },
   // F&B
-  { id: `${propertyId}-fnb-1`, propertyId, category: 'fnb',        name: 'Bottled water · 500ml',    unit: 'case of 24',  currentStock: 8,  parLevel: 30,  reorderPoint: 15, reorderQty: 20, unitCostCad: 4.8,   supplierId: 'sup-uganda-fp' },
-  { id: `${propertyId}-fnb-2`, propertyId, category: 'fnb',        name: 'House coffee · whole bean',unit: 'kg',          currentStock: 5,  parLevel: 20,  reorderPoint: 10, reorderQty: 12, unitCostCad: 14,    supplierId: 'sup-tradelinks' },
-  { id: `${propertyId}-fnb-3`, propertyId, category: 'fnb',        name: 'Breakfast cereal',         unit: 'kg',          currentStock: 14, parLevel: 20,  reorderPoint: 8,  reorderQty: 10, unitCostCad: 6,     supplierId: 'sup-tradelinks' },
+  { id: `${propertyId}-fnb-1`, propertyId, category: 'fnb',        name: 'Bottled water · 500ml',    unit: 'case of 24',  currentStock: 8,  parLevel: 30,  reorderPoint: 15, reorderQty: 20, unitCostCad: 4.8,   supplierId: 'sup-coop-bcn' },
+  { id: `${propertyId}-fnb-2`, propertyId, category: 'fnb',        name: 'House coffee · whole bean',unit: 'kg',          currentStock: 5,  parLevel: 20,  reorderPoint: 10, reorderQty: 12, unitCostCad: 14,    supplierId: 'sup-nordik' },
+  { id: `${propertyId}-fnb-3`, propertyId, category: 'fnb',        name: 'Breakfast cereal',         unit: 'kg',          currentStock: 14, parLevel: 20,  reorderPoint: 8,  reorderQty: 10, unitCostCad: 6,     supplierId: 'sup-nordik' },
   // Office / branded
-  { id: `${propertyId}-off-1`, propertyId, category: 'branded',    name: 'Welcome letter · letterhead', unit: 'pack of 200', currentStock: 5, parLevel: 8, reorderPoint: 4,  reorderQty: 4,  unitCostCad: 18,    supplierId: 'sup-vbms-tn' },
-  { id: `${propertyId}-off-2`, propertyId, category: 'branded',    name: 'Key card · printed',       unit: 'pack of 100', currentStock: 9,  parLevel: 12,  reorderPoint: 6,  reorderQty: 6,  unitCostCad: 32,    supplierId: 'sup-vbms-tn' },
+  { id: `${propertyId}-off-1`, propertyId, category: 'branded',    name: 'Welcome letter · letterhead', unit: 'pack of 200', currentStock: 5, parLevel: 8, reorderPoint: 4,  reorderQty: 4,  unitCostCad: 18,    supplierId: 'sup-vbms-mtl' },
+  { id: `${propertyId}-off-2`, propertyId, category: 'branded',    name: 'Key card · printed',       unit: 'pack of 100', currentStock: 9,  parLevel: 12,  reorderPoint: 6,  reorderQty: 6,  unitCostCad: 32,    supplierId: 'sup-vbms-mtl' },
   // Maintenance / vehicle
-  { id: `${propertyId}-mnt-1`, propertyId, category: 'maintenance',name: 'Light bulb · LED 9W',      unit: 'box of 20',   currentStock: 3,  parLevel:  8,  reorderPoint: 4,  reorderQty: 6,  unitCostCad: 22,    supplierId: 'sup-sodimat' },
-  { id: `${propertyId}-veh-1`, propertyId, category: 'vehicle_consumables', name: 'Engine oil · 5W-30', unit: '5L jerrycan', currentStock: 4, parLevel: 8, reorderPoint: 4, reorderQty: 6, unitCostCad: 28, supplierId: 'sup-toyota-eth' },
+  { id: `${propertyId}-mnt-1`, propertyId, category: 'maintenance',name: 'Light bulb · LED 9W',      unit: 'box of 20',   currentStock: 3,  parLevel:  8,  reorderPoint: 4,  reorderQty: 6,  unitCostCad: 22,    supplierId: 'sup-coop-bcn' },
+  { id: `${propertyId}-veh-1`, propertyId, category: 'vehicle_consumables', name: 'Engine oil · 5W-30', unit: '5L jerrycan', currentStock: 4, parLevel: 8, reorderPoint: 4, reorderQty: 6, unitCostCad: 28, supplierId: 'sup-pieces-cn' },
 ]
 
 export const INVENTORY: InventoryItem[] = [
@@ -500,7 +500,7 @@ export const PURCHASE_ORDERS: PurchaseOrder[] = [
   {
     id: 'PO-2026-0044',
     propertyId: 'p-yna',
-    supplierId: 'sup-vbms-tn',
+    supplierId: 'sup-vbms-mtl',
     supplierName: 'VBMS Tunisia SUARL',
     status: 'in_transit',
     createdAt: '2026-04-28',
@@ -516,7 +516,7 @@ export const PURCHASE_ORDERS: PurchaseOrder[] = [
   {
     id: 'PO-2026-0045',
     propertyId: 'p-ybx',
-    supplierId: 'sup-sodimat',
+    supplierId: 'sup-coop-bcn',
     supplierName: 'Sodimat SARL',
     status: 'approved',
     createdAt: '2026-05-04',
@@ -529,8 +529,8 @@ export const PURCHASE_ORDERS: PurchaseOrder[] = [
   {
     id: 'PO-2026-0046',
     propertyId: 'p-yif',
-    supplierId: 'sup-toyota-eth',
-    supplierName: 'Toyota Ethiopia',
+    supplierId: 'sup-pieces-cn',
+    supplierName: 'Toyota Québec',
     status: 'submitted',
     createdAt: '2026-05-08',
     lines: [
@@ -541,8 +541,8 @@ export const PURCHASE_ORDERS: PurchaseOrder[] = [
   {
     id: 'PO-2026-0043',
     propertyId: 'p-yna',
-    supplierId: 'sup-uganda-fp',
-    supplierName: 'Uganda Fresh Produce Co-op',
+    supplierId: 'sup-coop-bcn',
+    supplierName: 'Québec Fresh Produce Co-op',
     status: 'received',
     createdAt: '2026-05-06',
     expectedAt: '2026-05-07',
@@ -572,49 +572,49 @@ export const REWARDS_TIERS: RewardsTierConfig[] = [
 
 export const REWARDS_MEMBERS: RewardsMember[] = [
   { id:'m-1', name:'Sarah Bennett',         initials:'SB', email:'sarah.bennett@example.com', country:'United Kingdom',  tier:'Gold',     points:14_200, lifetimeEarned:24_440, lifetimeBurned:10_240, joined:'2023-11-04', lastActivity:'2026-05-09', qualifyingActivityYtd:{ stays: 7, rentals: 3, spendCad:  9_840 } },
-  { id:'m-2', name:'Jean-Marc Loubaki',     initials:'JL', email:'jm@loubaki.cg',              countryCode:'QC', country:'Congo',           tier:'Platinum', points:28_750, lifetimeEarned:54_120, lifetimeBurned:25_370, joined:'2023-08-22', lastActivity:'2026-05-10', qualifyingActivityYtd:{ stays:18, rentals: 7, spendCad: 22_180 } },
+  { id:'m-2', name:'Jean-Marc Landry',     initials:'JL', email:'jm@landry.ca',              countryCode:'QC', country:'Québec',           tier:'Platinum', points:28_750, lifetimeEarned:54_120, lifetimeBurned:25_370, joined:'2023-08-22', lastActivity:'2026-05-10', qualifyingActivityYtd:{ stays:18, rentals: 7, spendCad: 22_180 } },
   { id:'m-3', name:'Priya Patel',           initials:'PP', email:'priya@example.com',          country:'India',           tier:'Silver',   points: 4_840, lifetimeEarned: 6_120, lifetimeBurned: 1_280, joined:'2024-06-18', lastActivity:'2026-04-12', qualifyingActivityYtd:{ stays: 2, rentals: 1, spendCad:  1_840 } },
-  { id:'m-4', name:'Aïcha Toure',           initials:'AT', email:'aicha.t@example.sn',         countryCode:'SN', country:'Senegal',         tier:'Gold',     points:11_320, lifetimeEarned:18_880, lifetimeBurned: 7_560, joined:'2024-02-01', lastActivity:'2026-05-08', qualifyingActivityYtd:{ stays: 8, rentals: 2, spendCad:  8_140 } },
-  { id:'m-5', name:'Olusegun Adeyemi',      initials:'OA', email:'segun@example.ng',           countryCode:'NG', country:'Nigeria',         tier:'Gold',     points: 9_840, lifetimeEarned:15_220, lifetimeBurned: 5_380, joined:'2024-04-10', lastActivity:'2026-05-07', qualifyingActivityYtd:{ stays: 6, rentals: 2, spendCad:  6_840 } },
-  { id:'m-6', name:'Ahmed Yusuf',           initials:'AY', email:'ahmed.y@example.ug',         countryCode:'QC', country:'Uganda',          tier:'Silver',   points: 2_180, lifetimeEarned: 2_980, lifetimeBurned:     800, joined:'2025-03-08', lastActivity:'2026-05-06', qualifyingActivityYtd:{ stays: 3, rentals: 0, spendCad:  1_220 } },
-  { id:'m-7', name:'Daniel Tessema',        initials:'DT', email:'daniel.t@example.et',        countryCode:'NL', country:'Ethiopia',        tier:'Silver',   points: 6_440, lifetimeEarned: 8_120, lifetimeBurned: 1_680, joined:'2024-11-29', lastActivity:'2026-05-04', qualifyingActivityYtd:{ stays: 4, rentals: 1, spendCad:  3_240 } },
-  { id:'m-8', name:'Henry Mukasa',          initials:'HM', email:'henry.m@example.ug',         countryCode:'QC', country:'Uganda',          tier:'Gold',     points:13_180, lifetimeEarned:18_440, lifetimeBurned: 5_260, joined:'2023-12-12', lastActivity:'2026-05-10', qualifyingActivityYtd:{ stays: 7, rentals: 4, spendCad:  9_180 } },
-  { id:'m-9', name:'Léa Dubois',            initials:'LD', email:'lea.d@example.ci',           countryCode:'CI', country:'Côte d\'Ivoire',  tier:'Platinum', points:31_400, lifetimeEarned:48_120, lifetimeBurned:16_720, joined:'2023-09-04', lastActivity:'2026-05-10', qualifyingActivityYtd:{ stays:14, rentals: 5, spendCad: 17_240 } },
-  { id:'m-10', name:'Tendai Moyo',          initials:'TM', email:'tendai@example.zw',          countryCode:'ZW', country:'Zimbabwe',        tier:'Silver',   points:    420, lifetimeEarned:    420, lifetimeBurned:       0, joined:'2026-04-22', lastActivity:'2026-05-09', qualifyingActivityYtd:{ stays: 1, rentals: 0, spendCad:     180 } },
-  { id:'m-11', name:'Kwame Asante',         initials:'KA', email:'kwame@example.gh',           countryCode:'GH', country:'Ghana',           tier:'Black',    points:42_080, lifetimeEarned:118_420, lifetimeBurned:76_340, joined:'2023-03-18', lastActivity:'2026-05-10', qualifyingActivityYtd:{ stays:32, rentals:12, spendCad: 47_840 }, frozen: false },
-  { id:'m-12', name:'Fatima Benali',        initials:'FB', email:'fatima.b@example.ma',        countryCode:'MA', country:'Morocco',         tier:'Gold',     points: 9_480, lifetimeEarned:12_640, lifetimeBurned: 3_160, joined:'2024-07-08', lastActivity:'2026-05-04', qualifyingActivityYtd:{ stays: 5, rentals: 2, spendCad:  5_640 } },
+  { id:'m-4', name:'Anouk Thériault',           initials:'AT', email:'anouk.t@example.ca',         countryCode:'QC', country:'Québec',          tier:'Gold',     points:11_320, lifetimeEarned:18_880, lifetimeBurned: 7_560, joined:'2024-02-01', lastActivity:'2026-05-08', qualifyingActivityYtd:{ stays: 8, rentals: 2, spendCad:  8_140 } },
+  { id:'m-5', name:'Olivier Deschênes',      initials:'OD', email:'olivier@example.ca',         countryCode:'NL', country:'Labrador',        tier:'Gold',     points: 9_840, lifetimeEarned:15_220, lifetimeBurned: 5_380, joined:'2024-04-10', lastActivity:'2026-05-07', qualifyingActivityYtd:{ stays: 6, rentals: 2, spendCad:  6_840 } },
+  { id:'m-6', name:'Alexis Gagnon',           initials:'AG', email:'alexis.g@example.ca',         countryCode:'QC', country:'Québec',          tier:'Silver',   points: 2_180, lifetimeEarned: 2_980, lifetimeBurned:     800, joined:'2025-03-08', lastActivity:'2026-05-06', qualifyingActivityYtd:{ stays: 3, rentals: 0, spendCad:  1_220 } },
+  { id:'m-7', name:'Daniel Thériault',      initials:'DT', email:'daniel.t@example.ca',        countryCode:'NL', country:'Labrador',       tier:'Silver',   points: 6_440, lifetimeEarned: 8_120, lifetimeBurned: 1_680, joined:'2024-11-29', lastActivity:'2026-05-04', qualifyingActivityYtd:{ stays: 4, rentals: 1, spendCad:  3_240 } },
+  { id:'m-8', name:'Hugo Cormier',          initials:'HC', email:'hugo.c@example.ca',         countryCode:'QC', country:'Québec',          tier:'Gold',     points:13_180, lifetimeEarned:18_440, lifetimeBurned: 5_260, joined:'2023-12-12', lastActivity:'2026-05-10', qualifyingActivityYtd:{ stays: 7, rentals: 4, spendCad:  9_180 } },
+  { id:'m-9', name:'Léa Dubois',            initials:'LD', email:'lea.d@example.ca',           countryCode:'QC', country:'Québec',         tier:'Platinum', points:31_400, lifetimeEarned:48_120, lifetimeBurned:16_720, joined:'2023-09-04', lastActivity:'2026-05-10', qualifyingActivityYtd:{ stays:14, rentals: 5, spendCad: 17_240 } },
+  { id:'m-10', name:'Thomas Morin',         initials:'TM', email:'t.morin@example.ca',         countryCode:'QC', country:'Québec',         tier:'Silver',   points:    420, lifetimeEarned:    420, lifetimeBurned:       0, joined:'2026-04-22', lastActivity:'2026-05-09', qualifyingActivityYtd:{ stays: 1, rentals: 0, spendCad:     180 } },
+  { id:'m-11', name:'Kevin Arsenault',      initials:'KA', email:'k.arsenault@example.ca',     countryCode:'NL', country:'Labrador',       tier:'Black',    points:42_080, lifetimeEarned:118_420, lifetimeBurned:76_340, joined:'2023-03-18', lastActivity:'2026-05-10', qualifyingActivityYtd:{ stays:32, rentals:12, spendCad: 47_840 }, frozen: false },
+  { id:'m-12', name:'Frédérique Bélanger',  initials:'FB', email:'f.belanger@example.ca',      countryCode:'QC', country:'Québec',         tier:'Gold',     points: 9_480, lifetimeEarned:12_640, lifetimeBurned: 3_160, joined:'2024-07-08', lastActivity:'2026-05-04', qualifyingActivityYtd:{ stays: 5, rentals: 2, spendCad:  5_640 } },
 ]
 
 export const REWARDS_TRANSACTIONS: RewardsTransaction[] = [
   // m-1 Sarah
-  { id:'tx-1001', memberId:'m-1', date:'2026-05-09', type:'earn',   delta: +480,  reason:'Stay · Flow Hotels Kampala · 4 nights · Suite 102', staff:'system',           reference:'RES-2026001' },
-  { id:'tx-1002', memberId:'m-1', date:'2026-05-02', type:'earn',   delta: +360,  reason:'Car rental · Toyota Prado · 3 days',                staff:'system',           reference:'RNT-900101' },
+  { id:'tx-1001', memberId:'m-1', date:'2026-05-09', type:'earn',   delta: +480,  reason:'Stay · Flow Station Natashquan · 4 nights · Suite 102', staff:'system',           reference:'RES-2026001' },
+  { id:'tx-1002', memberId:'m-1', date:'2026-05-02', type:'earn',   delta: +360,  reason:'Car rental · Toyota Highlander AWD · 3 days',                staff:'system',           reference:'RNT-900101' },
   { id:'tx-1003', memberId:'m-1', date:'2026-04-25', type:'burn',   delta:-2000, reason:'Free night redemption · Blanc-Sablon · Standard',     staff:'system' },
-  { id:'tx-1004', memberId:'m-1', date:'2026-04-22', type:'earn',   delta: +780,  reason:'Stay · Flow Hotels Kampala · 4 nights · Suite 207', staff:'system',           reference:'RES-2026004' },
-  { id:'tx-1005', memberId:'m-1', date:'2026-03-18', type:'earn',   delta: +440,  reason:'Stay · Flow Hotels Addis Ababa · Deluxe',           staff:'system',           reference:'RES-2026088' },
-  { id:'tx-1006', memberId:'m-1', date:'2026-02-15', type:'adjust', delta: +500,  reason:'Service recovery · room maintenance during stay',   staff:'Naledi Botha' },
+  { id:'tx-1004', memberId:'m-1', date:'2026-04-22', type:'earn',   delta: +780,  reason:'Stay · Flow Station Natashquan · 4 nights · Suite 207', staff:'system',           reference:'RES-2026004' },
+  { id:'tx-1005', memberId:'m-1', date:'2026-03-18', type:'earn',   delta: +440,  reason:'Stay · Flow Station Saint-Augustin · Deluxe',           staff:'system',           reference:'RES-2026088' },
+  { id:'tx-1006', memberId:'m-1', date:'2026-02-15', type:'adjust', delta: +500,  reason:'Service recovery · room maintenance during stay',   staff:'Karine Lévesque' },
   { id:'tx-1007', memberId:'m-1', date:'2026-01-08', type:'burn',   delta:-1500, reason:'Car rental upgrade · Elite tier · 2 days',          staff:'system' },
   // m-2 Jean-Marc
   { id:'tx-1010', memberId:'m-2', date:'2026-05-10', type:'earn',   delta:+1200, reason:'Stay · Flow Station Blanc-Sablon · 8 nights',         staff:'system',           reference:'RES-2026200' },
-  { id:'tx-1011', memberId:'m-2', date:'2026-05-01', type:'earn',   delta: +860, reason:'Stay · Flow Hotels Addis Ababa · 5 nights',         staff:'system',           reference:'RES-2026188' },
-  { id:'tx-1012', memberId:'m-2', date:'2026-04-15', type:'transfer', delta: -3000, reason:'Transferred 3,000 pts to Léa Dubois (m-9)',     staff:'Naledi Botha' },
+  { id:'tx-1011', memberId:'m-2', date:'2026-05-01', type:'earn',   delta: +860, reason:'Stay · Flow Station Saint-Augustin · 5 nights',         staff:'system',           reference:'RES-2026188' },
+  { id:'tx-1012', memberId:'m-2', date:'2026-04-15', type:'transfer', delta: -3000, reason:'Transferred 3,000 pts to Léa Dubois (m-9)',     staff:'Karine Lévesque' },
   // m-4 Aïcha
-  { id:'tx-1020', memberId:'m-4', date:'2026-05-08', type:'earn',   delta: +320, reason:'Stay · Flow Hotels Kampala · 3 nights',             staff:'system',           reference:'RES-2026220' },
+  { id:'tx-1020', memberId:'m-4', date:'2026-05-08', type:'earn',   delta: +320, reason:'Stay · Flow Station Natashquan · 3 nights',             staff:'system',           reference:'RES-2026220' },
   // m-11 Kwame (Black tier)
   { id:'tx-1030', memberId:'m-11', date:'2026-05-10', type:'earn',  delta:+2400, reason:'Stay · Flow Station Blanc-Sablon · 8 nights · Black multiplier', staff:'system', reference:'RES-2026280' },
-  { id:'tx-1031', memberId:'m-11', date:'2026-04-22', type:'burn',  delta:-12_000, reason:'Annual two-night anywhere · Addis Ababa · Suite', staff:'system' },
+  { id:'tx-1031', memberId:'m-11', date:'2026-04-22', type:'burn',  delta:-12_000, reason:'Annual two-night anywhere · Saint-Augustin · Suite', staff:'system' },
 ]
 
 export const REWARDS_DISPUTES: RewardsDispute[] = [
   {
     id:'d-501', memberId:'m-1', memberName:'Sarah Bennett',
     kind:'missing_stay', status:'in_review', filedAt:'2026-05-08',
-    ask:'4-night stay at Flow Hotels Kampala (RES-2026004) shows in my account but no points were credited.',
+    ask:'4-night stay at Flow Station Natashquan (RES-2026004) shows in my account but no points were credited.',
     evidence:['booking_confirmation.pdf', 'card_charge.png'],
     reference:'RES-2026004',
   },
   {
-    id:'d-502', memberId:'m-4', memberName:'Aïcha Toure',
+    id:'d-502', memberId:'m-4', memberName:'Anouk Thériault',
     kind:'missing_points', status:'open', filedAt:'2026-05-07',
     ask:'Expected 320 pts for May 5 stay, only received 120. Booked via Flow App.',
     reference:'RES-2026220',
@@ -625,9 +625,9 @@ export const REWARDS_DISPUTES: RewardsDispute[] = [
     ask:'Hit 4 stays + $3,200 spend YTD. Should I qualify for Gold under the new threshold?',
   },
   {
-    id:'d-504', memberId:'m-5', memberName:'Olusegun Adeyemi',
+    id:'d-504', memberId:'m-5', memberName:'Olivier Deschênes',
     kind:'missing_rental', status:'approved', filedAt:'2026-05-02', resolvedAt:'2026-05-04',
-    ask:'Toyota Prado rental from Entebbe (RNT-900099) earned 0 pts. Should be 220.',
+    ask:'Toyota Highlander AWD rental from Sept-Îles (RNT-900099) earned 0 pts. Should be 220.',
     reference:'RNT-900099',
     resolution:'Confirmed against Nord-Côtier partner ledger · 220 pts credited',
     awardedPoints: 220,
@@ -641,12 +641,12 @@ export const REWARDS_DISPUTES: RewardsDispute[] = [
 ]
 
 export const REWARDS_PARTNERSHIPS: RewardsPartnership[] = [
-  { id:'pt-1', partnerName:'Ethiopian Airlines · ShebaMiles', partnerKind:'airline',   flowPoints:  84_220, partnerPoints:  84_220, delta:      0, cycleLabel:'W18 · 2026', status:'in_balance',       lastReconciledAt:'2026-05-09' },
-  { id:'pt-2', partnerName:'Kenya Airways · Asante',          partnerKind:'airline',   flowPoints:  52_180, partnerPoints:  53_440, delta: +1_260, cycleLabel:'W18 · 2026', status:'discrepancy',      lastReconciledAt:'2026-05-09' },
+  { id:'pt-1', partnerName:'Québécois Airlines · ShebaMiles', partnerKind:'airline',   flowPoints:  84_220, partnerPoints:  84_220, delta:      0, cycleLabel:'W18 · 2026', status:'in_balance',       lastReconciledAt:'2026-05-09' },
+  { id:'pt-2', partnerName:'PAL Airlines · Asante',          partnerKind:'airline',   flowPoints:  52_180, partnerPoints:  53_440, delta: +1_260, cycleLabel:'W18 · 2026', status:'discrepancy',      lastReconciledAt:'2026-05-09' },
   { id:'pt-3', partnerName:'Booking.com Genius',              partnerKind:'ota',       flowPoints:  46_980, partnerPoints:  46_980, delta:      0, cycleLabel:'W18 · 2026', status:'in_balance',       lastReconciledAt:'2026-05-09' },
   { id:'pt-4', partnerName:'Standard Bank Blue · co-brand',   partnerKind:'card',      flowPoints:  28_640, partnerPoints:       0, delta:-28_640, cycleLabel:'W18 · 2026', status:'awaiting_partner' },
   { id:'pt-5', partnerName:'Nord-Côtier Location',          partnerKind:'fleet',     flowPoints:  19_240, partnerPoints:  19_460, delta:   +220, cycleLabel:'W18 · 2026', status:'discrepancy',      lastReconciledAt:'2026-05-08' },
-  { id:'pt-6', partnerName:'African Union HQ corporate',      partnerKind:'corporate', flowPoints:  14_120, partnerPoints:  14_120, delta:      0, cycleLabel:'W18 · 2026', status:'settled',          lastReconciledAt:'2026-05-07' },
+  { id:'pt-6', partnerName:'Consortium Baie-Nord corporate',      partnerKind:'corporate', flowPoints:  14_120, partnerPoints:  14_120, delta:      0, cycleLabel:'W18 · 2026', status:'settled',          lastReconciledAt:'2026-05-07' },
 ]
 
 /* ------------------------------------------------------------------ */
@@ -663,15 +663,15 @@ import type { Participant, Conversation, Message } from './types'
 export const PARTICIPANTS: Participant[] = [
   { id:'u-1', kind:'staff',  name:'Vistel Ganongo',           initials:'VG', role:'superadmin',       lastSeenAt:'2026-05-10T13:42:00Z' },
   { id:'u-2', kind:'staff',  name:'Maye Samoiel',             initials:'MS', role:'superadmin',       lastSeenAt:'2026-05-10T11:08:00Z' },
-  { id:'u-3', kind:'staff',  name:'Aisha Nakato',             initials:'AN', role:'country_manager',  countryCode:'QC', lastSeenAt:'2026-05-10T13:55:00Z' },
-  { id:'u-4', kind:'staff',  name:'Jean-Paul Mboungou',       initials:'JM', role:'hotel_manager',    countryCode:'QC', propertyId:'p-ybx', lastSeenAt:'2026-05-10T13:30:00Z' },
-  { id:'u-5', kind:'staff',  name:'Daniel Okello',            initials:'DO', role:'car_agent',        countryCode:'QC', lastSeenAt:'2026-05-10T13:48:00Z' },
-  { id:'u-8', kind:'staff',  name:'Naledi Botha',             initials:'NB', role:'reward_manager',   lastSeenAt:'2026-05-10T12:11:00Z' },
+  { id:'u-3', kind:'staff',  name:'Marie-Claude Boudreau',        initials:'MB', role:'country_manager',  countryCode:'QC', lastSeenAt:'2026-05-10T13:55:00Z' },
+  { id:'u-4', kind:'staff',  name:'Jean-Philippe Bouchard',       initials:'JB', role:'hotel_manager',    countryCode:'QC', propertyId:'p-ybx', lastSeenAt:'2026-05-10T13:30:00Z' },
+  { id:'u-5', kind:'staff',  name:'Simon Lapierre',               initials:'SL', role:'car_agent',        countryCode:'QC', lastSeenAt:'2026-05-10T13:48:00Z' },
+  { id:'u-8', kind:'staff',  name:'Karine Lévesque',              initials:'KL', role:'reward_manager',   lastSeenAt:'2026-05-10T12:11:00Z' },
   { id:'fp-nordcotier', kind:'partner', name:'Nord-Côtier Location', initials:'NC', partnerId:'fp-nordcotier', lastSeenAt:'2026-05-10T09:14:00Z' },
   { id:'fp-ybx',        kind:'partner', name:'Détroit Auto Services', initials:'DA', partnerId:'fp-ybx',        lastSeenAt:'2026-05-09T17:42:00Z' },
   { id:'m-1', kind:'guest',  name:'Sarah Bennett',            initials:'SB', memberId:'m-1' },
-  { id:'m-4', kind:'guest',  name:'Aïcha Toure',              initials:'AT', memberId:'m-4' },
-  { id:'m-5', kind:'guest',  name:'Olusegun Adeyemi',         initials:'OA', memberId:'m-5' },
+  { id:'m-4', kind:'guest',  name:'Anouk Thériault',              initials:'AT', memberId:'m-4' },
+  { id:'m-5', kind:'guest',  name:'Olivier Deschênes',            initials:'OD', memberId:'m-5' },
   { id:'m-11', kind:'guest', name:'Kwame Asante',             initials:'KA', memberId:'m-11' },
   { id:'system', kind:'system', name:'Flow OS', initials:'F' },
 ]
@@ -693,12 +693,12 @@ export const CONVERSATIONS: Conversation[] = [
     lastMessageAt: T(13, 12),
     lastMessagePreview:'Sending the bank transfer Friday morning. Will share confirmation here.',
     unread:{ 'fp-nordcotier': 0, 'u-3': 0, 'u-1': 1 } },
-  { id:'c-3', title:'Aïcha Toure · missing points dispute',
+  { id:'c-3', title:'Anouk Thériault · missing points dispute',
     participantIds:['m-4', 'u-8'], context:{ type:'rewards', ref:'d-502' },
     lastMessageAt: T(13, 4),
     lastMessagePreview:'Booking confirmation attached. The stay was 3 nights, not 1.',
     unread:{ 'm-4': 0, 'u-8': 2 } },
-  { id:'c-4', title:'Olusegun Adeyemi · airport pickup',
+  { id:'c-4', title:'Olivier Deschênes · airport pickup',
     participantIds:['m-5', 'u-5'], context:{ type:'rental', ref:'RNT-900101' },
     lastMessageAt: T(12, 51),
     lastMessagePreview:'Flight KQ 412 lands 15:10. Driver will be at Arrivals B with a Flow sign.',
@@ -735,9 +735,9 @@ export const MESSAGES: Message[] = [
   // c-2 Nord-Côtier + Aisha + Vistel
   { id:'msg-1010', conversationId:'c-2', fromId:'u-3', sentAt: T(8, 30),  body:'Hi @Nord-Cotier — confirming this week\'s payout: $11,500 net of commission. Bank: Desjardins ··· 1150. OK to release?', readBy:['u-3','u-1','fp-nordcotier'] },
   { id:'msg-1011', conversationId:'c-2', fromId:'fp-nordcotier', sentAt: T(9, 14),
-    body:'Confirmed receipt. One vehicle (UBC 220T) had a discrepancy of 2 rental days vs our records — sending reconciliation report.',
+    body:'Confirmed receipt. One vehicle (J18 QRT) had a discrepancy of 2 rental days vs our records — sending reconciliation report.',
     readBy:['u-3','u-1','fp-nordcotier'],
-    attachments:[att('att-1', 'mercantile-reconciliation-W18.pdf', 'application/pdf', 142_300, 'fp-nordcotier', T(9, 14))] },
+    attachments:[att('att-1', 'nordcotier-reconciliation-S18.pdf', 'application/pdf', 142_300, 'fp-nordcotier', T(9, 14))] },
   { id:'msg-1012', conversationId:'c-2', fromId:'u-3', sentAt: T(12, 4),  body:'Reviewed — confirmed your records are correct. I\'ll adjust the ledger on our side. Releasing payout Friday as agreed.', readBy:['u-3','u-1','fp-nordcotier'] },
   { id:'msg-1013', conversationId:'c-2', fromId:'fp-nordcotier', sentAt: T(13, 12), body:'Sending the bank transfer Friday morning. Will share confirmation here.', readBy:['u-3','fp-nordcotier'] },
 
@@ -749,7 +749,7 @@ export const MESSAGES: Message[] = [
     attachments:[att('att-2', 'booking-RES-2026220.pdf', 'application/pdf', 86_200, 'm-4', T(13, 4))] },
 
   // c-4 Olusegun ↔ Daniel
-  { id:'msg-1030', conversationId:'c-4', fromId:'m-5', sentAt: T(12, 32), body:'Hi — my flight (KQ 412) lands today at 15:10. Just confirming Toyota Prado pickup details.', readBy:['m-5','u-5'] },
+  { id:'msg-1030', conversationId:'c-4', fromId:'m-5', sentAt: T(12, 32), body:'Hi — my flight (KQ 412) lands today at 15:10. Just confirming Toyota Highlander AWD pickup details.', readBy:['m-5','u-5'] },
   { id:'msg-1031', conversationId:'c-4', fromId:'u-5', sentAt: T(12, 51), body:'Flight KQ 412 lands 15:10. Driver will be at Arrivals B with a Flow sign.', readBy:['m-5','u-5'] },
 
   // c-5 Kwame ↔ Naledi
@@ -772,12 +772,12 @@ export const MESSAGES: Message[] = [
 ]
 
 export const REWARDS_AUDIT: RewardsAuditEntry[] = [
-  { id:'a-9001', ts:'2026-05-10T14:42:00Z', staff:'Naledi Botha',  action:'approve_dispute',     memberId:'m-5', memberName:'Olusegun Adeyemi', details:'Resolved d-504 · 220 pts credited for RNT-900099', delta:+220 },
-  { id:'a-9002', ts:'2026-05-10T13:18:00Z', staff:'Naledi Botha',  action:'adjust_points',       memberId:'m-1', memberName:'Sarah Bennett',    details:'Manual credit · service recovery during April stay',  delta:+500 },
+  { id:'a-9001', ts:'2026-05-10T14:42:00Z', staff:'Karine Lévesque',  action:'approve_dispute',     memberId:'m-5', memberName:'Olivier Deschênes', details:'Resolved d-504 · 220 pts credited for RNT-900099', delta:+220 },
+  { id:'a-9002', ts:'2026-05-10T13:18:00Z', staff:'Karine Lévesque',  action:'adjust_points',       memberId:'m-1', memberName:'Sarah Bennett',    details:'Manual credit · service recovery during April stay',  delta:+500 },
   { id:'a-9003', ts:'2026-05-09T11:02:00Z', staff:'Vistel Ganongo',action:'reconcile_partnership', details:'Reconciled Booking.com Genius cycle W18 · in balance' },
-  { id:'a-9004', ts:'2026-05-08T16:30:00Z', staff:'Naledi Botha',  action:'set_tier',            memberId:'m-11', memberName:'Kwame Asante',     details:'Tier overridden to Black after spend hit $47,840 YTD' },
-  { id:'a-9005', ts:'2026-05-08T10:11:00Z', staff:'Naledi Botha',  action:'reject_dispute',      memberId:'m-3', memberName:'Priya Patel',      details:'Rejected d-505 · Expedia stays excluded from earn per T&Cs' },
+  { id:'a-9004', ts:'2026-05-08T16:30:00Z', staff:'Karine Lévesque',  action:'set_tier',            memberId:'m-11', memberName:'Kwame Asante',     details:'Tier overridden to Black after spend hit $47,840 YTD' },
+  { id:'a-9005', ts:'2026-05-08T10:11:00Z', staff:'Karine Lévesque',  action:'reject_dispute',      memberId:'m-3', memberName:'Priya Patel',      details:'Rejected d-505 · Expedia stays excluded from earn per T&Cs' },
   { id:'a-9006', ts:'2026-05-06T09:48:00Z', staff:'Vistel Ganongo',action:'set_tier_thresholds', details:'Raised Gold minStays from 5 to 6 (programme refresh)' },
-  { id:'a-9007', ts:'2026-04-30T17:22:00Z', staff:'Naledi Botha',  action:'freeze_member',       memberId:'m-12', memberName:'Fatima Benali',    details:'Frozen for review · unusual burn pattern flagged by fraud rules' },
-  { id:'a-9008', ts:'2026-04-30T17:30:00Z', staff:'Naledi Botha',  action:'unfreeze_member',     memberId:'m-12', memberName:'Fatima Benali',    details:'False positive · activity legitimate, member unfrozen' },
+  { id:'a-9007', ts:'2026-04-30T17:22:00Z', staff:'Karine Lévesque',  action:'freeze_member',       memberId:'m-12', memberName:'Fatima Benali',    details:'Frozen for review · unusual burn pattern flagged by fraud rules' },
+  { id:'a-9008', ts:'2026-04-30T17:30:00Z', staff:'Karine Lévesque',  action:'unfreeze_member',     memberId:'m-12', memberName:'Fatima Benali',    details:'False positive · activity legitimate, member unfrozen' },
 ]

@@ -9,7 +9,7 @@ import { FlowNotification } from '../../components/flow/FlowNotification'
 import { FLEET_PARTNERS, RENTAL_BOOKINGS, VEHICLES } from '../../lib/sampleData'
 import { formatCurrency, formatDate } from '../../lib/utils'
 
-const partner = FLEET_PARTNERS[0] // Mercantile (Kampala)
+const partner = FLEET_PARTNERS[0] // Nord-Côtier (Natashquan)
 const partnerVehicles = VEHICLES.filter((v) => v.partnerName === partner.name)
 const partnerBookings = RENTAL_BOOKINGS.filter((b) => b.partnerName === partner.name)
 
@@ -67,8 +67,8 @@ export default function PartnerPortal() {
 
       <FlowNotification
         tone="info"
-        title="Booking confirmed on UAJ 871C"
-        body="Toyota Corolla · 4 days · pickup tomorrow 09:00 · client: Henry Mukasa"
+        title="Booking confirmed on J18 QRW"
+        body="Toyota Corolla · 4 days · pickup tomorrow 09:00 · client: Hugo Cormier"
       />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -121,7 +121,7 @@ export default function PartnerPortal() {
           <div className="mt-4 space-y-1.5 text-sm">
             <Row label="Gross revenue" value={formatCurrency(partner.weeklyPayoutCad / (1 - partner.commissionPct / 100))} />
             <Row label="Flow commission" value={`–${formatCurrency(partner.weeklyPayoutCad / (1 - partner.commissionPct / 100) * partner.commissionPct / 100)}`} />
-            <Row label="Bank account" value="Stanbic UG ··· 8420" />
+            <Row label="Bank account" value="Nordia Affaires ··· 8420" />
             <Row label="Method" value="Bank transfer" />
           </div>
         </Card>

@@ -94,7 +94,7 @@ export default function FleetDashboard() {
           label={t('kpi.dueBackToday')}
           value="4"
           accent="teal"
-          hint="2 from Mercantile"
+          hint="2 from Nord-Côtier"
         />
         <FlowKPICard
           label={t('kpi.overdueReturns')}
@@ -113,11 +113,11 @@ export default function FleetDashboard() {
         </div>
         <Card title={t('card.alerts')} subtitle="Across all locations">
           <ul className="space-y-2">
-            <Alert tone="warning" title="Overdue return: CG 421 BZV" body="Brazzaville · 2h past expected return time" />
-            <Alert tone="warning" title="Low fuel: UAJ 042X" body="Land Cruiser V8 · 15% fuel · driver notified" />
-            <Alert tone="info" title="Service due: UBA 312L" body="Pajero · 5,000km service window" />
-            <Alert tone="warning" title="Geofence exit: ET 3-A 119" body="Prado left Addis metro area" />
-            <Alert tone="info" title="Speeding event resolved" body="UBC 220T · Hilux · driver coached" />
+            <Alert tone="warning" title="Overdue return: K05 BDH" body="Blanc-Sablon · 2h past expected return time" />
+            <Alert tone="warning" title="Low fuel: H24 JKL" body="F-150 XLT · 15% fuel · driver notified" />
+            <Alert tone="info" title="Service due: J18 QRX" body="Pajero · 5,000km service window" />
+            <Alert tone="warning" title="Geofence exit: L31 MNT" body="Highlander left the Saint-Augustin service zone" />
+            <Alert tone="info" title="Speeding event resolved" body="J18 QRT · Sierra 1500 · driver coached" />
           </ul>
         </Card>
       </div>

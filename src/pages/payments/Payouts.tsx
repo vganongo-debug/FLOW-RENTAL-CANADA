@@ -37,7 +37,7 @@ const PAYOUTS: PayoutRow[] = FLEET_PARTNERS.map((p, i) => {
     commissionPct: p.commissionPct,
     net: p.weeklyPayoutCad,
     method: i % 2 === 0 ? 'bank' : 'momo',
-    account: i % 2 === 0 ? `Stanbic UG ··· ${(8000 + i*10).toString()}` : `+256 778 ··· ${(880 + i).toString()}`,
+    account: i % 2 === 0 ? `Nordia Affaires ··· ${(8000 + i*10).toString()}` : `+256 778 ··· ${(880 + i).toString()}`,
     status: 'pending',
   }
 })
@@ -120,7 +120,7 @@ export default function Payouts() {
                 <td className="px-3 py-2 text-right text-g40">−{formatCurrency(r.gross - r.net)} ({r.commissionPct}%)</td>
                 <td className="px-3 py-2 text-right text-copper font-display font-bold">{formatCurrency(r.net)}</td>
                 <td className="px-3 py-2 text-ink dark:text-ivory">
-                  <div className="text-xs text-g40 label-caps">{r.method === 'bank' ? 'Bank transfer' : 'MTN MoMo'}</div>
+                  <div className="text-xs text-g40 label-caps">{r.method === 'bank' ? 'Bank transfer' : 'Interac'}</div>
                   <div className="font-mono text-xs">{r.account}</div>
                 </td>
                 <td className="px-3 py-2">

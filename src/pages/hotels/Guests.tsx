@@ -25,25 +25,25 @@ interface Guest {
 
 const GUESTS: Guest[] = [
   { id:'g-1', name:'Sarah Bennett',     initials:'SB', nationality:'British',    email:'sarah.bennett@example.com', phone:'+44 7700 900142', language:'EN', tier:'Gold',     points: 14_200, totalStays: 11, lifetimeSpendCad: 18_640, city:'London',     preferences:{ highFloor:true, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:true } },
-  { id:'g-2', name:'Jean-Marc Loubaki', initials:'JL', nationality:'Congolese', email:'jm@loubaki.cg', phone:'+242 06 521 4488', language:'FR', tier:'Platinum', points: 28_750, totalStays: 22, lifetimeSpendCad: 41_200, city:'Brazzaville', preferences:{ highFloor:false, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:false } },
+  { id:'g-2', name:'Jean-Marc Landry', initials:'JL', nationality:'Québécoise', email:'jm@landry.ca', phone:'+1 418 461 2200', language:'FR', tier:'Platinum', points: 28_750, totalStays: 22, lifetimeSpendCad: 41_200, city:'Blanc-Sablon', preferences:{ highFloor:false, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:false } },
   { id:'g-3', name:'Priya Patel',       initials:'PP', nationality:'American',  email:'priya@example.com', phone:'+1 415 555 0182', language:'EN', tier:'Silver', points: 4_840, totalStays: 4, lifetimeSpendCad: 6_120, city:'San Francisco', preferences:{ highFloor:true, quietRoom:false, nonSmoking:true, vegetarian:true, latePOS:false } },
   { id:'g-4', name:'Émilie Tremblay',   initials:'ET', nationality:'Canadian',  email:'emilie.tremblay@example.ca', phone:'+1 514 555 9908', language:'FR', tier:'Gold', points: 11_320, totalStays: 8, lifetimeSpendCad: 12_980, city:'Montréal', preferences:{ highFloor:false, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:true } },
-  { id:'g-5', name:'Olusegun Adeyemi',  initials:'OA', nationality:'Nigerian',  email:'segun@example.ng', phone:'+234 802 880 1100', language:'EN', tier:'Gold', points: 9_840, totalStays: 6, lifetimeSpendCad: 9_460, city:'Lagos', preferences:{ highFloor:true, quietRoom:false, nonSmoking:true, vegetarian:false, latePOS:true } },
-  { id:'g-6', name:'Ahmed Yusuf',       initials:'AY', nationality:'Ugandan',  email:'ahmed.y@example.ug', phone:'+256 712 333 444', language:'EN', tier:'Silver', points: 2_180, totalStays: 3, lifetimeSpendCad: 2_980, city:'Kampala', preferences:{ highFloor:false, quietRoom:false, nonSmoking:true, vegetarian:false, latePOS:false } },
+  { id:'g-5', name:'Olivier Deschênes',  initials:'OD', nationality:'Terre-Neuvienne',  email:'olivier@example.ca', phone:'+1 709 896 2200', language:'EN', tier:'Gold', points: 9_840, totalStays: 6, lifetimeSpendCad: 9_460, city:'Havre-Saint-Pierre', preferences:{ highFloor:true, quietRoom:false, nonSmoking:true, vegetarian:false, latePOS:true } },
+  { id:'g-6', name:'Alexis Gagnon',       initials:'AG', nationality:'Québécoise',  email:'alexis.g@example.ca', phone:'+1 418 947 5100', language:'EN', tier:'Silver', points: 2_180, totalStays: 3, lifetimeSpendCad: 2_980, city:'Natashquan', preferences:{ highFloor:false, quietRoom:false, nonSmoking:true, vegetarian:false, latePOS:false } },
 ]
 
 const STAYS = [
-  { property: 'Flow Hotels Kampala',     from:'2026-04-22', to:'2026-04-25', room:'207 · Suite',     amount: 585, status: 'Completed' },
-  { property: 'Flow Hotels Brazzaville', from:'2026-02-18', to:'2026-02-21', room:'305 · Executive', amount: 780, status: 'Completed' },
-  { property: 'Flow Hotels Addis Ababa', from:'2026-01-05', to:'2026-01-06', room:'112 · Deluxe',    amount: 130, status: 'Completed' },
-  { property: 'Flow Hotels Kampala',     from:'2025-11-28', to:'2025-12-02', room:'108 · Executive', amount: 960, status: 'Completed' },
-  { property: 'Flow Hotels Brazzaville', from:'2025-10-12', to:'2025-10-13', room:'203 · Suite',     amount: 195, status: 'Completed' },
+  { property: 'Flow Station Natashquan',     from:'2026-04-22', to:'2026-04-25', room:'207 · Suite',     amount: 585, status: 'Completed' },
+  { property: 'Flow Station Blanc-Sablon', from:'2026-02-18', to:'2026-02-21', room:'305 · Executive', amount: 780, status: 'Completed' },
+  { property: 'Flow Station Saint-Augustin', from:'2026-01-05', to:'2026-01-06', room:'112 · Deluxe',    amount: 130, status: 'Completed' },
+  { property: 'Flow Station Natashquan',     from:'2025-11-28', to:'2025-12-02', room:'108 · Executive', amount: 960, status: 'Completed' },
+  { property: 'Flow Station Blanc-Sablon', from:'2025-10-12', to:'2025-10-13', room:'203 · Suite',     amount: 195, status: 'Completed' },
 ]
 
 const NOTES = [
-  { date:'2026-04-25', author:'Aisha Nakato',     body:'Guest celebrated wedding anniversary — comp champagne well received. Note for next visit.' },
-  { date:'2026-02-21', author:'Jean-Paul Mboungou', body:'Requested USB-C charger on arrival. Now provisioned by default in Suite category.' },
-  { date:'2025-11-30', author:'Henry Mukasa',     body:'Loyal direct booker — prefers email contact over WhatsApp.' },
+  { date:'2026-04-25', author:'Marie-Claude Boudreau',     body:'Guest celebrated wedding anniversary — comp champagne well received. Note for next visit.' },
+  { date:'2026-02-21', author:'Jean-Philippe Bouchard', body:'Requested USB-C charger on arrival. Now provisioned by default in Suite category.' },
+  { date:'2025-11-30', author:'Hugo Cormier',     body:'Loyal direct booker — prefers email contact over WhatsApp.' },
 ]
 
 const TIER_TONE: Record<Guest['tier'], 'neutral' | 'pending' | 'active'> = { Silver:'neutral', Gold:'pending', Platinum:'active' }

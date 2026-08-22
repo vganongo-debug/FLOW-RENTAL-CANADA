@@ -3,7 +3,7 @@
  *
  * Deux niveaux :
  *   1. PROVINCES — les 13 provinces et territoires (remplacent l'ancienne
- *      liste des 54 pays africains). Chacune porte son régime de taxes de
+ *      liste continentale). Chacune porte son régime de taxes de
  *      vente, son autorité fiscale et son format d'export comptable.
  *   2. AIRPORTS — les aéroports régionaux, rattachés à une province. Un
  *      sous-ensemble constitue le réseau d'exploitation (« stations ») où

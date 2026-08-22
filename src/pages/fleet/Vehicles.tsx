@@ -25,9 +25,9 @@ const STATUS_LABEL: Record<Vehicle['status'], string> = {
 }
 
 const MAINTENANCE_LOG = [
-  { date: '2026-04-12', km: 27_800, type: 'Routine service', cost: 220, vendor: 'Toyota Uganda', status: 'Resolved' },
+  { date: '2026-04-12', km: 27_800, type: 'Routine service', cost: 220, vendor: 'Toyota Québec', status: 'Resolved' },
   { date: '2026-02-04', km: 22_400, type: 'Tyre rotation', cost: 80, vendor: 'Quick Fit', status: 'Resolved' },
-  { date: '2025-11-18', km: 14_900, type: '15k km major service', cost: 480, vendor: 'Toyota Uganda', status: 'Resolved' },
+  { date: '2025-11-18', km: 14_900, type: '15k km major service', cost: 480, vendor: 'Toyota Québec', status: 'Resolved' },
 ]
 
 export default function Vehicles() {
@@ -339,7 +339,7 @@ function MaintenanceTab() {
             </Field>
           </div>
           <Field label="Vendor / workshop">
-            <input defaultValue="Toyota Uganda · Kampala" className="w-full px-3 py-1.5 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
+            <input defaultValue="Toyota Québec · Natashquan" className="w-full px-3 py-1.5 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
           </Field>
           <Field label="Notes">
             <textarea className="w-full text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input p-2 min-h-[60px] text-ink dark:text-ivory" />
@@ -379,7 +379,7 @@ function MaintenanceTab() {
 function DocumentsTab() {
   const docs = [
     { name: 'Insurance · CIC General · 2026-2027.pdf', size: '512 KB', expiry: '2027-03-31', status: 'Active' },
-    { name: 'URA Vehicle Registration · UAJ 042X.pdf', size: '128 KB', expiry: '2026-12-31', status: 'Active' },
+    { name: 'URA Vehicle Registration · H24 JKL.pdf', size: '128 KB', expiry: '2026-12-31', status: 'Active' },
     { name: 'Roadworthiness inspection · 2026-Q2.pdf', size: '84 KB', expiry: '2026-06-30', status: 'Active' },
     { name: 'Service book · Toyota.pdf', size: '1.2 MB', expiry: '—', status: 'Active' },
   ]

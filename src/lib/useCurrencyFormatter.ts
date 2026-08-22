@@ -8,11 +8,12 @@ import type { Currency } from './types'
  * from LocaleContext. Pass an override currency as the second arg if needed.
  *
  *   const format = useCurrencyFormatter()
- *   format(195) // → "XAF 117,000" when selector is on XAF
+ *   format(195) // → "195 $" en CAD, "142 $ US" quand le sélecteur est sur USD
  */
 export function useCurrencyFormatter() {
   const { currency, language } = useLocale()
-  const locale = language === 'FR' ? 'fr-FR' : 'en-US'
+  // Locales canadiennes : en fr-FR, CAD s'affiche « 130 $CA » au lieu de « 130 $ ».
+  const locale = language === 'FR' ? 'fr-CA' : 'en-CA'
   return useCallback(
     (amountCad: number, overrideCurrency?: Currency) =>
       formatCurrency(amountCad, overrideCurrency ?? currency, locale),

@@ -25,16 +25,16 @@ const STATUS_TONE: Record<InvoiceStatus, 'completed' | 'info' | 'active' | 'canc
 }
 
 const INVOICES: InvoiceRow[] = [
-  { id:'FRG-2026-0418', client:'UNHCR Kampala',          issued:'2026-04-22', due:'2026-05-22', amount: 8_240, property:'Flow Hotels Kampala',     status:'overdue' },
-  { id:'FRG-2026-0420', client:'Sarah Bennett',          issued:'2026-04-25', due:'2026-05-25', amount: 1_240, property:'Flow Hotels Kampala',     status:'paid'    },
-  { id:'FRG-2026-0421', client:'BGFI Bank Congo',        issued:'2026-04-28', due:'2026-05-28', amount: 4_120, property:'Flow Hotels Brazzaville', status:'overdue' },
-  { id:'FRG-2026-0422', client:'Olusegun Adeyemi',       issued:'2026-05-01', due:'2026-05-31', amount:   880, property:'Flow Hotels Kampala',     status:'paid'    },
-  { id:'FRG-2026-0423', client:'Equity Bank Uganda',     issued:'2026-05-02', due:'2026-06-01', amount: 6_040, property:'Flow Hotels Kampala',     status:'sent'    },
-  { id:'FRG-2026-0424', client:'AFD Brazzaville',        issued:'2026-05-03', due:'2026-06-02', amount: 2_780, property:'Flow Hotels Brazzaville', status:'overdue' },
-  { id:'FRG-2026-0425', client:'Roche East Africa',      issued:'2026-05-04', due:'2026-06-03', amount: 2_020, property:'Flow Hotels Kampala',     status:'sent'    },
-  { id:'FRG-2026-0426', client:'Émilie Tremblay',        issued:'2026-05-05', due:'2026-06-04', amount: 1_180, property:'Flow Hotels Addis Ababa', status:'paid'    },
-  { id:'FRG-2026-0427', client:'African Union',          issued:'2026-05-06', due:'2026-06-05', amount: 9_640, property:'Flow Hotels Addis Ababa', status:'sent'    },
-  { id:'FRG-2026-0428', client:'Stanbic UG',             issued:'2026-05-07', due:'2026-06-06', amount:   720, property:'Flow Hotels Kampala',     status:'draft'   },
+  { id:'FRG-2026-0418', client:'Consortium Baie-Nord',          issued:'2026-04-22', due:'2026-05-22', amount: 8_240, property:'Flow Station Natashquan',     status:'overdue' },
+  { id:'FRG-2026-0420', client:'Sarah Bennett',          issued:'2026-04-25', due:'2026-05-25', amount: 1_240, property:'Flow Station Natashquan',     status:'paid'    },
+  { id:'FRG-2026-0421', client:'Banque Nordia',        issued:'2026-04-28', due:'2026-05-28', amount: 4_120, property:'Flow Station Blanc-Sablon', status:'overdue' },
+  { id:'FRG-2026-0422', client:'Olivier Deschênes',       issued:'2026-05-01', due:'2026-05-31', amount:   880, property:'Flow Station Natashquan',     status:'paid'    },
+  { id:'FRG-2026-0423', client:'Caisse du Littoral',     issued:'2026-05-02', due:'2026-06-01', amount: 6_040, property:'Flow Station Natashquan',     status:'sent'    },
+  { id:'FRG-2026-0424', client:'Fonds Nordique de Développement',        issued:'2026-05-03', due:'2026-06-02', amount: 2_780, property:'Flow Station Blanc-Sablon', status:'overdue' },
+  { id:'FRG-2026-0425', client:'Groupe Minier Fermont',      issued:'2026-05-04', due:'2026-06-03', amount: 2_020, property:'Flow Station Natashquan',     status:'sent'    },
+  { id:'FRG-2026-0426', client:'Émilie Tremblay',        issued:'2026-05-05', due:'2026-06-04', amount: 1_180, property:'Flow Station Saint-Augustin', status:'paid'    },
+  { id:'FRG-2026-0427', client:'Consortium Baie-Nord',          issued:'2026-05-06', due:'2026-06-05', amount: 9_640, property:'Flow Station Saint-Augustin', status:'sent'    },
+  { id:'FRG-2026-0428', client:'Nordia Affaires',             issued:'2026-05-07', due:'2026-06-06', amount:   720, property:'Flow Station Natashquan',     status:'draft'   },
 ]
 
 export default function Invoices() {

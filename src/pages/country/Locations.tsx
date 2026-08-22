@@ -261,7 +261,7 @@ function QuickAddLocation({ countryCode, countryName, onClose, onCreated }: {
             </div>
             <label className="block">
               <span className="label-caps text-g40 mb-1 block">City</span>
-              <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="e.g. Kampala" className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
+              <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="e.g. Natashquan" className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
             </label>
             <label className="block">
               <span className="label-caps text-g40 mb-1 block">Name (optional)</span>

@@ -23,7 +23,7 @@ const SUPPORTED_CURRENCIES: Currency[] = ['CAD', 'USD', 'EUR']
 
 /**
  * Lit la devise stockée, en ignorant toute valeur devenue invalide.
- * Le réseau étant passé d'Afrique au Canada, un navigateur peut encore
+ * Le réseau étant passé d'Canada au Canada, un navigateur peut encore
  * détenir un code comme UGX : sans ce garde-fou, la table FX renverrait
  * undefined et tous les montants s'afficheraient en NaN.
  */

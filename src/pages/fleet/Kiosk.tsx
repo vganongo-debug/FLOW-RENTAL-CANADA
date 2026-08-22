@@ -26,16 +26,16 @@ interface Return {
 }
 
 const ARRIVALS: Arrival[] = [
-  { id:'a-1', flight:'KQ 412', airline:'Kenya Airways', client:'Sarah Bennett',     bookingId:'RNT-900100', vehicle:'Toyota Land Cruiser V8', plate:'UAJ 042X', eta:'14:30', status:'landed'  },
-  { id:'a-2', flight:'ET 304', airline:'Ethiopian',     client:'Olusegun Adeyemi',  bookingId:'RNT-900101', vehicle:'Toyota Prado',           plate:'UAJ 109Y', eta:'15:10', status:'on_time' },
-  { id:'a-3', flight:'EK 729', airline:'Emirates',      client:'Émilie Tremblay',   bookingId:'RNT-900102', vehicle:'Toyota RAV4',            plate:'UBE 558K', eta:'16:45', status:'delayed' },
-  { id:'a-4', flight:'TK 612', airline:'Turkish',       client:'Henry Mukasa',      bookingId:'RNT-900103', vehicle:'Nissan X-Trail',         plate:'UAH 445B', eta:'18:00', status:'on_time' },
+  { id:'a-1', flight:'KQ 412', airline:'PAL Airlines', client:'Sarah Bennett',     bookingId:'RNT-900100', vehicle:'Ford F-150 XLT 4x4', plate:'H24 JKL', eta:'14:30', status:'landed'  },
+  { id:'a-2', flight:'ET 304', airline:'Québécois',     client:'Olivier Deschênes',  bookingId:'RNT-900101', vehicle:'Toyota Highlander AWD',           plate:'H24 JKM', eta:'15:10', status:'on_time' },
+  { id:'a-3', flight:'EK 729', airline:'Emirates',      client:'Émilie Tremblay',   bookingId:'RNT-900102', vehicle:'Toyota RAV4',            plate:'H24 JKN', eta:'16:45', status:'delayed' },
+  { id:'a-4', flight:'TK 612', airline:'Turkish',       client:'Hugo Cormier',      bookingId:'RNT-900103', vehicle:'Nissan Rogue AWD',         plate:'J18 QRV', eta:'18:00', status:'on_time' },
 ]
 
 const RETURNS: Return[] = [
-  { id:'r-1', bookingId:'RNT-900090', client:'James Kelly',     vehicle:'Toyota Hilux',      plate:'UBC 220T', expected:'12:00' },
-  { id:'r-2', bookingId:'RNT-900092', client:'Priya Patel',     vehicle:'Toyota Corolla',    plate:'UAJ 871C', expected:'14:00' },
-  { id:'r-3', bookingId:'RNT-900094', client:'Marcus O\'Brien', vehicle:'Mitsubishi Pajero', plate:'UBA 312L', expected:'17:30' },
+  { id:'r-1', bookingId:'RNT-900090', client:'James Kelly',     vehicle:'GMC Sierra 1500',      plate:'J18 QRT', expected:'12:00' },
+  { id:'r-2', bookingId:'RNT-900092', client:'Priya Patel',     vehicle:'Toyota Corolla',    plate:'J18 QRW', expected:'14:00' },
+  { id:'r-3', bookingId:'RNT-900094', client:'Marcus O\'Brien', vehicle:'Mitsubishi Pajero', plate:'J18 QRX', expected:'17:30' },
 ]
 
 type Mode = 'overview' | 'release' | 'return'
@@ -51,9 +51,9 @@ export default function Kiosk() {
       <div className="rounded-card overflow-hidden bg-coal text-ivory">
         <div className="p-5 flex items-center justify-between flex-wrap gap-4">
           <div>
-            <div className="label-caps text-copper-light">Airport Kiosk · Entebbe Intl</div>
+            <div className="label-caps text-copper-light">Airport Kiosk · Aéroport YZV</div>
             <h1 className="font-display text-3xl mt-1">{currentTimeString()}</h1>
-            <p className="text-sm text-g60 mt-1">Agent on duty · Daniel Okello · Shift ends 22:00</p>
+            <p className="text-sm text-g60 mt-1">Agent on duty · Simon Lapierre · Shift ends 22:00</p>
           </div>
           <div className="grid grid-cols-3 gap-2 text-center">
             <BigStat label="Arrivals" value={String(ARRIVALS.length)} tone="teal" />
@@ -342,7 +342,7 @@ function ReturnFlow({ ret, onBack }: { ret: Return; onBack: () => void }) {
             <Line label="CDW insurance" amount={60} />
             <Line label="Refuelling fee" amount={25} />
             <Line label="Late return (none)" amount={0} muted />
-            <Line label="VAT (Uganda 18%)" amount={Math.round((590+60+25) * 0.18)} muted />
+            <Line label="TPS + TVQ (14,975 %)" amount={Math.round((590+60+25) * 0.14975)} muted />
           </ul>
           <div className="mt-3 flex items-center justify-between border-t border-g20/60 pt-2">
             <span className="label-caps text-g40">Total</span>

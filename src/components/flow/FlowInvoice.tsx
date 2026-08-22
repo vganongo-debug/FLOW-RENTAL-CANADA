@@ -17,7 +17,7 @@ const DEFAULT_ITEMS: LineItem[] = [
   { label: 'Suite 207 · 4 nights', qty: 4, unit: 195 },
   { label: 'Breakfast (2 pax × 4)', qty: 8, unit: 18 },
   { label: 'Airport transfer · arrival', qty: 1, unit: 35 },
-  { label: 'Toyota Prado rental · 3 days', qty: 3, unit: 165 },
+  { label: 'Toyota Highlander AWD rental · 3 days', qty: 3, unit: 165 },
 ]
 
 export function FlowInvoice({
@@ -29,7 +29,7 @@ export function FlowInvoice({
     address: '12 Royal Crescent · London W1 · United Kingdom',
   },
   items = DEFAULT_ITEMS,
-  taxLabel = 'VAT (Uganda 18%)',
+  taxLabel = 'TPS + TVQ (14,975 %)',
   taxPct = 18,
   className,
 }: Props) {
@@ -58,8 +58,8 @@ export function FlowInvoice({
         </div>
         <div className="text-right">
           <div className="label-caps text-g40 mb-1">Property</div>
-          <div className="font-medium text-ink dark:text-ivory">Flow Hotels Kampala</div>
-          <div className="text-xs text-g40">Plot 12 Lumumba Ave · Kampala · UG</div>
+          <div className="font-medium text-ink dark:text-ivory">Flow Station Natashquan</div>
+          <div className="text-xs text-g40">Plot 12 Lumumba Ave · Natashquan · UG</div>
         </div>
       </div>
       <table className="w-full text-sm">

@@ -42,14 +42,14 @@ const AMENITIES = [
 ]
 
 const MAINTENANCE_HISTORY = [
-  { date: '2026-04-22', issue: 'A/C condensate leak', tech: 'Daniel Okello', status: 'Resolved' },
-  { date: '2026-03-08', issue: 'Bathroom faucet drip', tech: 'Daniel Okello', status: 'Resolved' },
-  { date: '2026-01-19', issue: 'TV remote replacement', tech: 'Aisha Nakato', status: 'Resolved' },
+  { date: '2026-04-22', issue: 'A/C condensate leak', tech: 'Simon Lapierre', status: 'Resolved' },
+  { date: '2026-03-08', issue: 'Bathroom faucet drip', tech: 'Simon Lapierre', status: 'Resolved' },
+  { date: '2026-01-19', issue: 'TV remote replacement', tech: 'Marie-Claude Boudreau', status: 'Resolved' },
 ]
 
 const STAY_HISTORY = [
   { guest: 'Sarah Bennett', from: '2026-04-22', to: '2026-04-25', revenue: 480 },
-  { guest: 'Jean-Marc Loubaki', from: '2026-04-12', to: '2026-04-14', revenue: 320 },
+  { guest: 'Jean-Marc Landry', from: '2026-04-12', to: '2026-04-14', revenue: 320 },
   { guest: 'Priya Patel', from: '2026-03-29', to: '2026-04-02', revenue: 640 },
   { guest: 'Marcus O\'Brien', from: '2026-03-18', to: '2026-03-19', revenue: 160 },
   { guest: 'Léa Dubois', from: '2026-03-03', to: '2026-03-06', revenue: 480 },
@@ -75,7 +75,7 @@ export default function Rooms() {
         <div>
           <div className="label-caps text-g40">Hotels · Rooms</div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">Room Management</h1>
-          <p className="text-sm text-g40 dark:text-g60 mt-1">All 30 rooms · Flow Hotels Kampala</p>
+          <p className="text-sm text-g40 dark:text-g60 mt-1">All 30 rooms · Flow Station Natashquan</p>
         </div>
         <button className="inline-flex items-center gap-1 px-3 py-2 rounded-input bg-copper text-white hover:bg-copper-dark text-sm font-medium">
           <Plus className="h-4 w-4" /> Add Room

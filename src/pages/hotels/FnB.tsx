@@ -106,7 +106,7 @@ export default function FnB() {
         <div>
           <div className="label-caps text-g40">Hotels · F&B</div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">Restaurant Floor</h1>
-          <p className="text-sm text-g40 dark:text-g60 mt-1">Live service · Flow Bistro · Kampala</p>
+          <p className="text-sm text-g40 dark:text-g60 mt-1">Live service · Flow Bistro · Natashquan</p>
         </div>
         <div className="flex items-center gap-2">
           <button className="inline-flex items-center gap-1 px-3 py-2 rounded-input border border-g20 text-sm text-ink dark:text-ivory hover:border-teal">

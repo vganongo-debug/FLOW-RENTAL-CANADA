@@ -26,7 +26,7 @@ const METRICS: Field<Metric>[] = [
   { id: 'addons',      label: 'Add-on revenue' },
 ]
 
-const COUNTRIES = ['Congo', 'Uganda', 'Ethiopia']
+const COUNTRIES = ['Québec', 'Québec', 'Québec']
 const COLORS = ['#0B6E6E', '#B87333', '#0D8888', '#7A4B20', '#5A7070', '#8FA0A0']
 
 export default function Reports() {
@@ -40,10 +40,10 @@ export default function Reports() {
     const primary = dimensions[0] ?? 'country'
     const labels =
       primary === 'country'     ? COUNTRIES :
-      primary === 'property'    ? ['Brazzaville', 'Kampala', 'Addis Ababa'] :
+      primary === 'property'    ? ['Blanc-Sablon', 'Natashquan', 'Saint-Augustin'] :
       primary === 'tier'        ? ['Flow GO', 'Flow Drive', 'Flow Terrain', 'Flow Prestige', 'Flow Elite'] :
       primary === 'channel'     ? ['Direct', 'Booking.com', 'Expedia', 'Walk-in', 'Corporate'] :
-      primary === 'nationality' ? ['Ugandan', 'Congolese', 'French', 'Canadian', 'Nigerian', 'British'] :
+      primary === 'nationality' ? ['Québécois', 'Québécois', 'French', 'Canadian', 'Canadien', 'British'] :
       ['W14', 'W15', 'W16', 'W17', 'W18']
     return labels.map((label, i) => ({
       label,
@@ -151,7 +151,7 @@ export default function Reports() {
               <span className="label-caps text-g40 block mb-1">Country</span>
               <select className="w-full px-3 py-2 rounded-input border border-g20/60 bg-ivory dark:bg-panel text-sm text-ink dark:text-ivory">
                 <option>All countries</option>
-                <option>Uganda</option><option>Congo</option><option>Ethiopia</option>
+                <option>Québec</option><option>Québec</option><option>Québec</option>
               </select>
             </label>
           </FieldBox>
@@ -252,7 +252,7 @@ function ExecutiveSummary() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <Mini label="Portfolio revenue" value={formatCurrency(112_440)} delta="+14.2%" />
           <Mini label="Hotel vs Car" value="62% · 38%" delta="rooms lead" />
-          <Mini label="Top market" value="Brazzaville" delta="$184k" />
+          <Mini label="Top market" value="Blanc-Sablon" delta="$184k" />
           <Mini label="Members" value="2,148" delta="+28.7%" />
         </div>
       </div>

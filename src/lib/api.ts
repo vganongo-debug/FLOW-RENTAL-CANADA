@@ -42,6 +42,36 @@ function delay<T>(value: T, ms = LATENCY_MS): Promise<T> {
 }
 
 /**
+ * Version du jeu de données de départ.
+ *
+ * Les datasets sont mis en cache dans localStorage et relus tels quels.
+ * Un navigateur ayant visité une version antérieure détient donc encore
+ * l'ancien réseau africain, avec des montants stockés sous *Usd : des
+ * champs que le schéma actuel ne connaît plus, ce qui produirait des
+ * totaux à NaN. On incrémente cette valeur dès que la forme des données
+ * change, pour purger le cache et repartir des données de départ.
+ */
+const SEED_VERSION = '2026.08-ca'
+const SEED_VERSION_KEY = 'flow-os.seed-version'
+/** Préférence de langue : conservée au travers des migrations. */
+const PRESERVED_KEYS = ['flow-os.lang']
+
+function ensureSeedVersion(): void {
+  if (typeof window === 'undefined') return
+  try {
+    if (window.localStorage.getItem(SEED_VERSION_KEY) === SEED_VERSION) return
+    Object.keys(window.localStorage)
+      .filter((k) => k.startsWith('flow-os.') && !PRESERVED_KEYS.includes(k))
+      .forEach((k) => window.localStorage.removeItem(k))
+    window.localStorage.setItem(SEED_VERSION_KEY, SEED_VERSION)
+  } catch {
+    /* stockage indisponible : on repart simplement des données de départ */
+  }
+}
+
+ensureSeedVersion()
+
+/**
  * Read-through cache via localStorage. Falls back to `seed` on first read.
  * Mutations should call `setCached(key, next)` to persist.
  */
@@ -229,7 +259,7 @@ export const fleet = {
 /* Payments                                                           */
 /* ------------------------------------------------------------------ */
 
-export type PaymentMethod = 'card' | 'mtn' | 'airtel' | 'mpesa' | 'bgfi' | 'cash'
+export type PaymentMethod = 'card' | 'interac' | 'applepay' | 'googlepay' | 'transfer' | 'cash'
 
 export interface PaymentResult {
   id: string

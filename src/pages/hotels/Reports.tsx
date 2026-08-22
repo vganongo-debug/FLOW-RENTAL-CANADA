@@ -34,16 +34,16 @@ const CHANNEL_DATA = [
 ]
 
 const NATIONALITIES = [
-  { country: 'Uganda',          arrivals: 142, fill: '#0B6E6E' },
-  { country: 'Congo',           arrivals:  88, fill: '#0D8888' },
-  { country: 'Ethiopia',        arrivals:  62, fill: '#B87333' },
-  { country: 'France',          arrivals:  41, fill: '#0B6E6E' },
-  { country: 'United Kingdom',  arrivals:  38, fill: '#0D8888' },
-  { country: 'Rwanda',          arrivals:  31, fill: '#B87333' },
-  { country: 'Nigeria',         arrivals:  28, fill: '#0B6E6E' },
-  { country: 'Senegal',         arrivals:  19, fill: '#7A4B20' },
-  { country: 'United States',   arrivals:  17, fill: '#5A7070' },
-  { country: 'Kenya',           arrivals:  14, fill: '#0D8888' },
+  { country: 'Québec',                 arrivals: 142, fill: '#0B6E6E' },
+  { country: 'Terre-Neuve-et-Labrador', arrivals:  88, fill: '#0D8888' },
+  { country: 'Ontario',                arrivals:  62, fill: '#B87333' },
+  { country: 'France',                 arrivals:  41, fill: '#0B6E6E' },
+  { country: 'United States',          arrivals:  38, fill: '#0D8888' },
+  { country: 'Nouveau-Brunswick',      arrivals:  31, fill: '#B87333' },
+  { country: 'Nouvelle-Écosse',        arrivals:  28, fill: '#0B6E6E' },
+  { country: 'United Kingdom',         arrivals:  19, fill: '#7A4B20' },
+  { country: 'Alberta',                arrivals:  17, fill: '#5A7070' },
+  { country: 'Colombie-Britannique',   arrivals:  14, fill: '#0D8888' },
 ]
 
 const AR_AGING = [
@@ -277,7 +277,7 @@ function OriginReport() {
     <>
       <div className="grid grid-cols-3 gap-4">
         <FlowKPICard label="Distinct markets" value="32" delta={{ pct: 6.7, direction: 'up' }} accent="teal" />
-        <FlowKPICard label="Top market share" value="29%" hint="Uganda" />
+        <FlowKPICard label="Top market share" value="29%" hint="Québec" />
         <FlowKPICard label="International share" value="64%" delta={{ pct: 3.2, direction: 'up' }} accent="teal" />
       </div>
       <ReportShell title="Top 10 guest nationalities" subtitle="Arrivals · last 30 days">
@@ -299,10 +299,10 @@ function OriginReport() {
 
 function HKReport() {
   const staff = [
-    { name: 'Aisha Nakato',     roomsToday: 18, avgMin: 22, qScore: 4.7 },
-    { name: 'Daniel Okello',    roomsToday: 14, avgMin: 26, qScore: 4.6 },
+    { name: 'Marie-Claude Boudreau',     roomsToday: 18, avgMin: 22, qScore: 4.7 },
+    { name: 'Simon Lapierre',    roomsToday: 14, avgMin: 26, qScore: 4.6 },
     { name: 'Émilie Tremblay',  roomsToday: 12, avgMin: 19, qScore: 4.9 },
-    { name: 'Henry Mukasa',     roomsToday: 10, avgMin: 24, qScore: 4.5 },
+    { name: 'Hugo Cormier',     roomsToday: 10, avgMin: 24, qScore: 4.5 },
   ]
   return (
     <>
@@ -311,7 +311,7 @@ function HKReport() {
         <FlowKPICard label="Avg clean time" value={`${Math.round(staff.reduce((s, r) => s + r.avgMin, 0) / staff.length)}m`} delta={{ pct: -2.4, direction: 'down' }} hint="Lower is better" />
         <FlowKPICard label="Quality score" value="4.7 / 5" delta={{ pct: 1.6, direction: 'up' }} accent="teal" />
       </div>
-      <ReportShell title="Staff productivity" subtitle="Today · Flow Hotels Kampala">
+      <ReportShell title="Staff productivity" subtitle="Today · Flow Station Natashquan">
         <table className="w-full text-sm">
           <thead>
             <tr className="bg-teal text-white">
@@ -362,11 +362,11 @@ function ARReport() {
           </thead>
           <tbody>
             {[
-              { inv: 'FRG-2026-0418', client: 'UNHCR Kampala', issued: '2026-04-22', age: '18 days', amount: 8_240 },
-              { inv: 'FRG-2026-0402', client: 'BGFI Bank Congo', issued: '2026-04-08', age: '32 days', amount: 4_120 },
-              { inv: 'FRG-2026-0367', client: 'AFD Brazzaville', issued: '2026-02-18', age: '81 days', amount: 2_780 },
-              { inv: 'FRG-2026-0395', client: 'Equity Bank Uganda', issued: '2026-04-15', age: '25 days', amount: 6_040 },
-              { inv: 'FRG-2026-0388', client: 'Roche East Africa', issued: '2026-04-04', age: '36 days', amount: 2_020 },
+              { inv: 'FRG-2026-0418', client: 'Consortium Baie-Nord', issued: '2026-04-22', age: '18 days', amount: 8_240 },
+              { inv: 'FRG-2026-0402', client: 'Banque Nordia', issued: '2026-04-08', age: '32 days', amount: 4_120 },
+              { inv: 'FRG-2026-0367', client: 'Fonds Nordique de Développement', issued: '2026-02-18', age: '81 days', amount: 2_780 },
+              { inv: 'FRG-2026-0395', client: 'Caisse du Littoral', issued: '2026-04-15', age: '25 days', amount: 6_040 },
+              { inv: 'FRG-2026-0388', client: 'Groupe Minier Fermont', issued: '2026-04-04', age: '36 days', amount: 2_020 },
             ].map((r, i) => (
               <tr key={r.inv} className={cn('border-b border-g20/40 last:border-0', i % 2 === 0 ? 'bg-white dark:bg-panel-mid' : 'bg-ivory dark:bg-panel')}>
                 <td className="px-4 py-2 font-mono text-xs text-ink dark:text-ivory">{r.inv}</td>

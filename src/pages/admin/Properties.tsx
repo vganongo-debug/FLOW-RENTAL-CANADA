@@ -399,14 +399,14 @@ function AddPropertyWizard({ onClose, onCreated }: { onClose: () => void; onCrea
             {step === 3 && (
               <div className="grid sm:grid-cols-2 gap-3">
                 <Field label="Operations email">
-                  <input type="email" value={form.contactEmail ?? ''} onChange={(e) => setForm({ ...form, contactEmail: e.target.value })} placeholder="ops.kampala@flowrentals.com" className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
+                  <input type="email" value={form.contactEmail ?? ''} onChange={(e) => setForm({ ...form, contactEmail: e.target.value })} placeholder="ops.sept-iles@flowrentals.ca" className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
                 </Field>
                 <Field label="Operations phone">
-                  <input type="tel" value={form.contactPhone ?? ''} onChange={(e) => setForm({ ...form, contactPhone: e.target.value })} placeholder="+256 778 991 042" className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
+                  <input type="tel" value={form.contactPhone ?? ''} onChange={(e) => setForm({ ...form, contactPhone: e.target.value })} placeholder="+1 418 962 3300" className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
                 </Field>
                 {form.type !== 'hotel' && (
                   <Field label="Fleet partner (if outsourced)">
-                    <input value={form.partnerId ?? ''} onChange={(e) => setForm({ ...form, partnerId: e.target.value })} placeholder="fp-mercantile · leave blank if Flow-owned" className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
+                    <input value={form.partnerId ?? ''} onChange={(e) => setForm({ ...form, partnerId: e.target.value })} placeholder="fp-nordcotier · leave blank if Flow-owned" className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" />
                   </Field>
                 )}
               </div>

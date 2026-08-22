@@ -15,7 +15,7 @@ interface Card {
   column: Column
 }
 
-const STAFF = ['Aisha Nakato', 'Daniel Okello', 'Émilie Tremblay', 'Henry Mukasa']
+const STAFF = ['Marie-Claude Boudreau', 'Simon Lapierre', 'Émilie Tremblay', 'Hugo Cormier']
 
 const COLS: { id: Column; label: string; tone: string }[] = [
   { id: 'to_clean',    label: 'To Clean',       tone: 'border-copper bg-copper-light/40' },
@@ -31,14 +31,14 @@ const INITIAL: Card[] = [
   { id: 'c-3', room: '203', type: 'Suite',     floor: 2, priority: 'normal',  assigned: null,            sinceCheckoutMin: 42, column: 'to_clean' },
   { id: 'c-4', room: '210', type: 'Standard',  floor: 2, priority: 'normal',  assigned: null,            sinceCheckoutMin: 95, column: 'to_clean' },
 
-  { id: 'c-5', room: '105', type: 'Deluxe',    floor: 1, priority: 'normal',  assigned: 'Aisha Nakato',    sinceCheckoutMin: 65, column: 'in_progress' },
+  { id: 'c-5', room: '105', type: 'Deluxe',    floor: 1, priority: 'normal',  assigned: 'Marie-Claude Boudreau',    sinceCheckoutMin: 65, column: 'in_progress' },
   { id: 'c-6', room: '207', type: 'Suite',     floor: 2, priority: 'high',    assigned: 'Émilie Tremblay', sinceCheckoutMin: 110, column: 'in_progress' },
 
-  { id: 'c-7', room: '102', type: 'Standard',  floor: 1, priority: 'normal',  assigned: 'Daniel Okello',   sinceCheckoutMin: 180, column: 'inspecting' },
+  { id: 'c-7', room: '102', type: 'Standard',  floor: 1, priority: 'normal',  assigned: 'Simon Lapierre',   sinceCheckoutMin: 180, column: 'inspecting' },
 
-  { id: 'c-8', room: '104', type: 'Executive', floor: 1, priority: 'normal',  assigned: 'Aisha Nakato',    sinceCheckoutMin: 220, column: 'ready' },
-  { id: 'c-9', room: '109', type: 'Standard',  floor: 1, priority: 'normal',  assigned: 'Henry Mukasa',    sinceCheckoutMin: 300, column: 'ready' },
-  { id: 'c-10', room: '205', type: 'Deluxe',   floor: 2, priority: 'normal',  assigned: 'Aisha Nakato',    sinceCheckoutMin: 245, column: 'ready' },
+  { id: 'c-8', room: '104', type: 'Executive', floor: 1, priority: 'normal',  assigned: 'Marie-Claude Boudreau',    sinceCheckoutMin: 220, column: 'ready' },
+  { id: 'c-9', room: '109', type: 'Standard',  floor: 1, priority: 'normal',  assigned: 'Hugo Cormier',    sinceCheckoutMin: 300, column: 'ready' },
+  { id: 'c-10', room: '205', type: 'Deluxe',   floor: 2, priority: 'normal',  assigned: 'Marie-Claude Boudreau',    sinceCheckoutMin: 245, column: 'ready' },
 
   { id: 'c-11', room: '301', type: 'Standard', floor: 3, priority: 'normal',  assigned: null,              sinceCheckoutMin: 0,   column: 'dnd' },
   { id: 'c-12', room: '305', type: 'Deluxe',   floor: 3, priority: 'normal',  assigned: null,              sinceCheckoutMin: 0,   column: 'dnd' },

@@ -28,7 +28,7 @@ describe('formatCurrency', () => {
     expect(FX_RATES.CAD).toBe(1)
   })
 
-  it('no longer carries the African operating currencies', () => {
+  it('no longer carries the Canadian operating currencies', () => {
     const codes = Object.keys(FX_RATES)
     for (const code of ['XAF', 'XOF', 'UGX', 'ETB', 'KES']) {
       expect(codes).not.toContain(code)

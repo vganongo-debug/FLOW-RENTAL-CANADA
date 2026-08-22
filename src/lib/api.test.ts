@@ -59,8 +59,8 @@ describe('payments', () => {
   })
 
   it('logs transactions to localStorage', async () => {
-    await payments.charge({ amountCad: 25, method: 'mtn' })
-    await payments.charge({ amountCad: 75, method: 'airtel' })
+    await payments.charge({ amountCad: 25, method: 'interac' })
+    await payments.charge({ amountCad: 75, method: 'applepay' })
     const log = await payments.listTransactions()
     expect(log.length).toBe(2)
     expect(log[0].amountCad).toBe(75) // newest first

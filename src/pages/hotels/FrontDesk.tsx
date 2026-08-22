@@ -184,7 +184,7 @@ function StepVerify() {
         </Section>
         <Section title="Nationality">
           <select className="w-full px-3 py-2 bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory">
-            <option>United Kingdom</option><option>Senegal</option><option>Uganda</option><option>Congo</option><option>Ethiopia</option>
+            <option>Canada</option><option>United States</option><option>France</option><option>United Kingdom</option><option>Other</option>
           </select>
         </Section>
         <Section title="Date of birth">
@@ -254,12 +254,12 @@ function StepPayment({ onOpenPay }: { onOpenPay: () => void }) {
             <Charge label={`${sampleBooking.roomType} · ${sampleBooking.nights} night${sampleBooking.nights>1?'s':''}`} amount={sampleBooking.totalCad} />
             <Charge label="Breakfast (2 pax × 2)" amount={72} />
             <Charge label="Airport transfer" amount={35} />
-            <Charge label="VAT (Uganda 18%)" amount={Math.round((sampleBooking.totalCad + 107) * 0.18)} muted />
+            <Charge label="TPS + TVQ (14,975 %)" amount={Math.round((sampleBooking.totalCad + 107) * 0.14975)} muted />
           </ul>
         </Section>
         <div className="flex items-center justify-between rounded-card border border-g20/60 bg-ivory dark:bg-panel px-4 py-3">
           <span className="label-caps text-g40">Total due</span>
-          <span className="font-display font-bold text-3xl text-copper">{formatCurrency(sampleBooking.totalCad + 107 + Math.round((sampleBooking.totalCad + 107) * 0.18))}</span>
+          <span className="font-display font-bold text-3xl text-copper">{formatCurrency(sampleBooking.totalCad + 107 + Math.round((sampleBooking.totalCad + 107) * 0.14975))}</span>
         </div>
       </div>
       <div className="space-y-3">
@@ -293,12 +293,12 @@ function StepContract({ agreed, setAgreed }: { agreed: boolean; setAgreed: (v: b
     <div className="grid md:grid-cols-[1fr_320px] gap-6">
       <Section title="Stay agreement">
         <div className="rounded-card border border-g20/60 bg-ivory dark:bg-panel p-4 text-sm text-ink dark:text-ivory max-h-[260px] overflow-y-auto flow-scroll space-y-2">
-          <p className="font-display text-base">Flow Hotels Kampala · Guest Agreement</p>
+          <p className="font-display text-base">Flow Station Natashquan · Guest Agreement</p>
           <p>Check-in time is 14:00 local. Check-out time is 11:00. Late check-out subject to availability and a 50% night charge.</p>
           <p>The guest authorises Flow Rentals Global Inc. to charge the registered payment method for the total cost of the stay, incidentals, and any damages identified after departure.</p>
           <p>Smoking inside the room incurs a USD 200 deep-cleaning fee. Pets are not permitted unless arranged 48h in advance.</p>
           <p>Wi-Fi is provided complimentary. Use of in-room safe is at guest's own risk; high-value items can be deposited at the front desk for safe-keeping.</p>
-          <p>This agreement is governed by the laws of Uganda. Disputes will be resolved in Kampala.</p>
+          <p>This agreement is governed by the laws of Québec. Disputes will be resolved in Natashquan.</p>
         </div>
         <label className="flex items-center gap-2 mt-3 text-sm text-ink dark:text-ivory">
           <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="accent-teal" />
@@ -318,7 +318,7 @@ function StepKey() {
     <div className="grid md:grid-cols-2 gap-6">
       <div className="text-center">
         <div className="rounded-card border border-g20/60 bg-gradient-to-br from-coal to-ink p-6 text-ivory shadow-card">
-          <div className="label-caps text-copper-light">Flow Hotels Kampala</div>
+          <div className="label-caps text-copper-light">Flow Station Natashquan</div>
           <div className="font-display text-4xl mt-1">Welcome, Sarah</div>
           <div className="text-sm text-g80 mt-2">Room 102 · Deluxe · Floor 1</div>
           <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-input bg-copper text-white text-xs font-medium">

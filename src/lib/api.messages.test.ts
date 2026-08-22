@@ -29,10 +29,10 @@ describe('messages.listConversations · scoping', () => {
   })
 
   it('search filters by title or preview', async () => {
-    const cs = await messages.listConversations({ participantId: 'u-1', q: 'mercantile' })
+    const cs = await messages.listConversations({ participantId: 'u-1', q: 'nord-côtier' })
     expect(cs.every((c) =>
-      c.title.toLowerCase().includes('mercantile') ||
-      c.lastMessagePreview.toLowerCase().includes('mercantile')
+      c.title.toLowerCase().includes('nord-côtier') ||
+      c.lastMessagePreview.toLowerCase().includes('nord-côtier')
     )).toBe(true)
   })
 

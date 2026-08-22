@@ -18,7 +18,7 @@ export default function Results() {
       <header className="flex items-center justify-between flex-wrap gap-3 mb-6">
         <div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">Available · 14 – 18 May 2026</h1>
-          <p className="text-sm text-g40">Kampala, Uganda · 2 guests</p>
+          <p className="text-sm text-g40">Natashquan, Québec · 2 guests</p>
         </div>
         <div className="inline-flex bg-white dark:bg-panel-mid border border-g20/60 rounded-input p-1">
           <ModeBtn active={mode === 'stay'} onClick={() => setMode('stay')} icon={<Hotel className="h-4 w-4" />} label="Stays" />

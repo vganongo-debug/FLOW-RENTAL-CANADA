@@ -21,14 +21,14 @@ const STATUS_TONE = { active: 'active', inactive: 'completed', invited: 'pending
 const USERS: UserRow[] = [
   { id:'u-1', name:'Vistel Ganongo',     initials:'VG', email:'vistel@flowrentals.com',   role:'superadmin',      scope:'Global',                lastLogin:'2026-05-10', status:'active' },
   { id:'u-2', name:'Maye Samoiel',       initials:'MS', email:'maye@flowrentals.com',     role:'superadmin',      scope:'Global',                lastLogin:'2026-05-09', status:'active' },
-  { id:'u-3', name:'Aisha Nakato',       initials:'AN', email:'aisha@flowrentals.com',    role:'country_manager', scope:'Uganda',                lastLogin:'2026-05-10', status:'active' },
-  { id:'u-4', name:'Jean-Paul Mboungou', initials:'JM', email:'jp@flowrentals.com',       role:'hotel_manager',   scope:'Flow Hotels Brazzaville', lastLogin:'2026-05-10', status:'active' },
-  { id:'u-5', name:'Daniel Okello',      initials:'DO', email:'daniel@flowrentals.com',   role:'car_agent',       scope:'Entebbe · Kampala',     lastLogin:'2026-05-10', status:'active' },
-  { id:'u-6', name:'Henry Mukasa',       initials:'HM', email:'henry@flowrentals.com',    role:'car_agent',       scope:'Entebbe · Kampala',     lastLogin:'2026-05-09', status:'active' },
-  { id:'u-7', name:'Tesfaye Bekele',     initials:'TB', email:'tesfaye@flowrentals.com',  role:'car_agent',       scope:'Addis Ababa',           lastLogin:'2026-05-09', status:'active' },
-  { id:'u-8', name:'Mercantile Partner', initials:'MC', email:'partners@mercantile.ug',   role:'fleet_partner',   scope:'Mercantile Car Rentals', lastLogin:'2026-05-10', status:'active' },
-  { id:'u-9', name:'Brazza Auto',        initials:'BA', email:'partners@brazzaauto.cg',   role:'fleet_partner',   scope:'Brazza Auto Partners',  lastLogin:'2026-05-07', status:'active' },
-  { id:'u-10', name:'New onboarding',    initials:'??', email:'invited@example.com',     role:'hotel_manager',   scope:'Flow Hotels Lagos · pre-launch', lastLogin:'—', status:'invited' },
+  { id:'u-3', name:'Marie-Claude Boudreau', initials:'MB', email:'marie-claude@flowrentals.com',    role:'country_manager', scope:'Québec',                lastLogin:'2026-05-10', status:'active' },
+  { id:'u-4', name:'Jean-Philippe Bouchard', initials:'JB', email:'jp@flowrentals.com',       role:'hotel_manager',   scope:'Flow Station Blanc-Sablon', lastLogin:'2026-05-10', status:'active' },
+  { id:'u-5', name:'Simon Lapierre',        initials:'SL', email:'simon@flowrentals.com',   role:'car_agent',       scope:'Sept-Îles · Natashquan',     lastLogin:'2026-05-10', status:'active' },
+  { id:'u-6', name:'Hugo Cormier',          initials:'HC', email:'hugo@flowrentals.com',    role:'car_agent',       scope:'Sept-Îles · Natashquan',     lastLogin:'2026-05-09', status:'active' },
+  { id:'u-7', name:'Thomas Bérubé',     initials:'TB', email:'thomas@flowrentals.com',  role:'car_agent',       scope:'Saint-Augustin',           lastLogin:'2026-05-09', status:'active' },
+  { id:'u-8', name:'Nord-Côtier Partner',   initials:'NC', email:'partenaires@nordcotier.ca',   role:'fleet_partner',   scope:'Nord-Côtier Location', lastLogin:'2026-05-10', status:'active' },
+  { id:'u-9', name:'Détroit Auto',          initials:'DA', email:'partenaires@detroitauto.ca',   role:'fleet_partner',   scope:'Détroit Auto Services',  lastLogin:'2026-05-07', status:'active' },
+  { id:'u-10', name:'New onboarding',    initials:'??', email:'invited@example.com',     role:'hotel_manager',   scope:'Flow Hotels Havre-Saint-Pierre · pre-launch', lastLogin:'—', status:'invited' },
 ]
 
 interface Action { id: string; group: string; label: string }
@@ -254,7 +254,7 @@ export default function Users() {
                 <Field label="Full name" defaultValue="" />
                 <Field label="Email" defaultValue="" type="email" />
                 <Field label="Role" select options={ROLES_FOR_MATRIX.map((r) => ROLE_LABELS[r])} />
-                <Field label="Scope" defaultValue="Flow Hotels Kampala" />
+                <Field label="Scope" defaultValue="Flow Station Blanc-Sablon" />
               </div>
               <div className="mt-4 flex justify-end gap-2">
                 <button onClick={() => setInviteOpen(false)} className="px-3 py-2 rounded-input border border-g20 text-sm">Cancel</button>

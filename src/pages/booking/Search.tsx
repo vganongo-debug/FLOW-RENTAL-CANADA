@@ -108,7 +108,7 @@ function DriveForm() {
   const { t } = useTranslation()
   return (
     <div className="grid md:grid-cols-[2fr_2fr_1.2fr_auto] gap-2 p-2">
-      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.pickUp')} defaultValue="Entebbe Intl Airport" />
+      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.pickUp')} defaultValue="Aéroport YZV" />
       <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.return')} defaultValue="Same as pick-up" />
       <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.dates')} defaultValue="14 – 18 May" />
       <Link

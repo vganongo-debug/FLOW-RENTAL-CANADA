@@ -35,7 +35,7 @@ export default function HotelDashboard() {
     <div className="space-y-6">
       <header className="flex items-end justify-between flex-wrap gap-3">
         <div>
-          <div className="label-caps text-g40">{t('roles.hotel_manager')} · Flow Hotels Kampala</div>
+          <div className="label-caps text-g40">{t('roles.hotel_manager')} · Flow Station Natashquan</div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">{t('page.hotelDashboard.title')}</h1>
           <p className="text-sm text-g40 dark:text-g60 mt-1">Sunday · 10 May 2026</p>
         </div>

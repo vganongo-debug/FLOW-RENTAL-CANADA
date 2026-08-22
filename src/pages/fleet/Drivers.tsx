@@ -36,19 +36,19 @@ const STATUS_LABEL: Record<DriverStatus, string> = {
 }
 
 const DRIVERS: Driver[] = [
-  { id: 'd-1', name: 'Daniel Okello',     initials:'DO', licence:'UG-DL 5482-19', licenceExpiry:'2028-09-12', phone:'+256 712 444 982', email:'daniel.o@flowrentals.com',   city:'Kampala',     status:'on_mission', rating:4.9, missionsLifetime:218, missionsThisMonth:14, earningsThisMonthCad:1_420, joined:'2024-02-14' },
-  { id: 'd-2', name: 'Henry Mukasa',      initials:'HM', licence:'UG-DL 8821-22', licenceExpiry:'2027-11-30', phone:'+256 778 991 042', email:'henry.m@flowrentals.com',    city:'Entebbe',     status:'available',  rating:4.8, missionsLifetime:142, missionsThisMonth:11, earningsThisMonthCad:1_120, joined:'2024-08-02' },
-  { id: 'd-3', name: 'Jean-Marc Tati',    initials:'JT', licence:'CG-DL 320-104', licenceExpiry:'2029-04-22', phone:'+242 06 411 8820', email:'jm.tati@flowrentals.com',    city:'Brazzaville', status:'on_mission', rating:4.7, missionsLifetime:188, missionsThisMonth:13, earningsThisMonthCad:1_360, joined:'2024-04-19' },
-  { id: 'd-4', name: 'Tesfaye Bekele',    initials:'TB', licence:'ET-DL 901-2208', licenceExpiry:'2026-12-19', phone:'+251 911 442 008', email:'tesfaye.b@flowrentals.com',  city:'Addis Ababa', status:'available',  rating:4.8, missionsLifetime:166, missionsThisMonth:9,  earningsThisMonthCad:980,   joined:'2024-05-30' },
-  { id: 'd-5', name: 'Pierre Bayoko',     initials:'PB', licence:'CG-DL 119-088', licenceExpiry:'2028-02-11', phone:'+242 06 902 1144', email:'pierre.b@flowrentals.com',   city:'Brazzaville', status:'off_duty',   rating:4.5, missionsLifetime: 88, missionsThisMonth:4,  earningsThisMonthCad:420,   joined:'2025-01-12' },
-  { id: 'd-6', name: 'Aisha Nakato',      initials:'AN', licence:'UG-DL 6601-08', licenceExpiry:'2027-07-25', phone:'+256 703 880 882', email:'aisha.n@flowrentals.com',    city:'Kampala',     status:'available',  rating:4.9, missionsLifetime:104, missionsThisMonth:8,  earningsThisMonthCad:840,   joined:'2024-10-05' },
+  { id: 'd-1', name: 'Simon Lapierre',      initials:'SL', licence:'QC L2340-104512-08', licenceExpiry:'2028-09-12', phone:'+1 418 726 3010', email:'simon.l@flowrentals.com',   city:'Natashquan',     status:'on_mission', rating:4.9, missionsLifetime:218, missionsThisMonth:14, earningsThisMonthCad:1_420, joined:'2024-02-14' },
+  { id: 'd-2', name: 'Hugo Cormier',       initials:'HC', licence:'QC L1180-220345-11', licenceExpiry:'2027-11-30', phone:'+1 418 962 3300', email:'hugo.c@flowrentals.com',    city:'Sept-Îles',     status:'available',  rating:4.8, missionsLifetime:142, missionsThisMonth:11, earningsThisMonthCad:1_120, joined:'2024-08-02' },
+  { id: 'd-3', name: 'Mathieu Tremblay',   initials:'MT', licence:'QC L3320-110488-04', licenceExpiry:'2029-04-22', phone:'+1 418 461 2210', email:'m.tremblay@flowrentals.com',    city:'Blanc-Sablon', status:'on_mission', rating:4.7, missionsLifetime:188, missionsThisMonth:13, earningsThisMonthCad:1_360, joined:'2024-04-19' },
+  { id: 'd-4', name: 'Thomas Bérubé',    initials:'TB', licence:'QC L9012-208774-19', licenceExpiry:'2026-12-19', phone:'+1 418 947 5144', email:'thomas.b@flowrentals.com',  city:'Saint-Augustin', status:'available',  rating:4.8, missionsLifetime:166, missionsThisMonth:9,  earningsThisMonthCad:980,   joined:'2024-05-30' },
+  { id: 'd-5', name: 'Pierre Bourque',     initials:'PB', licence:'QC L1190-088231-02', licenceExpiry:'2028-02-11', phone:'+1 418 461 2244', email:'pierre.b@flowrentals.com',   city:'Blanc-Sablon', status:'off_duty',   rating:4.5, missionsLifetime: 88, missionsThisMonth:4,  earningsThisMonthCad:420,   joined:'2025-01-12' },
+  { id: 'd-6', name: 'Marie-Claude Boudreau', initials:'MB', licence:'QC L6601-081190-07', licenceExpiry:'2027-07-25', phone:'+1 418 726 3044', email:'mc.boudreau@flowrentals.com',    city:'Natashquan',     status:'available',  rating:4.9, missionsLifetime:104, missionsThisMonth:8,  earningsThisMonthCad:840,   joined:'2024-10-05' },
 ]
 
 const MISSIONS = [
-  { date:'2026-05-09', client:'Sarah Bennett',     vehicle:'Toyota Prado',         startKm: 41_180, endKm: 41_322, duration:'6h 20m', earnings: 110 },
-  { date:'2026-05-07', client:'Olusegun Adeyemi',  vehicle:'Toyota Land Cruiser',  startKm: 28_260, endKm: 28_430, duration:'1d 4h',  earnings: 290 },
-  { date:'2026-05-05', client:'Émilie Tremblay',   vehicle:'Toyota Prado',         startKm: 40_900, endKm: 41_180, duration:'2d',     earnings: 220 },
-  { date:'2026-05-02', client:'Henry Mukasa',      vehicle:'Toyota RAV4',          startKm: 19_640, endKm: 19_880, duration:'8h',     earnings: 95  },
+  { date:'2026-05-09', client:'Sarah Bennett',     vehicle:'Toyota Highlander AWD',         startKm: 41_180, endKm: 41_322, duration:'6h 20m', earnings: 110 },
+  { date:'2026-05-07', client:'Olivier Deschênes',  vehicle:'Ford F-150',  startKm: 28_260, endKm: 28_430, duration:'1d 4h',  earnings: 290 },
+  { date:'2026-05-05', client:'Émilie Tremblay',   vehicle:'Toyota Highlander AWD',         startKm: 40_900, endKm: 41_180, duration:'2d',     earnings: 220 },
+  { date:'2026-05-02', client:'Hugo Cormier',      vehicle:'Toyota RAV4',          startKm: 19_640, endKm: 19_880, duration:'8h',     earnings: 95  },
 ]
 
 export default function Drivers() {
@@ -195,7 +195,7 @@ export default function Drivers() {
               <dl className="space-y-1.5 text-sm">
                 <Row term="Licence number" value={selected.licence} />
                 <Row term="Class / Categories" value="B · CE · D1" />
-                <Row term="Issued by" value="Uganda Driver Licensing Authority" />
+                <Row term="Issued by" value="Société de l’assurance automobile du Québec" />
                 <Row term="Expires" value={formatDate(selected.licenceExpiry)} />
                 <Row term="Last health certificate" value="2026-02-12" />
                 <Row term="Police clearance" value="Valid · expires 2026-12-01" />

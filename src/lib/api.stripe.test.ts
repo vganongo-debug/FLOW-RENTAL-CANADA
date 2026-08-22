@@ -50,7 +50,7 @@ describe('payments.charge · non-card paths still work', () => {
   })
 
   it('momo captures (deterministic stub)', async () => {
-    const r = await payments.charge({ amountCad: 100, method: 'mtn' })
+    const r = await payments.charge({ amountCad: 100, method: 'interac' })
     expect(['captured', 'failed']).toContain(r.status)
   })
 })

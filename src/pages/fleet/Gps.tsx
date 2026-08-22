@@ -9,11 +9,11 @@ import type { Vehicle } from '../../lib/types'
 type OwnerFilter = 'all' | 'flow' | 'partner'
 
 const ALERTS = [
-  { id:'al-1', kind:'overdue', title:'Overdue return',  body:'CG 421 BZV · 2h past due',           tone:'warning' as const },
-  { id:'al-2', kind:'fuel',    title:'Low fuel',        body:'UAJ 042X · 15% remaining',           tone:'warning' as const },
-  { id:'al-3', kind:'speed',   title:'Speeding event',  body:'UAJ 109Y · 122 km/h (limit 100)',    tone:'warning' as const },
-  { id:'al-4', kind:'geo',     title:'Geofence exit',   body:'ET 3-A 119 · left Addis metro zone', tone:'warning' as const },
-  { id:'al-5', kind:'service', title:'Service due',     body:'UBA 312L · within 1,500 km',         tone:'info'    as const },
+  { id:'al-1', kind:'overdue', title:'Overdue return',  body:'K05 BDH · 2h past due',           tone:'warning' as const },
+  { id:'al-2', kind:'fuel',    title:'Low fuel',        body:'H24 JKL · 15% remaining',           tone:'warning' as const },
+  { id:'al-3', kind:'speed',   title:'Speeding event',  body:'H24 JKM · 122 km/h (limit 100)',    tone:'warning' as const },
+  { id:'al-4', kind:'geo',     title:'Geofence exit',   body:'L31 MNT · left the Saint-Augustin service zone', tone:'warning' as const },
+  { id:'al-5', kind:'service', title:'Service due',     body:'J18 QRX · within 1,500 km',         tone:'info'    as const },
 ]
 
 export default function Gps() {

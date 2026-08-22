@@ -53,10 +53,10 @@ export const SECURITY_CONTROLS: ControlRow[] = [
   { id:'auth-timeout',category:'Auth', status:'red',   owner:'Engineering', title:'Idle + absolute session timeout',              notes:'15m idle, 8h absolute. Tokens rotate on refresh.' },
 
   // Privacy / regional regs
-  { id:'priv-ug',  category:'Privacy', status:'red',   owner:'Legal', title:'Uganda PDPO registration',         notes:'Before processing any Ugandan resident data.' },
-  { id:'priv-cg',  category:'Privacy', status:'red',   owner:'Legal', title:'Congo ARPCE registration',          notes:'Required before commercial operations.' },
-  { id:'priv-popia', category:'Privacy', status:'red', owner:'Legal', title:'POPIA Information Officer (when ZA market opens)', notes:'Forward-compatible posture: treat all subjects under GDPR rules.' },
-  { id:'priv-gdpr', category:'Privacy', status:'red',  owner:'Legal', title:'GDPR for EU guests',                notes:'Even though we operate in Africa, any EU resident booking with us triggers GDPR.' },
+  { id:'priv-ug',  category:'Privacy', status:'red',   owner:'Legal', title:'Québec PDPO registration',         notes:'Before processing any Québécois resident data.' },
+  { id:'priv-cg',  category:'Privacy', status:'red',   owner:'Legal', title:'Québec ARPCE registration',          notes:'Required before commercial operations.' },
+  { id:'priv-loi25', category:'Privacy', status:'red', owner:'Legal', title:'Loi 25 privacy officer (Québec)', notes:'Québec requires a named privacy officer and breach register; GDPR posture kept for EU guests.' },
+  { id:'priv-gdpr', category:'Privacy', status:'red',  owner:'Legal', title:'GDPR for EU guests',                notes:'Even though we operate in Canada, any EU resident booking with us triggers GDPR.' },
   { id:'priv-dpia',  category:'Privacy', status:'red', owner:'Legal', title:'DPIA on booking + rewards flows',    notes:'Required before live processing.' },
   { id:'priv-cookie',category:'Privacy', status:'red', owner:'Engineering', title:'Cookie consent banner', notes:'Analytics off by default · granular per-category opt-in.' },
   { id:'priv-dpa',  category:'Privacy', status:'red',  owner:'Legal', title:'Data Processing Agreements with sub-processors', notes:'Stripe, hosting provider, email vendor, etc.' },
@@ -80,7 +80,7 @@ export const SECURITY_CONTROLS: ControlRow[] = [
   { id:'msg-rate',    category:'Infra', status:'red', owner:'Engineering', title:'Message + upload rate limiting',       notes:'~30 sends/min per user. Burst protection on attachments.' },
   { id:'msg-audit',   category:'Privacy', status:'red', owner:'Engineering', title:'Message audit log',                  notes:'Every send + upload + read receipt → audit log with actor / IP / UA.' },
   { id:'msg-rtbf',    category:'Privacy', status:'red', owner:'Legal',       title:'Right to be forgotten (messages)',   notes:'Soft-delete + 30-day purge + audit retention of the deletion itself.' },
-  { id:'msg-retain',  category:'Privacy', status:'red', owner:'Legal',       title:'Retention policy (messages)',         notes:'Default 7 years per African tax windows · subject can request earlier deletion.' },
+  { id:'msg-retain',  category:'Privacy', status:'red', owner:'Legal',       title:'Retention policy (messages)',         notes:'Default 7 years per Canadian tax windows · subject can request earlier deletion.' },
 ]
 
 export function postureSummary() {

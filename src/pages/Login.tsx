@@ -5,9 +5,15 @@ import { ArrowRight, Eye, EyeOff } from 'lucide-react'
 import { FlowWordmark } from '../components/flow/FlowWordmark'
 import { FlowLanguageToggle } from '../components/flow/FlowLanguageToggle'
 import { useAuth } from '../context/AuthContext'
-import { ROLE_HOMES } from '../lib/sampleData'
+import { PROPERTIES, ROLE_HOMES } from '../lib/sampleData'
 import type { Role } from '../lib/types'
 import { cn } from '../lib/utils'
+
+// Chiffres derives des donnees, pour qu'ils suivent l'ouverture des stations.
+const LIVE = PROPERTIES.filter((p) => p.status === 'live')
+const LIVE_STATIONS = LIVE.length
+const LIVE_ROOMS = LIVE.reduce((n, p) => n + (p.rooms ?? 0), 0)
+const LIVE_VEHICLES = LIVE.reduce((n, p) => n + (p.vehicles ?? 0), 0)
 
 const ROLE_OPTIONS: Role[] = ['superadmin', 'country_manager', 'hotel_manager', 'car_agent', 'fleet_partner', 'reward_manager', 'guest']
 
@@ -39,9 +45,9 @@ export default function Login() {
         <div className="relative space-y-4">
           <p className="font-display text-3xl leading-snug">{t('login.pitch')}</p>
           <div className="grid grid-cols-3 gap-3 text-xs">
-            <Stat value="3" label={t('login.marketsLive')} />
-            <Stat value="90" label={t('login.rooms')} />
-            <Stat value="40+" label={t('login.vehicles')} />
+            <Stat value={String(LIVE_STATIONS)} label={t('login.marketsLive')} />
+            <Stat value={String(LIVE_ROOMS)} label={t('login.rooms')} />
+            <Stat value={String(LIVE_VEHICLES)} label={t('login.vehicles')} />
           </div>
           <div className="text-xs text-g60 mt-8">{t('brand.subsidiary')} · Côte-Nord, Basse-Côte-Nord et Labrador</div>
         </div>

@@ -32,10 +32,10 @@ export default function Confirmation() {
             </div>
             <div className="font-mono text-2xl mt-1">{bookingRef}</div>
             <div className="mt-3 space-y-1 text-sm">
-              <div className="flex items-center gap-2"><Hotel className="h-3.5 w-3.5 text-copper" /> Flow Hotels Kampala · Deluxe King</div>
+              <div className="flex items-center gap-2"><Hotel className="h-3.5 w-3.5 text-copper" /> Flow Station Natashquan · Deluxe King</div>
               <div className="flex items-center gap-2"><Calendar className="h-3.5 w-3.5 text-copper" /> 14 – 18 May 2026 · 4 nights</div>
               <div className="flex items-center gap-2"><Users className="h-3.5 w-3.5 text-copper" /> 2 adults · Sarah Bennett</div>
-              <div className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-copper" /> Plot 12 Lumumba Ave · Kampala</div>
+              <div className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-copper" /> Plot 12 Lumumba Ave · Natashquan</div>
             </div>
           </div>
 
@@ -47,7 +47,7 @@ export default function Confirmation() {
           </div>
         </div>
         <div className="bg-panel border-t border-g20/30 px-6 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
-          <span className="text-g80">Free cancellation until 13 May 14:00 EAT</span>
+          <span className="text-g80">Free cancellation until 13 May 14:00 EST</span>
           <span className="text-copper-light flex items-center gap-1">
             <Award className="h-3 w-3" /> {(520 * 4).toLocaleString()} Flow Rewards points pending
           </span>
@@ -62,11 +62,11 @@ export default function Confirmation() {
             <Line label="Deluxe room · 4 nights" amount={format(520)} />
             <Line label="Breakfast (2 pax × 4 nights)" amount={format(144)} />
             <Line label="Airport transfer · arrival" amount={format(35)} />
-            <Line label="VAT (Uganda 18%)" amount={format(126)} muted />
+            <Line label="TPS + TVQ (14,975 %)" amount={format(105)} muted />
           </ul>
           <div className="mt-3 flex items-center justify-between border-t border-g20/60 pt-3">
             <span className="label-caps text-g40">{t('common.total')}</span>
-            <span className="font-display font-bold text-2xl text-copper">{format(825)}</span>
+            <span className="font-display font-bold text-2xl text-copper">{format(804)}</span>
           </div>
           <div className="text-xs text-g40 mt-2">Visa ··· 4242 · captured 10 May 2026 13:14 UTC</div>
         </div>

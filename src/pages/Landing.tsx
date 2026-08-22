@@ -545,7 +545,7 @@ function Partners() {
               <Bullet>Multi-channel inventory (Booking.com, Expedia, Direct, Flow App) from one calendar</Bullet>
               <Bullet>Weekly settlement in your local currency · USD or EUR available on request</Bullet>
               <Bullet>Live housekeeping, F&amp;B, and inventory modules included</Bullet>
-              <Bullet>Stripe + mobile money (MTN MoMo, Airtel Money, M-Pesa, BGFI) on day one</Bullet>
+              <Bullet>Stripe + mobile money (Interac, Apple Pay, Google Pay, Nordia) on day one</Bullet>
               <Bullet>Country managers in every live market for white-glove onboarding</Bullet>
             </ul>
             <div className="mt-7 flex flex-wrap gap-3">
