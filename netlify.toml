@@ -16,8 +16,9 @@
   node_bundler = "esbuild"
 
 [build.environment]
-  # Pin Node to the active LTS · Vite 5 requires ≥ 18.
-  NODE_VERSION = "20"
+  # Vite 8 exige Node ^20.19 || >=22.12 — on épingle 22 pour ne pas dépendre
+  # de la version de Node 20 que Netlify résout au moment du build.
+  NODE_VERSION = "22"
 
 # ------------------------------------------------------------------ #
 # API · pretty alias for the Stripe Payment Intents function.        #
