@@ -48,34 +48,34 @@ describe('hotels', () => {
 
 describe('payments', () => {
   it('captures non-cash payments', async () => {
-    const r = await payments.charge({ amountUsd: 100, method: 'card', stripePaymentMethodId: 'pm_test_xxx', ref: 'test-1' })
+    const r = await payments.charge({ amountCad: 100, method: 'card', stripePaymentMethodId: 'pm_test_xxx', ref: 'test-1' })
     expect(['captured', 'failed']).toContain(r.status)
-    expect(r.amountUsd).toBe(100)
+    expect(r.amountCad).toBe(100)
   })
 
   it('queues cash payments', async () => {
-    const r = await payments.charge({ amountUsd: 50, method: 'cash' })
+    const r = await payments.charge({ amountCad: 50, method: 'cash' })
     expect(r.status).toBe('queued')
   })
 
   it('logs transactions to localStorage', async () => {
-    await payments.charge({ amountUsd: 25, method: 'mtn' })
-    await payments.charge({ amountUsd: 75, method: 'airtel' })
+    await payments.charge({ amountCad: 25, method: 'mtn' })
+    await payments.charge({ amountCad: 75, method: 'airtel' })
     const log = await payments.listTransactions()
     expect(log.length).toBe(2)
-    expect(log[0].amountUsd).toBe(75) // newest first
+    expect(log[0].amountCad).toBe(75) // newest first
   })
 })
 
 describe('booking', () => {
   it('creates a booking record', async () => {
     const b = await booking.createBooking({
-      propertyId: 'p-kla',
+      propertyId: 'p-yna',
       checkIn: '2026-05-14',
       checkOut: '2026-05-18',
-      amountUsd: 780,
+      amountCad: 780,
     })
     expect(b.id).toMatch(/^FRG-2026-/)
-    expect(b.amountUsd).toBe(780)
+    expect(b.amountCad).toBe(780)
   })
 })

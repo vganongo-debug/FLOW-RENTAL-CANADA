@@ -8,12 +8,14 @@ interface Props {
   height?: number
 }
 
-// Stylised SVG map of Africa with vehicle pins. Placeholder for Mapbox/OSM.
+// Stylised SVG map of the Quebec North Shore / Labrador with vehicle pins.
+// Placeholder for Mapbox/OSM.
 export function FlowMapView({ vehicles, className, height = 380 }: Props) {
-  // Project lat/lng to SVG coords roughly for Africa bounding box
+  // Project lat/lng to SVG coords over the operating bounding box:
+  // Côte-Nord, Basse-Côte-Nord and Labrador (plus the Montréal hub).
   const project = (lat: number, lng: number) => {
-    const minLat = -15, maxLat = 22
-    const minLng = 5,  maxLng = 50
+    const minLat = 45, maxLat = 57
+    const minLng = -75, maxLng = -55
     const x = ((lng - minLng) / (maxLng - minLng)) * 600
     const y = (1 - (lat - minLat) / (maxLat - minLat)) * 400
     return { x, y }
@@ -38,9 +40,9 @@ export function FlowMapView({ vehicles, className, height = 380 }: Props) {
           </pattern>
         </defs>
         <rect width="600" height="400" fill="url(#grid)" />
-        {/* Stylised continent silhouette */}
+        {/* Stylised coastline silhouette */}
         <path
-          d="M 195 60 C 250 50, 320 55, 380 80 C 430 100, 470 140, 480 200 C 490 260, 470 310, 430 340 C 380 370, 320 365, 280 360 C 220 350, 180 320, 160 270 C 140 220, 145 160, 165 110 C 175 90, 185 70, 195 60 Z"
+          d="M 60 330 C 130 300, 200 285, 265 265 C 330 245, 385 225, 440 195 C 480 172, 515 150, 545 120 C 560 105, 570 88, 575 70 L 575 20 L 500 20 C 470 55, 430 90, 380 120 C 320 155, 250 185, 180 215 C 130 236, 85 262, 55 292 Z"
           fill="#0B6E6E"
           fillOpacity="0.15"
           stroke="#0B6E6E"

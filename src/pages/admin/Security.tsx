@@ -54,7 +54,7 @@ export default function SecurityDashboard() {
           <div className="label-caps text-g40">SuperAdmin · Security & Compliance</div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">Security posture</h1>
           <p className="text-sm text-g40 dark:text-g60 mt-1">
-            PCI-DSS · OWASP · GDPR / POPIA · African data protection — live status of every control.
+            PCI-DSS · OWASP · PIPEDA / Loi 25 · Canadian data protection — live status of every control.
           </p>
         </div>
         <a

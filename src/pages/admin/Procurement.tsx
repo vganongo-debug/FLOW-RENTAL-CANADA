@@ -53,7 +53,7 @@ export default function Procurement() {
     const open = data.filter((o) => o.status !== 'received' && o.status !== 'cancelled')
     return {
       total: data.length,
-      openValue: open.reduce((s, o) => s + o.totalUsd, 0),
+      openValue: open.reduce((s, o) => s + o.totalCad, 0),
       inTransit: data.filter((o) => o.status === 'in_transit').length,
       lateRisk: data.filter((o) => {
         if (!o.expectedAt || o.status === 'received' || o.status === 'cancelled') return false
@@ -165,7 +165,7 @@ export default function Procurement() {
                   </div>
                   <div className="text-right">
                     <div className="label-caps text-g40">Total</div>
-                    <div className="font-display font-bold text-2xl text-copper">{formatCurrency(o.totalUsd)}</div>
+                    <div className="font-display font-bold text-2xl text-copper">{formatCurrency(o.totalCad)}</div>
                   </div>
                 </header>
 
@@ -183,8 +183,8 @@ export default function Procurement() {
                         <td className="px-3 py-1.5 text-ink dark:text-ivory">{l.itemName}</td>
                         <td className="px-3 py-1.5 text-right text-ink dark:text-ivory">{l.qty}</td>
                         <td className="px-3 py-1.5 text-right text-g40">{l.unit}</td>
-                        <td className="px-3 py-1.5 text-right text-ink dark:text-ivory">{formatCurrency(l.unitCostUsd)}</td>
-                        <td className="px-3 py-1.5 text-right text-copper font-display font-bold">{formatCurrency(l.qty * l.unitCostUsd)}</td>
+                        <td className="px-3 py-1.5 text-right text-ink dark:text-ivory">{formatCurrency(l.unitCostCad)}</td>
+                        <td className="px-3 py-1.5 text-right text-copper font-display font-bold">{formatCurrency(l.qty * l.unitCostCad)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -263,8 +263,8 @@ function CreatePoModal({ onClose, onCreated, properties: props, suppliers }: {
   const filteredItems = useMemo(() => items?.filter((i) => i.supplierId === supplierId) ?? [], [items, supplierId])
   const lines = useMemo(() => filteredItems
     .filter((i) => picked[i.id] && picked[i.id] > 0)
-    .map((i) => ({ itemId: i.id, itemName: i.name, qty: picked[i.id], unit: i.unit, unitCostUsd: i.unitCostUsd })), [filteredItems, picked])
-  const total = lines.reduce((s, l) => s + l.qty * l.unitCostUsd, 0)
+    .map((i) => ({ itemId: i.id, itemName: i.name, qty: picked[i.id], unit: i.unit, unitCostCad: i.unitCostCad })), [filteredItems, picked])
+  const total = lines.reduce((s, l) => s + l.qty * l.unitCostCad, 0)
 
   const submit = async () => {
     if (lines.length === 0) return
@@ -349,7 +349,7 @@ function CreatePoModal({ onClose, onCreated, properties: props, suppliers }: {
                           <div className="text-ink dark:text-ivory">{i.name}</div>
                           <div className="text-[11px] text-g40">{i.unit} · stock {i.currentStock} / par {i.parLevel}</div>
                         </div>
-                        <span className="text-xs text-g40">@ {formatCurrency(i.unitCostUsd)}</span>
+                        <span className="text-xs text-g40">@ {formatCurrency(i.unitCostCad)}</span>
                         <input
                           type="number"
                           value={qty}

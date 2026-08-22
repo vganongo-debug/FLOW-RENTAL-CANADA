@@ -283,10 +283,10 @@ function StepPayment({ method, setMethod }: { method: Method; setMethod: (m: Met
 
       {method === 'card' && (
         <FlowStripeCard
-          amountUsd={825}
+          amountCad={825}
           onPaymentMethod={(pmId) => {
             // In production, hand off to the backend at this point:
-            //   await fetch('/api/payment-intents', { method: 'POST', body: JSON.stringify({ amountUsd, stripePaymentMethodId: pmId, ref }) })
+            //   await fetch('/api/payment-intents', { method: 'POST', body: JSON.stringify({ amountCad, stripePaymentMethodId: pmId, ref }) })
             // Today the booking confirmation page is the next route — the
             // payment-method token gets passed along via router state in a
             // production build.

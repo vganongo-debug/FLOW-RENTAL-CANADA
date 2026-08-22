@@ -37,7 +37,7 @@ export default function Inventory() {
   const defaultPropertyId =
     user?.propertyId ??
     (props ?? []).find((p) => p.countryCode === user?.countryCode)?.id ??
-    'p-kla'
+    'p-yna'
 
   const [propertyId, setPropertyId] = useState<string>(defaultPropertyId)
   const [categoryFilter, setCategoryFilter] = useState<'all' | InventoryCategory>('all')
@@ -64,7 +64,7 @@ export default function Inventory() {
     return {
       items: data.length,
       low: data.filter((i) => i.currentStock <= i.reorderPoint).length,
-      value: data.reduce((s, i) => s + i.currentStock * i.unitCostUsd, 0),
+      value: data.reduce((s, i) => s + i.currentStock * i.unitCostCad, 0),
       categories: new Set(data.map((i) => i.category)).size,
     }
   }, [data])
@@ -202,8 +202,8 @@ export default function Inventory() {
                       </div>
                     </td>
                     <td className="px-3 py-2 text-right text-g40">{i.parLevel}<div className="text-[10px]">⤓ {i.reorderPoint}</div></td>
-                    <td className="px-3 py-2 text-right text-ink dark:text-ivory">{formatCurrency(i.unitCostUsd)}</td>
-                    <td className="px-3 py-2 text-right text-copper font-display font-bold">{formatCurrency(i.currentStock * i.unitCostUsd)}</td>
+                    <td className="px-3 py-2 text-right text-ink dark:text-ivory">{formatCurrency(i.unitCostCad)}</td>
+                    <td className="px-3 py-2 text-right text-copper font-display font-bold">{formatCurrency(i.currentStock * i.unitCostCad)}</td>
                     <td className="px-3 py-2 text-g40 text-xs">{i.lastReceived ? formatDate(i.lastReceived) : '—'}</td>
                     <td className="px-3 py-2">
                       <div className="flex gap-1.5">

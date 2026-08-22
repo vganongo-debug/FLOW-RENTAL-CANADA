@@ -100,7 +100,7 @@ export function FlowPaymentModal({ open, amount, currency = 'USD', onClose, onCo
 
             {method === 'card' && (
               <FlowStripeCard
-                amountUsd={amount}
+                amountCad={amount}
                 onPaymentMethod={(pmId) => onConfirm?.(method, `${ref || ''}${ref ? ' · ' : ''}stripe:${pmId}`)}
               />
             )}

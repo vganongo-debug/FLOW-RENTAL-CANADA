@@ -96,7 +96,7 @@ export default function Portfolio() {
       </div>
 
       <div className="grid lg:grid-cols-3 gap-4">
-        <Card title={t('card.markets')} subtitle="Portfolio map · Africa focus" className="lg:col-span-2">
+        <Card title={t('card.markets')} subtitle="Portfolio map · Canada focus" className="lg:col-span-2">
           <FlowMapView vehicles={VEHICLES} height={340} />
         </Card>
         <Card title={t('card.channelMix')} subtitle="Bookings last 30 days">
@@ -141,7 +141,7 @@ export default function Portfolio() {
               </div>
             ))}
             <div className="flex items-center gap-2 text-xs text-teal pt-2">
-              <TrendingUp className="h-3.5 w-3.5" /> Brazzaville leads ADR at $130/night
+              <TrendingUp className="h-3.5 w-3.5" /> Blanc-Sablon leads ADR at 179 $/night
             </div>
           </div>
         </Card>

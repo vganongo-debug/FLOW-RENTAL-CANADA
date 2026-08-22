@@ -198,7 +198,7 @@ function RoomModal({ room, onClose }: { room: Room; onClose: () => void }) {
           <div className="space-y-1.5 text-sm">
             <Row label="Type" value={room.type} />
             <Row label="Floor" value={String(room.floor)} />
-            <Row label="Rate" value={formatCurrency(room.rateUsd)} />
+            <Row label="Rate" value={formatCurrency(room.rateCad)} />
             {room.guestName && <Row label="Guest" value={room.guestName} />}
           </div>
           <div className="mt-4 flex gap-2">

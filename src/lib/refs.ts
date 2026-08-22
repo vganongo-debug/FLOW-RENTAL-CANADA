@@ -286,7 +286,7 @@ function resolvePO(id: string): EntityRef {
     id, kind: 'po', icon: ShoppingCart, accent: 'copper',
     label: o ? `${id} · ${o.supplierName}` : id,
     href: o ? `/admin/procurement?focus=${encodeURIComponent(id)}` : '/admin/procurement',
-    hint: o ? `$${o.totalUsd.toLocaleString()} · ${o.status}` : 'PO not found',
+    hint: o ? `$${o.totalCad.toLocaleString()} · ${o.status}` : 'PO not found',
     fallback: !o,
   }
 }
@@ -298,7 +298,7 @@ function resolvePayment(id: string): EntityRef {
   const tx = log.find((x) => x.id === id)
   return {
     id, kind: 'payment', icon: Receipt, accent: 'teal',
-    label: tx ? `${id} · $${tx.amountUsd.toLocaleString()}` : id,
+    label: tx ? `${id} · $${tx.amountCad.toLocaleString()}` : id,
     href: '/payments/dashboard',
     hint: tx ? `${tx.method} · ${tx.status}` : 'Transaction not found',
     fallback: !tx,
@@ -368,14 +368,14 @@ export type LinkifySegment =
 /**
  * Walks the input string, splits it into alternating text + ref segments.
  *
- *   linkify('Booking RES-2026001 confirmed for m-1 at p-kla')
+ *   linkify('Booking RES-2026001 confirmed for m-1 at p-yna')
  *   → [
  *     { type: 'text', text: 'Booking ' },
  *     { type: 'ref',  ref: { id: 'RES-2026001', ... } },
  *     { type: 'text', text: ' confirmed for ' },
  *     { type: 'ref',  ref: { id: 'm-1', ... } },
  *     { type: 'text', text: ' at ' },
- *     { type: 'ref',  ref: { id: 'p-kla', ... } },
+ *     { type: 'ref',  ref: { id: 'p-yna', ... } },
  *   ]
  *
  * Overlap is avoided by greedy left-to-right matching · the longest-prefix

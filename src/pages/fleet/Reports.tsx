@@ -181,7 +181,7 @@ function VehicleRevenueReport() {
     tier: v.tier,
     owner: v.owner,
     rentedDays: 10 + ((i * 17) % 20),
-    revenue: (10 + ((i * 17) % 20)) * v.dailyRateUsd,
+    revenue: (10 + ((i * 17) % 20)) * v.dailyRateCad,
   })).sort((a, b) => b.revenue - a.revenue)
 
   return (
@@ -321,7 +321,7 @@ function DriversReport() {
 }
 
 function PayoutsReport() {
-  const total = FLEET_PARTNERS.reduce((s, p) => s + p.weeklyPayoutUsd, 0)
+  const total = FLEET_PARTNERS.reduce((s, p) => s + p.weeklyPayoutCad, 0)
   return (
     <>
       <div className="grid grid-cols-3 gap-4">
@@ -340,8 +340,8 @@ function PayoutsReport() {
           </thead>
           <tbody>
             {FLEET_PARTNERS.map((p, i) => {
-              const gross = Math.round(p.weeklyPayoutUsd / (1 - p.commissionPct / 100))
-              const commission = gross - p.weeklyPayoutUsd
+              const gross = Math.round(p.weeklyPayoutCad / (1 - p.commissionPct / 100))
+              const commission = gross - p.weeklyPayoutCad
               return (
                 <tr key={p.id} className={cn('border-b border-g20/40 last:border-0', i % 2 === 0 ? 'bg-white dark:bg-panel-mid' : 'bg-ivory dark:bg-panel')}>
                   <td className="px-3 py-2 text-ink dark:text-ivory font-medium">{p.name}</td>
@@ -349,7 +349,7 @@ function PayoutsReport() {
                   <td className="px-3 py-2 text-right text-ink dark:text-ivory">{p.vehiclesActiveOnFlow} / {p.vehiclesCount}</td>
                   <td className="px-3 py-2 text-right text-ink dark:text-ivory">{formatCurrency(gross)}</td>
                   <td className="px-3 py-2 text-right text-g40">−{formatCurrency(commission)} ({p.commissionPct}%)</td>
-                  <td className="px-3 py-2 text-right text-copper font-display font-bold">{formatCurrency(p.weeklyPayoutUsd)}</td>
+                  <td className="px-3 py-2 text-right text-copper font-display font-bold">{formatCurrency(p.weeklyPayoutCad)}</td>
                 </tr>
               )
             })}

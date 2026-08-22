@@ -19,7 +19,7 @@ interface Driver {
   rating: number
   missionsLifetime: number
   missionsThisMonth: number
-  earningsThisMonthUsd: number
+  earningsThisMonthCad: number
   joined: string
 }
 
@@ -36,12 +36,12 @@ const STATUS_LABEL: Record<DriverStatus, string> = {
 }
 
 const DRIVERS: Driver[] = [
-  { id: 'd-1', name: 'Daniel Okello',     initials:'DO', licence:'UG-DL 5482-19', licenceExpiry:'2028-09-12', phone:'+256 712 444 982', email:'daniel.o@flowrentals.com',   city:'Kampala',     status:'on_mission', rating:4.9, missionsLifetime:218, missionsThisMonth:14, earningsThisMonthUsd:1_420, joined:'2024-02-14' },
-  { id: 'd-2', name: 'Henry Mukasa',      initials:'HM', licence:'UG-DL 8821-22', licenceExpiry:'2027-11-30', phone:'+256 778 991 042', email:'henry.m@flowrentals.com',    city:'Entebbe',     status:'available',  rating:4.8, missionsLifetime:142, missionsThisMonth:11, earningsThisMonthUsd:1_120, joined:'2024-08-02' },
-  { id: 'd-3', name: 'Jean-Marc Tati',    initials:'JT', licence:'CG-DL 320-104', licenceExpiry:'2029-04-22', phone:'+242 06 411 8820', email:'jm.tati@flowrentals.com',    city:'Brazzaville', status:'on_mission', rating:4.7, missionsLifetime:188, missionsThisMonth:13, earningsThisMonthUsd:1_360, joined:'2024-04-19' },
-  { id: 'd-4', name: 'Tesfaye Bekele',    initials:'TB', licence:'ET-DL 901-2208', licenceExpiry:'2026-12-19', phone:'+251 911 442 008', email:'tesfaye.b@flowrentals.com',  city:'Addis Ababa', status:'available',  rating:4.8, missionsLifetime:166, missionsThisMonth:9,  earningsThisMonthUsd:980,   joined:'2024-05-30' },
-  { id: 'd-5', name: 'Pierre Bayoko',     initials:'PB', licence:'CG-DL 119-088', licenceExpiry:'2028-02-11', phone:'+242 06 902 1144', email:'pierre.b@flowrentals.com',   city:'Brazzaville', status:'off_duty',   rating:4.5, missionsLifetime: 88, missionsThisMonth:4,  earningsThisMonthUsd:420,   joined:'2025-01-12' },
-  { id: 'd-6', name: 'Aisha Nakato',      initials:'AN', licence:'UG-DL 6601-08', licenceExpiry:'2027-07-25', phone:'+256 703 880 882', email:'aisha.n@flowrentals.com',    city:'Kampala',     status:'available',  rating:4.9, missionsLifetime:104, missionsThisMonth:8,  earningsThisMonthUsd:840,   joined:'2024-10-05' },
+  { id: 'd-1', name: 'Daniel Okello',     initials:'DO', licence:'UG-DL 5482-19', licenceExpiry:'2028-09-12', phone:'+256 712 444 982', email:'daniel.o@flowrentals.com',   city:'Kampala',     status:'on_mission', rating:4.9, missionsLifetime:218, missionsThisMonth:14, earningsThisMonthCad:1_420, joined:'2024-02-14' },
+  { id: 'd-2', name: 'Henry Mukasa',      initials:'HM', licence:'UG-DL 8821-22', licenceExpiry:'2027-11-30', phone:'+256 778 991 042', email:'henry.m@flowrentals.com',    city:'Entebbe',     status:'available',  rating:4.8, missionsLifetime:142, missionsThisMonth:11, earningsThisMonthCad:1_120, joined:'2024-08-02' },
+  { id: 'd-3', name: 'Jean-Marc Tati',    initials:'JT', licence:'CG-DL 320-104', licenceExpiry:'2029-04-22', phone:'+242 06 411 8820', email:'jm.tati@flowrentals.com',    city:'Brazzaville', status:'on_mission', rating:4.7, missionsLifetime:188, missionsThisMonth:13, earningsThisMonthCad:1_360, joined:'2024-04-19' },
+  { id: 'd-4', name: 'Tesfaye Bekele',    initials:'TB', licence:'ET-DL 901-2208', licenceExpiry:'2026-12-19', phone:'+251 911 442 008', email:'tesfaye.b@flowrentals.com',  city:'Addis Ababa', status:'available',  rating:4.8, missionsLifetime:166, missionsThisMonth:9,  earningsThisMonthCad:980,   joined:'2024-05-30' },
+  { id: 'd-5', name: 'Pierre Bayoko',     initials:'PB', licence:'CG-DL 119-088', licenceExpiry:'2028-02-11', phone:'+242 06 902 1144', email:'pierre.b@flowrentals.com',   city:'Brazzaville', status:'off_duty',   rating:4.5, missionsLifetime: 88, missionsThisMonth:4,  earningsThisMonthCad:420,   joined:'2025-01-12' },
+  { id: 'd-6', name: 'Aisha Nakato',      initials:'AN', licence:'UG-DL 6601-08', licenceExpiry:'2027-07-25', phone:'+256 703 880 882', email:'aisha.n@flowrentals.com',    city:'Kampala',     status:'available',  rating:4.9, missionsLifetime:104, missionsThisMonth:8,  earningsThisMonthCad:840,   joined:'2024-10-05' },
 ]
 
 const MISSIONS = [
@@ -63,7 +63,7 @@ export default function Drivers() {
   }), [q, statusFilter])
 
   const selected = DRIVERS.find((d) => d.id === selectedId) ?? DRIVERS[0]
-  const totalEarnings = DRIVERS.reduce((s, d) => s + d.earningsThisMonthUsd, 0)
+  const totalEarnings = DRIVERS.reduce((s, d) => s + d.earningsThisMonthCad, 0)
   const onMission = DRIVERS.filter((d) => d.status === 'on_mission').length
   const available = DRIVERS.filter((d) => d.status === 'available').length
 
@@ -161,7 +161,7 @@ export default function Drivers() {
             <FlowKPICard label="Rating" value={selected.rating.toFixed(1) + ' / 5'} accent="copper" icon={<Star className="h-4 w-4" />} />
             <FlowKPICard label="Missions · lifetime" value={String(selected.missionsLifetime)} accent="teal" />
             <FlowKPICard label="Missions · MTD" value={String(selected.missionsThisMonth)} accent="teal" />
-            <FlowKPICard label="Earnings · MTD" value={formatCurrency(selected.earningsThisMonthUsd)} delta={{ pct: 12.4, direction: 'up' }} />
+            <FlowKPICard label="Earnings · MTD" value={formatCurrency(selected.earningsThisMonthCad)} delta={{ pct: 12.4, direction: 'up' }} />
           </div>
 
           {/* Mission log */}

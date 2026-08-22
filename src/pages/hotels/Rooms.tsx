@@ -120,7 +120,7 @@ export default function Rooms() {
                   <span className={cn('h-2.5 w-2.5 rounded-full shrink-0', STATUS_DOT[r.status])} />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-ink dark:text-ivory">{r.number} · {r.type}</div>
-                    <div className="text-xs text-g40">Floor {r.floor} · {formatCurrency(r.rateUsd)}/night</div>
+                    <div className="text-xs text-g40">Floor {r.floor} · {formatCurrency(r.rateCad)}/night</div>
                   </div>
                 </button>
               </li>
@@ -139,7 +139,7 @@ export default function Rooms() {
                   <span className="font-display text-lg text-g40 ml-2">{selected.type}</span>
                 </h2>
                 <div className="text-sm text-g40 mt-1">
-                  Floor {selected.floor} · {formatCurrency(selected.rateUsd)}/night
+                  Floor {selected.floor} · {formatCurrency(selected.rateCad)}/night
                   {selected.guestName && <> · Current guest <span className="text-ink dark:text-ivory font-medium">{selected.guestName}</span></>}
                 </div>
               </div>
@@ -199,13 +199,13 @@ function DetailsTab({ room }: { room: Room }) {
       </Card>
       <Card title="Rate & override">
         <div className="space-y-3">
-          <Field label="Base rate" value={formatCurrency(room.rateUsd) + ' / night'} />
+          <Field label="Base rate" value={formatCurrency(room.rateCad) + ' / night'} />
           <Field label="Tier" value={room.type} />
           <div>
             <label className="label-caps text-g40 mb-1 block">Manual override (today)</label>
             <input
               type="number"
-              placeholder={`Default ${room.rateUsd}`}
+              placeholder={`Default ${room.rateCad}`}
               className="w-full px-3 py-1.5 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory"
             />
             <p className="text-[11px] text-g40 mt-1">Overrides apply for tonight only and revert at 06:00.</p>

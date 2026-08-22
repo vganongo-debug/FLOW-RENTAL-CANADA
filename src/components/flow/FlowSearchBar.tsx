@@ -35,7 +35,7 @@ export function FlowSearchBar({ className }: { className?: string }) {
         <div className="absolute z-30 mt-1 w-full bg-white dark:bg-panel-mid border border-g20/60 rounded-card shadow-panel animate-flow-fade max-h-96 overflow-y-auto flow-scroll">
           <Group title="Bookings">
             {results.bookings.map((b) => (
-              <Hit key={b.id} primary={b.guestName} secondary={`${b.id} · ${b.roomType} · $${b.totalUsd}`} />
+              <Hit key={b.id} primary={b.guestName} secondary={`${b.id} · ${b.roomType} · $${b.totalCad}`} />
             ))}
           </Group>
           <Group title="Vehicles">

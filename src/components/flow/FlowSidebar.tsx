@@ -5,7 +5,7 @@ import {
   BarChart3, Settings, Users, Map, Package, Building2,
   ChevronLeft, ChevronRight, BellPlus, Headphones, ChevronDown,
   MapPin, Boxes, AlertCircle, Handshake, FileText, ShieldCheck,
-  MessageSquare,
+  MessageSquare, DoorClosed, Truck,
 } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '../../lib/utils'
@@ -50,6 +50,21 @@ const NAV: Section[] = [
       { to: '/hotels/fnb', key: 'fnb', icon: Hotel },
       { to: '/hotels/inventory', key: 'inventory', icon: Boxes },
       { to: '/hotels/reports', key: 'reports', icon: BarChart3 },
+    ],
+  },
+  {
+    roles: ['superadmin', 'country_manager', 'hotel_manager', 'car_agent'],
+    titleKey: 'pods',
+    items: [
+      { to: '/pods', key: 'podsOverview', icon: DoorClosed },
+    ],
+  },
+  {
+    roles: ['superadmin', 'country_manager', 'hotel_manager', 'car_agent'],
+    titleKey: 'vending',
+    items: [
+      { to: '/vending/machines', key: 'vendingMachines', icon: Boxes },
+      { to: '/vending/restock', key: 'vendingRestock', icon: Truck },
     ],
   },
   {

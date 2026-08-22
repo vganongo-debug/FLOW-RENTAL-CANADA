@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { cn } from '../../lib/utils'
 
 interface Props {
@@ -15,6 +16,7 @@ const SIZES: Record<NonNullable<Props['size']>, string> = {
 }
 
 export function FlowWordmark({ size = 'md', variant = 'dark', tagline, className }: Props) {
+  const { t } = useTranslation()
   const dark = variant === 'dark'
   return (
     <div className={cn('inline-flex flex-col leading-none', className)}>
@@ -30,7 +32,7 @@ export function FlowWordmark({ size = 'md', variant = 'dark', tagline, className
             size === 'xl' ? 'text-xl' : 'text-sm'
           )}
         >
-          Stay. Drive. Africa.
+          {t('brand.tagline')}
         </span>
       )}
     </div>

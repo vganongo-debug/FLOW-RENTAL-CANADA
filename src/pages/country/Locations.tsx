@@ -8,8 +8,8 @@ import { FlowMapView } from '../../components/flow/FlowMapView'
 import { useApi } from '../../lib/useApi'
 import { properties, type PropertyCreateInput } from '../../lib/api'
 import { useAuth } from '../../context/AuthContext'
-import { AFRICA } from '../../lib/africa'
-import type { Property, PropertyType } from '../../lib/types'
+import { PROVINCES } from '../../lib/canada'
+import type { CountryCode, Property, PropertyType } from '../../lib/types'
 
 const TYPE_ICON: Record<PropertyType, React.ComponentType<{ className?: string }>> = {
   hotel: Hotel,
@@ -19,8 +19,8 @@ const TYPE_ICON: Record<PropertyType, React.ComponentType<{ className?: string }
 
 export default function CountryLocations() {
   const { user } = useAuth()
-  const code = user?.countryCode ?? 'UG'
-  const country = AFRICA.find((c) => c.code === code)
+  const code: CountryCode = user?.countryCode ?? 'QC'
+  const country = PROVINCES.find((p) => p.code === code)
   const { data, loading, refetch } = useApi(() => properties.list({ countryCode: code }), [code])
   const [confirmRemove, setConfirmRemove] = useState<Property | null>(null)
   const [addOpen, setAddOpen] = useState(false)
@@ -33,7 +33,7 @@ export default function CountryLocations() {
       rooms: data.reduce((s, p) => s + (p.rooms ?? 0), 0),
       vehicles: data.reduce((s, p) => s + (p.vehicles ?? 0), 0),
       cities: new Set(data.map((p) => p.city)).size,
-      mtd: data.reduce((s, p) => s + p.monthlyRevenueUsd, 0),
+      mtd: data.reduce((s, p) => s + p.monthlyRevenueCad, 0),
     }
   }, [data])
 
@@ -55,7 +55,7 @@ export default function CountryLocations() {
     <div className="space-y-5">
       <header className="flex items-end justify-between flex-wrap gap-3">
         <div>
-          <div className="label-caps text-g40">Country Manager · {country?.flag} {country?.name}</div>
+          <div className="label-caps text-g40">Country Manager · {country?.code} · {country?.name}</div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">Locations</h1>
           <p className="text-sm text-g40 dark:text-g60 mt-1">All Flow properties under your responsibility · add or close locations directly here.</p>
         </div>
@@ -87,7 +87,7 @@ export default function CountryLocations() {
             tier: 'Flow Drive' as const, owner: 'flow' as const,
             location: p.city, countryCode: p.countryCode,
             status: 'available' as const, km: 0, lastServiceDate: '',
-            dailyRateUsd: 0, gps: p.gps!,
+            dailyRateCad: 0, gps: p.gps!,
           }))}
           height={300}
         />
@@ -151,7 +151,7 @@ export default function CountryLocations() {
                       <div className="mt-3 flex items-center justify-between border-t border-g20/40 pt-3">
                         <div>
                           <div className="label-caps text-g40">MTD</div>
-                          <div className="font-display font-bold text-copper">{formatCurrency(p.monthlyRevenueUsd)}</div>
+                          <div className="font-display font-bold text-copper">{formatCurrency(p.monthlyRevenueCad)}</div>
                         </div>
                         <div className="flex gap-1">
                           <button className="p-1.5 rounded-input border border-g20 text-ink dark:text-ivory hover:border-teal" aria-label={`Edit ${p.name}`}>
@@ -198,7 +198,7 @@ export default function CountryLocations() {
 }
 
 function QuickAddLocation({ countryCode, countryName, onClose, onCreated }: {
-  countryCode: string
+  countryCode: CountryCode
   countryName: string
   onClose: () => void
   onCreated: () => void

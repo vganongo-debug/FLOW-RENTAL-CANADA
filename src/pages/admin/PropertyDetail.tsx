@@ -84,7 +84,7 @@ export default function PropertyDetail() {
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <FlowKPICard label="Monthly revenue" value={formatCurrency(p.monthlyRevenueUsd)} hint={`${p.ebitdaPct}% EBITDA`} accent="copper" />
+        <FlowKPICard label="Monthly revenue" value={formatCurrency(p.monthlyRevenueCad)} hint={`${p.ebitdaPct}% EBITDA`} accent="copper" />
         <FlowKPICard label="Rooms" value={p.rooms ?? '—'} hint={p.type === 'car_rental' ? 'N/A · car rental' : 'Listed inventory'} accent="teal" />
         <FlowKPICard label="Vehicles" value={p.vehicles ?? '—'} hint={p.type === 'hotel' ? 'N/A · hotel' : 'On-site fleet'} />
         <FlowKPICard

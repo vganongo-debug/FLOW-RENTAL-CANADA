@@ -40,7 +40,7 @@ export const en = {
     emptyHint: 'Try adjusting your filters or check back later.',
   },
   brand: {
-    tagline: 'Stay. Drive. Africa.',
+    tagline: 'Comfort for your journey.',
     subsidiary: 'Flow Rentals Global Inc. is a subsidiary of VBMS Holdings Inc.',
   },
   status: {
@@ -128,7 +128,7 @@ export const en = {
     title: 'Sign in to Flow OS',
     subtitle: 'Choose a demo role to enter the experience tailored to that user.',
     continueAs: 'Continue as {{role}}',
-    pitch: 'One operating system for the integrated hotel and rental experience across Africa.',
+    pitch: 'One operating system for lodging, mobility and services across the North Shore and Labrador.',
     marketsLive: 'Markets live',
     rooms: 'Rooms',
     vehicles: 'Vehicles on platform',
@@ -139,6 +139,8 @@ export const en = {
     sections: {
       global: 'Global',
       country: 'Country',
+      pods: 'Pods',
+      vending: 'Vending',
       hotels: 'Hotels',
       fleet: 'Fleet',
       partner: 'Partner',
@@ -175,6 +177,9 @@ export const en = {
       rewards: 'Flow Rewards',
       inventory: 'Inventory',
       locations: 'Locations',
+      podsOverview: 'Isolation pods',
+      vendingMachines: 'Machines',
+      vendingRestock: 'Restock',
       rewardsMembers: 'Members',
       rewardsDisputes: 'Disputes',
       rewardsPartnerships: 'Partnerships',
@@ -186,7 +191,7 @@ export const en = {
   booking: {
     hero: {
       lead: 'One booking. One account. One Flow Rewards balance.',
-      copy: 'From the airport gate to the hotel suite — across Brazzaville, Kampala, Addis Ababa, and beyond.',
+      copy: 'From the airport gate to your room — across Blanc-Sablon, Natashquan, Saint-Augustin, and the whole North Shore.',
       stay: 'Stay',
       drive: 'Drive',
       destination: 'Destination',
@@ -200,17 +205,17 @@ export const en = {
     },
     why: {
       title: 'Why Flow?',
-      subtitle: 'Built for African business travel. One platform. Every step.',
+      subtitle: 'Built for travel across the North Shore and Labrador. One platform. Every step.',
       a: 'Stay & Drive in one booking',
       aBody: 'Reserve your room and your airport vehicle in a single confirmation. One bill, one account.',
       b: 'Pay how you live',
-      bBody: 'Visa, Mastercard, MTN MoMo, Airtel Money, M-Pesa, BGFI — your method, your currency.',
+      bBody: 'Visa, Mastercard, Interac, Apple Pay, Google Pay — your method, billed in Canadian dollars.',
       c: 'Earn across borders',
-      cBody: 'Earn Flow Rewards in Kampala. Redeem in Brazzaville. Cross-market loyalty, made for the continent.',
+      cBody: 'Earn Flow Rewards in Sept-Îles. Redeem in Blanc-Sablon. One balance across every station in the network.',
     },
     markets: {
       title: 'Operating across',
-      subtitle: 'Three live markets · expanding to Lagos, Nairobi, Dakar in 2026',
+      subtitle: 'Three live stations · expanding to Sept-Îles, Havre-Saint-Pierre and Labrador in 2027',
     },
     publicNav: {
       stays: 'Stays',

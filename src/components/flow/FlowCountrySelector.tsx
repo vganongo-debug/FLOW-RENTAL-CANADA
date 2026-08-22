@@ -1,9 +1,10 @@
 import { useLocale } from '../../context/LocaleContext'
-import { AFRICA } from '../../lib/africa'
+import { PROVINCES } from '../../lib/canada'
 
 /**
- * Top-nav country picker. Drives `focusCountry` in LocaleContext, which in
- * turn adds that country's local currency to the FlowCurrencySelector list.
+ * Sélecteur de province / territoire de la barre supérieure. Pilote
+ * `focusCountry` dans LocaleContext, qui détermine le régime de taxes de
+ * vente appliqué par défaut dans les écrans comptables.
  */
 export function FlowCountrySelector() {
   const { focusCountry, setFocusCountry } = useLocale()
@@ -11,14 +12,14 @@ export function FlowCountrySelector() {
     <select
       value={focusCountry ?? ''}
       onChange={(e) => setFocusCountry(e.target.value || null)}
-      className="text-xs font-medium px-2 py-1 rounded-input bg-ivory dark:bg-panel border border-g20/60 text-ink dark:text-ivory focus:outline-none focus:ring-2 focus:ring-teal/30 max-w-[140px]"
-      aria-label="Country focus · adds local currency to picker"
-      title="Country focus · adds local currency to the currency picker"
+      className="text-xs font-medium px-2 py-1 rounded-input bg-ivory dark:bg-panel border border-g20/60 text-ink dark:text-ivory focus:outline-none focus:ring-2 focus:ring-teal/30 max-w-[160px]"
+      aria-label="Province · régime de taxes appliqué"
+      title="Province ou territoire · détermine le régime de taxes de vente"
     >
-      <option value="">🌍 No country focus</option>
-      {AFRICA.map((c) => (
-        <option key={c.code} value={c.code}>
-          {c.flag} {c.name} · {c.primaryCurrency}
+      <option value="">🇨🇦 Toutes les provinces</option>
+      {PROVINCES.map((p) => (
+        <option key={p.code} value={p.code}>
+          {p.code} · {p.name} · {p.taxName}
         </option>
       ))}
     </select>

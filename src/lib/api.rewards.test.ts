@@ -114,10 +114,10 @@ describe('rewards.tier', () => {
   })
 
   it('updates tier configuration thresholds', async () => {
-    const updated = await rewards.updateTier('Gold', { minSpendUsd: 7_500 }, 'Vitest')
-    expect(updated?.minSpendUsd).toBe(7_500)
+    const updated = await rewards.updateTier('Gold', { minSpendCad: 7_500 }, 'Vitest')
+    expect(updated?.minSpendCad).toBe(7_500)
     const tiers = await rewards.listTiers()
-    expect(tiers.find((t) => t.tier === 'Gold')?.minSpendUsd).toBe(7_500)
+    expect(tiers.find((t) => t.tier === 'Gold')?.minSpendCad).toBe(7_500)
   })
 })
 

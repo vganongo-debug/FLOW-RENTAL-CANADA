@@ -28,6 +28,7 @@ import type {
   RewardsMember, RewardsTier, RewardsTransaction, RewardsDispute, DisputeStatus,
   RewardsPartnership, RewardsAuditEntry, RewardsTierConfig,
   Participant, Conversation, Message, Attachment, ConversationContext,
+  CountryCode,
 } from './types'
 
 /* ------------------------------------------------------------------ */
@@ -106,7 +107,7 @@ export interface PropertyCreateInput {
   type: Property['type']
   city: string
   country: string
-  countryCode: string
+  countryCode: CountryCode
   address?: string
   gps?: { lat: number; lng: number }
   rooms?: number
@@ -143,7 +144,7 @@ export const properties = {
       gps: input.gps,
       rooms: input.type !== 'car_rental' ? input.rooms : undefined,
       vehicles: input.type !== 'hotel' ? input.vehicles : undefined,
-      monthlyRevenueUsd: 0,
+      monthlyRevenueCad: 0,
       ebitdaPct: 0,
       status: input.goLiveDate ? 'opening' : 'pilot',
       goLiveDate: input.goLiveDate,
@@ -232,7 +233,7 @@ export type PaymentMethod = 'card' | 'mtn' | 'airtel' | 'mpesa' | 'bgfi' | 'cash
 
 export interface PaymentResult {
   id: string
-  amountUsd: number
+  amountCad: number
   method: PaymentMethod
   status: 'captured' | 'queued' | 'failed'
   ref: string
@@ -244,7 +245,7 @@ export interface PaymentResult {
 }
 
 export interface ChargeInput {
-  amountUsd: number
+  amountCad: number
   method: PaymentMethod
   ref?: string
   /** Required when method === 'card'; obtained from <FlowStripeCard>. */
@@ -306,7 +307,7 @@ export const payments = {
 
     const result: PaymentResult = {
       id: `TXN-${Math.floor(Math.random() * 90000 + 10000)}`,
-      amountUsd: input.amountUsd,
+      amountCad: input.amountCad,
       method: input.method,
       status,
       ref: input.ref ?? '',
@@ -347,7 +348,7 @@ async function confirmCardCharge(input: ChargeInput): Promise<{ status: 'capture
         'Idempotency-Key': cryptoUuid(),
       },
       body: JSON.stringify({
-        amountUsd: input.amountUsd,
+        amountCad: input.amountCad,
         stripePaymentMethodId: input.stripePaymentMethodId,
         ref: input.ref,
       }),
@@ -404,10 +405,10 @@ function cryptoUuid(): string {
  *   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2024-06-20' })
  *
  *   app.post('/api/payment-intents', requireAuth, async (req, res) => {
- *     const { amountUsd, stripePaymentMethodId, ref } = req.body
+ *     const { amountCad, stripePaymentMethodId, ref } = req.body
  *     try {
  *       const intent = await stripe.paymentIntents.create({
- *         amount: Math.round(amountUsd * 100),
+ *         amount: Math.round(amountCad * 100),
  *         currency: 'usd',
  *         payment_method: stripePaymentMethodId,
  *         confirmation_method: 'automatic',
@@ -447,7 +448,7 @@ export const reports = {
 export const booking = {
   async searchHotels(/* opts */) { return delay(SEARCH_RESULTS_HOTELS) },
   async searchCars(/* opts */)   { return delay(SEARCH_RESULTS_CARS) },
-  async createBooking(input: { propertyId?: string; vehicleId?: string; checkIn: string; checkOut: string; amountUsd: number }) {
+  async createBooking(input: { propertyId?: string; vehicleId?: string; checkIn: string; checkOut: string; amountCad: number }) {
     const id = `FRG-2026-${Math.floor(Math.random() * 9000 + 1000)}`
     const record = { id, ...input, createdAt: new Date().toISOString() }
     const log = getCached<typeof record[]>('flow-os.bookings', [])
@@ -731,7 +732,7 @@ export interface POCreateInput {
   propertyId: string
   supplierId: string
   supplierName: string
-  lines: Array<{ itemId: string; itemName: string; qty: number; unit: string; unitCostUsd: number }>
+  lines: Array<{ itemId: string; itemName: string; qty: number; unit: string; unitCostCad: number }>
   expectedAt?: string
   notes?: string
 }
@@ -746,7 +747,7 @@ export const procurement = {
   async create(input: POCreateInput): Promise<PurchaseOrder> {
     const cur = getCached<PurchaseOrder[]>('flow-os.pos', PURCHASE_ORDERS)
     const id = `PO-2026-${(cur.length + 100).toString().padStart(4, '0')}`
-    const totalUsd = input.lines.reduce((s, l) => s + l.qty * l.unitCostUsd, 0)
+    const totalCad = input.lines.reduce((s, l) => s + l.qty * l.unitCostCad, 0)
     const order: PurchaseOrder = {
       id,
       propertyId: input.propertyId,
@@ -754,7 +755,7 @@ export const procurement = {
       supplierName: input.supplierName,
       status: 'submitted',
       lines: input.lines as PurchaseOrderLine[],
-      totalUsd,
+      totalCad,
       createdAt: new Date().toISOString().split('T')[0],
       expectedAt: input.expectedAt,
       notes: input.notes,
@@ -776,7 +777,7 @@ export const procurement = {
       supplierName: supplier?.name ?? 'Unknown supplier',
       lines: [{
         itemId: item.id, itemName: item.name, qty,
-        unit: item.unit, unitCostUsd: item.unitCostUsd,
+        unit: item.unit, unitCostCad: item.unitCostCad,
       }],
       expectedAt: supplier ? new Date(Date.now() + supplier.leadDays * 86400_000).toISOString().split('T')[0] : undefined,
       notes: 'Auto-generated · one-click reorder',

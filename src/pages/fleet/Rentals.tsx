@@ -44,9 +44,9 @@ const columns = (open: (b: RentalBooking) => void): Column<RentalBooking>[] => [
   { key: 'startDate', header: 'Start', render: (r) => formatDate(r.startDate) },
   { key: 'endDate', header: 'End', render: (r) => formatDate(r.endDate) },
   { key: 'days', header: 'Days', align: 'right' },
-  { key: 'ratePerDayUsd', header: 'Rate', align: 'right', render: (r) => formatCurrency(r.ratePerDayUsd) },
-  { key: 'totalUsd', header: 'Total', align: 'right',
-    render: (r) => <span className="text-copper font-display font-bold">{formatCurrency(r.totalUsd)}</span> },
+  { key: 'ratePerDayCad', header: 'Rate', align: 'right', render: (r) => formatCurrency(r.ratePerDayCad) },
+  { key: 'totalCad', header: 'Total', align: 'right',
+    render: (r) => <span className="text-copper font-display font-bold">{formatCurrency(r.totalCad)}</span> },
   { key: 'owner', header: 'Owner', render: (r) => (
     <FlowStatusBadge tone={r.owner === 'flow' ? 'info' : 'warning'} dot>
       {r.owner === 'flow' ? 'Flow' : `Partner · ${r.partnerName?.split(' ')[0]}`}
@@ -55,7 +55,7 @@ const columns = (open: (b: RentalBooking) => void): Column<RentalBooking>[] => [
   { key: 'status', header: 'Status', render: (r) => (
     <FlowStatusBadge tone={STATUS_TONE[r.status]} dot>{STATUS_LABEL[r.status]}</FlowStatusBadge>
   ) },
-  { key: 'totalUsd', header: 'Actions', sortable: false, render: (r) => (
+  { key: 'totalCad', header: 'Actions', sortable: false, render: (r) => (
     <button
       onClick={(e) => { e.stopPropagation(); open(r) }}
       className="text-xs text-teal hover:text-teal-dark font-medium"

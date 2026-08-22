@@ -1,3 +1,5 @@
+import type { ProvinceCode } from './canada'
+
 export type Role =
   | 'superadmin'
   | 'country_manager'
@@ -8,34 +10,20 @@ export type Role =
   | 'guest'
 
 /**
- * ISO 3166-1 alpha-2 of an African country. Any of the 54 countries
- * in src/lib/africa.ts is valid here.
+ * Code de province ou territoire canadien (ISO 3166-2:CA sans le préfixe).
+ * Les 13 valeurs valides sont définies dans src/lib/canada.ts.
  */
-export type CountryCode = string
+export type CountryCode = ProvinceCode
 
 /**
- * Currencies that Flow supports for display and settlement.
+ * Devises prises en charge à l'affichage et au règlement.
  *
- * - USD / CAD / EUR are always-available defaults (continental settlement
- *   + parent-company home + a major reserve currency for African trade).
- * - The remaining codes are African local currencies; the active one is
- *   dynamically surfaced based on the currently-focused country.
- *
- * Operating presence is still Africa-only (see src/lib/africa.ts); the
- * extra defaults are for guest-side display and group accounting only.
+ * CAD est la devise de référence : tous les montants stockés dans
+ * l'application sont en dollars canadiens. USD et EUR sont proposés aux
+ * clients internationaux et à la consolidation groupe, via les taux de
+ * FX_RATES (src/lib/utils.ts).
  */
-export type Currency =
-  // Defaults — always shown in the picker
-  | 'USD' | 'CAD' | 'EUR'
-  // African local currencies — surfaced when a country is focused
-  | 'XAF' | 'XOF'
-  | 'UGX' | 'ETB' | 'KES' | 'RWF' | 'TZS' | 'BIF' | 'DJF'
-  | 'NGN' | 'GHS' | 'GMD' | 'GNF' | 'SLE' | 'LRD'
-  | 'ZAR' | 'BWP' | 'NAD' | 'ZMW' | 'MWK' | 'MZN' | 'SZL' | 'LSL' | 'ZWL'
-  | 'MAD' | 'EGP' | 'TND' | 'DZD' | 'LYD' | 'SDG'
-  | 'CDF' | 'AOA' | 'STN'
-  | 'MGA' | 'MUR' | 'SCR' | 'KMF' | 'CVE' | 'ERN' | 'SOS' | 'SSP'
-  | 'MRU'
+export type Currency = 'CAD' | 'USD' | 'EUR'
 
 export type Language = 'EN' | 'FR'
 
@@ -64,7 +52,7 @@ export interface Property {
   gps?: { lat: number; lng: number }
   rooms?: number
   vehicles?: number
-  monthlyRevenueUsd: number
+  monthlyRevenueCad: number
   ebitdaPct: number
   status: 'live' | 'opening' | 'pilot'
   /** ISO date the property went live (or is scheduled to) */
@@ -89,7 +77,7 @@ export interface Room {
   floor: number
   status: RoomStatus
   guestName?: string
-  rateUsd: number
+  rateCad: number
 }
 
 export type BookingStatus =
@@ -109,8 +97,8 @@ export interface Reservation {
   nights: number
   roomNumber: string
   roomType: Room['type']
-  rateUsd: number
-  totalUsd: number
+  rateCad: number
+  totalCad: number
   channel: 'Booking.com' | 'Expedia' | 'Direct' | 'Flow App' | 'Walk-in'
   status: BookingStatus
   paymentStatus: 'paid' | 'partial' | 'unpaid'
@@ -134,7 +122,7 @@ export interface Vehicle {
   status: VehicleStatus
   km: number
   lastServiceDate: string
-  dailyRateUsd: number
+  dailyRateCad: number
   gps: { lat: number; lng: number }
 }
 
@@ -149,8 +137,8 @@ export interface RentalBooking {
   startDate: string
   endDate: string
   days: number
-  ratePerDayUsd: number
-  totalUsd: number
+  ratePerDayCad: number
+  totalCad: number
   status: BookingStatus
   owner: VehicleOwner
   partnerName?: string
@@ -164,8 +152,8 @@ export interface FleetPartner {
   countryCode: CountryCode
   vehiclesCount: number
   vehiclesActiveOnFlow: number
-  weeklyPayoutUsd: number
-  pendingPayoutUsd: number
+  weeklyPayoutCad: number
+  pendingPayoutCad: number
   commissionPct: number
 }
 
@@ -187,7 +175,7 @@ export interface InventoryItem {
   parLevel: number             // ideal stock-on-hand
   reorderPoint: number         // trigger threshold
   reorderQty: number           // suggested order quantity
-  unitCostUsd: number
+  unitCostCad: number
   supplierId: string
   lastReceived?: string
 }
@@ -209,7 +197,7 @@ export interface PurchaseOrderLine {
   itemName: string
   qty: number
   unit: string
-  unitCostUsd: number
+  unitCostCad: number
 }
 
 export interface PurchaseOrder {
@@ -219,7 +207,7 @@ export interface PurchaseOrder {
   supplierName: string
   status: PurchaseOrderStatus
   lines: PurchaseOrderLine[]
-  totalUsd: number
+  totalCad: number
   createdAt: string
   expectedAt?: string
   notes?: string
@@ -253,7 +241,7 @@ export interface RewardsMember {
   /** Manager-applied freeze (e.g. fraud review). When true, earn/burn blocked. */
   frozen?: boolean
   /** Stays + rentals that count towards tier qualification this calendar year */
-  qualifyingActivityYtd: { stays: number; rentals: number; spendUsd: number }
+  qualifyingActivityYtd: { stays: number; rentals: number; spendCad: number }
 }
 
 export type RewardsTransactionType = 'earn' | 'burn' | 'adjust' | 'transfer' | 'expiry'
@@ -397,7 +385,7 @@ export interface Conversation {
 export interface RewardsTierConfig {
   tier: RewardsTier
   /** Annual qualifying spend in USD to keep / earn this tier */
-  minSpendUsd: number
+  minSpendCad: number
   /** Annual qualifying stays */
   minStays: number
   /** Points-earn multiplier on every dollar spent */

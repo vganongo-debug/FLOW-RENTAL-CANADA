@@ -18,18 +18,18 @@ interface Guest {
   tier: 'Silver' | 'Gold' | 'Platinum'
   points: number
   totalStays: number
-  lifetimeSpendUsd: number
+  lifetimeSpendCad: number
   city: string
   preferences: { highFloor: boolean; quietRoom: boolean; nonSmoking: boolean; vegetarian: boolean; latePOS: boolean }
 }
 
 const GUESTS: Guest[] = [
-  { id:'g-1', name:'Sarah Bennett',     initials:'SB', nationality:'British',    email:'sarah.bennett@example.com', phone:'+44 7700 900142', language:'EN', tier:'Gold',     points: 14_200, totalStays: 11, lifetimeSpendUsd: 18_640, city:'London',     preferences:{ highFloor:true, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:true } },
-  { id:'g-2', name:'Jean-Marc Loubaki', initials:'JL', nationality:'Congolese', email:'jm@loubaki.cg', phone:'+242 06 521 4488', language:'FR', tier:'Platinum', points: 28_750, totalStays: 22, lifetimeSpendUsd: 41_200, city:'Brazzaville', preferences:{ highFloor:false, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:false } },
-  { id:'g-3', name:'Priya Patel',       initials:'PP', nationality:'American',  email:'priya@example.com', phone:'+1 415 555 0182', language:'EN', tier:'Silver', points: 4_840, totalStays: 4, lifetimeSpendUsd: 6_120, city:'San Francisco', preferences:{ highFloor:true, quietRoom:false, nonSmoking:true, vegetarian:true, latePOS:false } },
-  { id:'g-4', name:'Émilie Tremblay',   initials:'ET', nationality:'Canadian',  email:'emilie.tremblay@example.ca', phone:'+1 514 555 9908', language:'FR', tier:'Gold', points: 11_320, totalStays: 8, lifetimeSpendUsd: 12_980, city:'Montréal', preferences:{ highFloor:false, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:true } },
-  { id:'g-5', name:'Olusegun Adeyemi',  initials:'OA', nationality:'Nigerian',  email:'segun@example.ng', phone:'+234 802 880 1100', language:'EN', tier:'Gold', points: 9_840, totalStays: 6, lifetimeSpendUsd: 9_460, city:'Lagos', preferences:{ highFloor:true, quietRoom:false, nonSmoking:true, vegetarian:false, latePOS:true } },
-  { id:'g-6', name:'Ahmed Yusuf',       initials:'AY', nationality:'Ugandan',  email:'ahmed.y@example.ug', phone:'+256 712 333 444', language:'EN', tier:'Silver', points: 2_180, totalStays: 3, lifetimeSpendUsd: 2_980, city:'Kampala', preferences:{ highFloor:false, quietRoom:false, nonSmoking:true, vegetarian:false, latePOS:false } },
+  { id:'g-1', name:'Sarah Bennett',     initials:'SB', nationality:'British',    email:'sarah.bennett@example.com', phone:'+44 7700 900142', language:'EN', tier:'Gold',     points: 14_200, totalStays: 11, lifetimeSpendCad: 18_640, city:'London',     preferences:{ highFloor:true, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:true } },
+  { id:'g-2', name:'Jean-Marc Loubaki', initials:'JL', nationality:'Congolese', email:'jm@loubaki.cg', phone:'+242 06 521 4488', language:'FR', tier:'Platinum', points: 28_750, totalStays: 22, lifetimeSpendCad: 41_200, city:'Brazzaville', preferences:{ highFloor:false, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:false } },
+  { id:'g-3', name:'Priya Patel',       initials:'PP', nationality:'American',  email:'priya@example.com', phone:'+1 415 555 0182', language:'EN', tier:'Silver', points: 4_840, totalStays: 4, lifetimeSpendCad: 6_120, city:'San Francisco', preferences:{ highFloor:true, quietRoom:false, nonSmoking:true, vegetarian:true, latePOS:false } },
+  { id:'g-4', name:'Émilie Tremblay',   initials:'ET', nationality:'Canadian',  email:'emilie.tremblay@example.ca', phone:'+1 514 555 9908', language:'FR', tier:'Gold', points: 11_320, totalStays: 8, lifetimeSpendCad: 12_980, city:'Montréal', preferences:{ highFloor:false, quietRoom:true, nonSmoking:true, vegetarian:false, latePOS:true } },
+  { id:'g-5', name:'Olusegun Adeyemi',  initials:'OA', nationality:'Nigerian',  email:'segun@example.ng', phone:'+234 802 880 1100', language:'EN', tier:'Gold', points: 9_840, totalStays: 6, lifetimeSpendCad: 9_460, city:'Lagos', preferences:{ highFloor:true, quietRoom:false, nonSmoking:true, vegetarian:false, latePOS:true } },
+  { id:'g-6', name:'Ahmed Yusuf',       initials:'AY', nationality:'Ugandan',  email:'ahmed.y@example.ug', phone:'+256 712 333 444', language:'EN', tier:'Silver', points: 2_180, totalStays: 3, lifetimeSpendCad: 2_980, city:'Kampala', preferences:{ highFloor:false, quietRoom:false, nonSmoking:true, vegetarian:false, latePOS:false } },
 ]
 
 const STAYS = [
@@ -130,7 +130,7 @@ export default function Guests() {
                   <Star className="h-3 w-3" /> {selected.totalStays} lifetime stays
                 </span>
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-badge bg-ivory dark:bg-panel text-copper-dark dark:text-copper-light label-caps">
-                  Spend {formatCurrency(selected.lifetimeSpendUsd)}
+                  Spend {formatCurrency(selected.lifetimeSpendCad)}
                 </span>
               </div>
             </div>

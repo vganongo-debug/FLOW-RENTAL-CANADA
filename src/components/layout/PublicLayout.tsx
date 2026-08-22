@@ -87,10 +87,10 @@ export function PublicLayout() {
           <div>
             <FlowWordmark size="md" variant="dark" tagline />
             <p className="text-xs text-g60 mt-4">
-              {t('brand.subsidiary')} Operating across Brazzaville, Kampala, and Addis Ababa.
+              {t('brand.subsidiary')} Operating across the North Shore, Lower North Shore and Labrador.
             </p>
           </div>
-          <FooterCol title={t('booking.footer.stay')} items={['Brazzaville', 'Kampala', 'Addis Ababa']} />
+          <FooterCol title={t('booking.footer.stay')} items={['Blanc-Sablon', 'Natashquan', 'Saint-Augustin']} />
           <FooterCol title={t('booking.footer.drive')} items={['Airport pickup', 'City rentals', 'Long term', 'Fleet partners']} />
           <FooterCol title={t('booking.footer.company')} items={['Flow Rewards', 'Careers', 'Press', 'Contact']} />
         </div>

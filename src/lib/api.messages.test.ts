@@ -16,9 +16,9 @@ describe('messages.listConversations · scoping', () => {
     expect(cs.map((c) => c.id).sort()).toEqual(['c-1', 'c-6'])
   })
 
-  it('Partner (Mercantile) only sees their own threads', async () => {
-    const cs = await messages.listConversations({ participantId: 'fp-mercantile' })
-    expect(cs.every((c) => c.participantIds.includes('fp-mercantile'))).toBe(true)
+  it('Partner (Nord-Côtier) only sees their own threads', async () => {
+    const cs = await messages.listConversations({ participantId: 'fp-nordcotier' })
+    expect(cs.every((c) => c.participantIds.includes('fp-nordcotier'))).toBe(true)
     expect(cs.map((c) => c.id)).toEqual(['c-2'])
   })
 
@@ -143,7 +143,7 @@ describe('documents.upload + listForParticipant', () => {
 
   it('listForParticipant surfaces attachments across visible threads', async () => {
     const docs = await documents.listForParticipant('u-3')
-    // u-3 (Aisha) sees c-2 (Mercantile reconciliation PDF) and c-7 (service report)
+    // u-3 (Aisha) sees c-2 (Nord-Côtier reconciliation PDF) and c-7 (service report)
     expect(docs.length).toBeGreaterThanOrEqual(2)
     expect(docs.every((d) => d.conversationTitle.length > 0)).toBe(true)
   })

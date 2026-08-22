@@ -14,8 +14,8 @@ export function useCurrencyFormatter() {
   const { currency, language } = useLocale()
   const locale = language === 'FR' ? 'fr-FR' : 'en-US'
   return useCallback(
-    (amountUsd: number, overrideCurrency?: Currency) =>
-      formatCurrency(amountUsd, overrideCurrency ?? currency, locale),
+    (amountCad: number, overrideCurrency?: Currency) =>
+      formatCurrency(amountCad, overrideCurrency ?? currency, locale),
     [currency, locale]
   )
 }

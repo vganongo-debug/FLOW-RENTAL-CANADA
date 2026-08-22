@@ -89,7 +89,7 @@ export default function MemberDetail() {
         <FlowKPICard label="Points balance" value={m.points.toLocaleString()} accent="copper" icon={<Star className="h-4 w-4" />} />
         <FlowKPICard label="Lifetime earned" value={m.lifetimeEarned.toLocaleString()} hint="All-time accumulation" accent="teal" />
         <FlowKPICard label="Lifetime burned" value={m.lifetimeBurned.toLocaleString()} hint="All-time redemptions" />
-        <FlowKPICard label="Tier" value={m.tier} hint={`YTD spend ${formatCurrency(m.qualifyingActivityYtd.spendUsd)}`} accent="ink" />
+        <FlowKPICard label="Tier" value={m.tier} hint={`YTD spend ${formatCurrency(m.qualifyingActivityYtd.spendCad)}`} accent="ink" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -102,7 +102,7 @@ export default function MemberDetail() {
             <Detail label="Last activity" value={formatDate(m.lastActivity)} />
             <Detail label="YTD stays" value={String(m.qualifyingActivityYtd.stays)} />
             <Detail label="YTD rentals" value={String(m.qualifyingActivityYtd.rentals)} />
-            <Detail label="YTD spend" value={formatCurrency(m.qualifyingActivityYtd.spendUsd)} />
+            <Detail label="YTD spend" value={formatCurrency(m.qualifyingActivityYtd.spendCad)} />
             <Detail label="Status"
               value={m.frozen
                 ? <FlowStatusBadge tone="cancelled" dot>Frozen</FlowStatusBadge>

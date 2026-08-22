@@ -27,7 +27,7 @@ const STATUS_TONE = {
 } as const
 
 const PAYOUTS: PayoutRow[] = FLEET_PARTNERS.map((p, i) => {
-  const gross = Math.round(p.weeklyPayoutUsd / (1 - p.commissionPct / 100))
+  const gross = Math.round(p.weeklyPayoutCad / (1 - p.commissionPct / 100))
   return {
     id: `PAY-W18-${(101 + i).toString()}`,
     partner: p.name,
@@ -35,7 +35,7 @@ const PAYOUTS: PayoutRow[] = FLEET_PARTNERS.map((p, i) => {
     vehicles: p.vehiclesActiveOnFlow,
     gross,
     commissionPct: p.commissionPct,
-    net: p.weeklyPayoutUsd,
+    net: p.weeklyPayoutCad,
     method: i % 2 === 0 ? 'bank' : 'momo',
     account: i % 2 === 0 ? `Stanbic UG ··· ${(8000 + i*10).toString()}` : `+256 778 ··· ${(880 + i).toString()}`,
     status: 'pending',

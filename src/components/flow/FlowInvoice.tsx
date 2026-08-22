@@ -41,7 +41,7 @@ export function FlowInvoice({
       <div className="bg-teal text-white px-6 py-5 flex items-start justify-between">
         <div>
           <div className="font-display text-2xl">Flow Rentals Global Inc.</div>
-          <div className="text-xs opacity-80 mt-1">Operating across Africa · subsidiary of VBMS Holdings Inc.</div>
+          <div className="text-xs opacity-80 mt-1">Operating across Quebec and Labrador · subsidiary of VBMS Holdings Inc.</div>
         </div>
         <div className="text-right">
           <div className="label-caps opacity-80">Invoice</div>

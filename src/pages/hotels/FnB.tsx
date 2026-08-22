@@ -20,7 +20,7 @@ interface Table {
 interface OrderItem {
   id: string
   table: number
-  items: { qty: number; label: string; priceUsd: number }[]
+  items: { qty: number; label: string; priceCad: number }[]
   course: 'starter' | 'main' | 'dessert' | 'drinks'
   ageMin: number
   state: 'fired' | 'plating' | 'ready'
@@ -58,11 +58,11 @@ const TABLES: Table[] = [
 ]
 
 const ORDERS: OrderItem[] = [
-  { id:'o-1', table: 3,  course: 'starter',  ageMin: 4,  state: 'plating', items: [{ qty:2, label:'Goat-cheese tart', priceUsd: 7 }, { qty:1, label:'Beef tartare', priceUsd: 9 }] },
-  { id:'o-2', table: 1,  course: 'main',     ageMin: 12, state: 'ready',   items: [{ qty:1, label:'Pan-seared Nile perch', priceUsd: 18 }, { qty:1, label:'Matoke & groundnut stew', priceUsd: 14 }] },
-  { id:'o-3', table: 5,  course: 'dessert',  ageMin: 2,  state: 'fired',   items: [{ qty:2, label:'Vanilla parfait', priceUsd: 6 }] },
-  { id:'o-4', table: 12, course: 'drinks',   ageMin: 1,  state: 'fired',   items: [{ qty:3, label:'Tusker lager (500ml)', priceUsd: 4 }, { qty:1, label:'Sparkling water', priceUsd: 3 }] },
-  { id:'o-5', table: 8,  course: 'main',     ageMin: 18, state: 'ready',   items: [{ qty:2, label:'Tilapia thali', priceUsd: 15 }] },
+  { id:'o-1', table: 3,  course: 'starter',  ageMin: 4,  state: 'plating', items: [{ qty:2, label:'Goat-cheese tart', priceCad: 7 }, { qty:1, label:'Beef tartare', priceCad: 9 }] },
+  { id:'o-2', table: 1,  course: 'main',     ageMin: 12, state: 'ready',   items: [{ qty:1, label:'Pan-seared Nile perch', priceCad: 18 }, { qty:1, label:'Matoke & groundnut stew', priceCad: 14 }] },
+  { id:'o-3', table: 5,  course: 'dessert',  ageMin: 2,  state: 'fired',   items: [{ qty:2, label:'Vanilla parfait', priceCad: 6 }] },
+  { id:'o-4', table: 12, course: 'drinks',   ageMin: 1,  state: 'fired',   items: [{ qty:3, label:'Tusker lager (500ml)', priceCad: 4 }, { qty:1, label:'Sparkling water', priceCad: 3 }] },
+  { id:'o-5', table: 8,  course: 'main',     ageMin: 18, state: 'ready',   items: [{ qty:2, label:'Tilapia thali', priceCad: 15 }] },
 ]
 
 const MENU = [
@@ -200,7 +200,7 @@ export default function FnB() {
                   {o.items.map((i, idx) => (
                     <li key={idx} className="flex justify-between text-ink dark:text-ivory">
                       <span><span className="text-g40">{i.qty}×</span> {i.label}</span>
-                      <span className="text-g40">{formatCurrency(i.qty * i.priceUsd)}</span>
+                      <span className="text-g40">{formatCurrency(i.qty * i.priceCad)}</span>
                     </li>
                   ))}
                 </ul>

@@ -125,7 +125,7 @@ interface FlowLinkifyProps {
  * Renders a string with every detected entity ID converted into a clickable
  * <FlowRef>. Plain text segments stay untouched.
  *
- *   <FlowLinkify text="Confirmed RES-2026001 for m-1 at p-kla" />
+ *   <FlowLinkify text="Confirmed RES-2026001 for m-1 at p-yna" />
  */
 export function FlowLinkify({ text, variant = 'inline', className }: FlowLinkifyProps) {
   const segments: LinkifySegment[] = linkify(text)

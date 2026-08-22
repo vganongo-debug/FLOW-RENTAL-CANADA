@@ -40,7 +40,7 @@ export const fr = {
     emptyHint: 'Ajustez vos filtres ou revenez plus tard.',
   },
   brand: {
-    tagline: 'Séjournez. Conduisez. Afrique.',
+    tagline: 'Pour le confort de votre voyage.',
     subsidiary: 'Flow Rentals Global Inc. est une filiale de VBMS Holdings Inc.',
   },
   status: {
@@ -128,7 +128,7 @@ export const fr = {
     title: 'Connexion à Flow OS',
     subtitle: 'Choisissez un rôle de démonstration pour entrer dans l\'expérience adaptée.',
     continueAs: 'Continuer en tant que {{role}}',
-    pitch: 'Un seul système d\'exploitation pour l\'expérience hôtelière et de location intégrée à travers l\'Afrique.',
+    pitch: "Un seul système d'exploitation pour l'hébergement, la mobilité et les services sur la Côte-Nord et au Labrador.",
     marketsLive: 'Marchés actifs',
     rooms: 'Chambres',
     vehicles: 'Véhicules sur la plateforme',
@@ -139,6 +139,8 @@ export const fr = {
     sections: {
       global: 'Global',
       country: 'Pays',
+      pods: 'Pods',
+      vending: 'Distributrices',
       hotels: 'Hôtels',
       fleet: 'Flotte',
       partner: 'Partenaire',
@@ -175,6 +177,9 @@ export const fr = {
       rewards: 'Flow Rewards',
       inventory: 'Inventaire',
       locations: 'Emplacements',
+      podsOverview: 'Pods d\'isolement',
+      vendingMachines: 'Machines',
+      vendingRestock: 'Réassort',
       rewardsMembers: 'Membres',
       rewardsDisputes: 'Réclamations',
       rewardsPartnerships: 'Partenariats',
@@ -186,7 +191,7 @@ export const fr = {
   booking: {
     hero: {
       lead: 'Une seule réservation. Un seul compte. Un seul solde Flow Rewards.',
-      copy: 'De la porte de l\'aéroport à la suite hôtelière — à Brazzaville, Kampala, Addis-Abeba et au-delà.',
+      copy: 'De la porte de l\'aéroport à votre chambre — à Blanc-Sablon, Natashquan, Saint-Augustin et sur toute la Côte-Nord.',
       stay: 'Séjour',
       drive: 'Conduite',
       destination: 'Destination',
@@ -200,17 +205,17 @@ export const fr = {
     },
     why: {
       title: 'Pourquoi Flow ?',
-      subtitle: 'Conçu pour les voyages d\'affaires en Afrique. Une plateforme. Chaque étape.',
+      subtitle: 'Conçu pour les déplacements sur la Côte-Nord et au Labrador. Une plateforme. Chaque étape.',
       a: 'Séjour et conduite en une réservation',
       aBody: 'Réservez votre chambre et votre véhicule d\'aéroport en une seule confirmation. Une seule facture, un seul compte.',
       b: 'Payez comme vous vivez',
-      bBody: 'Visa, Mastercard, MTN MoMo, Airtel Money, M-Pesa, BGFI — votre moyen, votre devise.',
-      c: 'Gagnez d\'un pays à l\'autre',
-      cBody: 'Cumulez des points Flow Rewards à Kampala. Utilisez-les à Brazzaville. Une fidélité pensée pour le continent.',
+      bBody: 'Visa, Mastercard, Interac, Apple Pay, Google Pay — votre moyen, facturé en dollars canadiens.',
+      c: 'Cumulez d\'une station à l\'autre',
+      cBody: 'Cumulez des points Flow Rewards à Sept-Îles. Utilisez-les à Blanc-Sablon. Un seul solde sur tout le réseau.',
     },
     markets: {
       title: 'Présent dans',
-      subtitle: 'Trois marchés actifs · expansion vers Lagos, Nairobi, Dakar en 2026',
+      subtitle: 'Trois stations en service · expansion vers Sept-Îles, Havre-Saint-Pierre et le Labrador en 2027',
     },
     publicNav: {
       stays: 'Séjours',

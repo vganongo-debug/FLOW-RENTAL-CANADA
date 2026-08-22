@@ -4,10 +4,11 @@ import { Globe, Download, FileText, Plus } from 'lucide-react'
 import { cn, formatCurrency } from '../../lib/utils'
 import { FlowKPICard } from '../../components/flow/FlowKPICard'
 
-import { AFRICA, MARKET_STATUS } from '../../lib/africa'
+import { PROVINCES, MARKET_STATUS } from '../../lib/canada'
 
-// Show live and pilot markets in the picker; operators can extend by adding entries to MARKET_STATUS.
-const COUNTRY_CODES = Object.keys(MARKET_STATUS) as string[]
+// Provinces where Flow already trades; the rest of the catalogue follows below.
+const OPERATING_CODES = ['QC', 'NL']
+void MARKET_STATUS
 
 const TAX_BY_MONTH = (rate: number) => Array.from({ length: 6 }, (_, i) => {
   const base = 80_000 + i * 12_000 + Math.round(Math.sin(i) * 8000)
@@ -27,13 +28,13 @@ const CHART_OF_ACCOUNTS = [
   { code: '6000', name: 'Salaries & wages',      type: 'Expense', mtd:  68_220 },
   { code: '6100', name: 'Utilities',             type: 'Expense', mtd:  18_440 },
   { code: '6200', name: 'Partner commissions',   type: 'Expense', mtd:  19_840 },
-  { code: '2200', name: 'Output VAT payable',    type: 'Liability', mtd: 64_420 },
+  { code: '2200', name: 'Sales tax payable',     type: 'Liability', mtd: 64_420 },
   { code: '1200', name: 'Accounts receivable',   type: 'Asset',   mtd:  27_320 },
 ]
 
 export default function Accounting() {
-  const [country, setCountry] = useState<string>('UG')
-  const c = AFRICA.find((x) => x.code === country) ?? AFRICA.find((x) => x.code === 'UG')!
+  const [country, setCountry] = useState<string>('QC')
+  const c = PROVINCES.find((x) => x.code === country) ?? PROVINCES.find((x) => x.code === 'QC')!
   const monthly = TAX_BY_MONTH(c.taxRate)
   const totalTaxable = monthly.reduce((s, m) => s + m.taxable, 0)
   const totalTax = monthly.reduce((s, m) => s + m.tax, 0)
@@ -44,7 +45,7 @@ export default function Accounting() {
         <div>
           <div className="label-caps text-g40">Flow Pay · Accounting & Tax</div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">Accounting & Tax</h1>
-          <p className="text-sm text-g40 dark:text-g60 mt-1">Per-country tax rules · chart of accounts · authority-ready exports</p>
+          <p className="text-sm text-g40 dark:text-g60 mt-1">Per-province tax rules · chart of accounts · authority-ready exports</p>
         </div>
         <div className="inline-flex items-center gap-2 px-3 py-2 rounded-input border border-g20/60 bg-white dark:bg-panel-mid text-sm">
           <Globe className="h-4 w-4 text-g40" />
@@ -53,16 +54,16 @@ export default function Accounting() {
             onChange={(e) => setCountry(e.target.value)}
             className="bg-transparent focus:outline-none text-ink dark:text-ivory"
           >
-            <optgroup label="Operating markets">
-              {COUNTRY_CODES.map((code) => {
-                const c = AFRICA.find((x) => x.code === code)
-                if (!c) return null
-                return <option key={code} value={code}>{c.flag} {c.name}</option>
+            <optgroup label="Operating provinces">
+              {OPERATING_CODES.map((code) => {
+                const p = PROVINCES.find((x) => x.code === code)
+                if (!p) return null
+                return <option key={code} value={code}>{p.code} · {p.name}</option>
               })}
             </optgroup>
-            <optgroup label="All African countries">
-              {AFRICA.filter((x) => !COUNTRY_CODES.includes(x.code)).map((c) => (
-                <option key={c.code} value={c.code}>{c.flag} {c.name}</option>
+            <optgroup label="All provinces & territories">
+              {PROVINCES.filter((x) => !OPERATING_CODES.includes(x.code)).map((p) => (
+                <option key={p.code} value={p.code}>{p.code} · {p.name}</option>
               ))}
             </optgroup>
           </select>
@@ -74,7 +75,7 @@ export default function Accounting() {
         <div className="p-5 flex items-center justify-between flex-wrap gap-4">
           <div>
             <div className="label-caps text-copper-light">Tax rule · {c.name}</div>
-            <h2 className="font-display text-3xl mt-1">{c.flag} {c.taxName} <span className="text-copper">{c.taxRate}%</span></h2>
+            <h2 className="font-display text-3xl mt-1">{c.taxName} <span className="text-copper">{c.taxRate}%</span></h2>
             <p className="text-sm text-g80 mt-1">Filed monthly with <span className="font-medium text-ivory">{c.authority}</span> · {c.exportFormat} · {c.primaryCurrency}</p>
           </div>
           <div className="grid grid-cols-2 gap-2 text-center">

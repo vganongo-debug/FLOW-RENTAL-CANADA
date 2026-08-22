@@ -43,6 +43,13 @@ const Inventory = lazy(() => import('./pages/hotels/Inventory'))
 // Country
 const CountryLocations = lazy(() => import('./pages/country/Locations'))
 
+// Pods (isolement)
+const Pods = lazy(() => import('./pages/pods/Pods'))
+
+// Vending (distributrices)
+const VendingMachines = lazy(() => import('./pages/vending/Machines'))
+const VendingRestock = lazy(() => import('./pages/vending/Restock'))
+
 // Fleet
 const FleetDashboard = lazy(() => import('./pages/fleet/Dashboard'))
 const PartnerPortal = lazy(() => import('./pages/fleet/PartnerPortal'))
@@ -154,6 +161,11 @@ export default function App() {
           <Route path="/hotels/inventory" element={<Inventory />} />
 
           <Route path="/country/locations" element={<CountryLocations />} />
+
+          <Route path="/pods" element={<Pods />} />
+
+          <Route path="/vending/machines" element={<VendingMachines />} />
+          <Route path="/vending/restock" element={<VendingRestock />} />
 
           <Route path="/fleet/dashboard" element={<FleetDashboard />} />
           <Route path="/fleet/partner-portal" element={<PartnerPortal />} />

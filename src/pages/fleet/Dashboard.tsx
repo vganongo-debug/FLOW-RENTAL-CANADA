@@ -31,8 +31,8 @@ const columns: Column<RentalBooking>[] = [
   { key: 'pickupLocation', header: 'Pick-up' },
   { key: 'startDate', header: 'Start', render: (r) => formatDate(r.startDate) },
   { key: 'days', header: 'Days', align: 'right' },
-  { key: 'totalUsd', header: 'Total', align: 'right',
-    render: (r) => <span className="text-copper font-display font-bold">{formatCurrency(r.totalUsd)}</span> },
+  { key: 'totalCad', header: 'Total', align: 'right',
+    render: (r) => <span className="text-copper font-display font-bold">{formatCurrency(r.totalCad)}</span> },
   { key: 'owner', header: 'Owner', render: (r) => (
     <FlowStatusBadge tone={r.owner === 'flow' ? 'info' : 'warning'} dot>
       {r.owner === 'flow' ? 'Flow' : `Partner · ${r.partnerName?.split(' ')[0]}`}

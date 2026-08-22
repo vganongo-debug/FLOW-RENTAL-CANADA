@@ -115,7 +115,7 @@ export default function Results() {
                     <div className="mt-auto flex items-end justify-between gap-3">
                       <div>
                         <div className="text-xs text-g40">From</div>
-                        <div className="font-display font-bold text-2xl text-copper">{formatCurrency(h.rateUsd)}<span className="text-sm font-normal text-g40"> / night</span></div>
+                        <div className="font-display font-bold text-2xl text-copper">{formatCurrency(h.rateCad)}<span className="text-sm font-normal text-g40"> / night</span></div>
                       </div>
                       <Link to="/booking/results" className="px-4 py-2 rounded-input bg-teal text-white hover:bg-teal-dark text-sm font-medium">
                         Book now
@@ -145,7 +145,7 @@ export default function Results() {
                     <div className="mt-auto flex items-end justify-between gap-3">
                       <div>
                         <div className="text-xs text-g40">From</div>
-                        <div className="font-display font-bold text-2xl text-copper">{formatCurrency(c.rateUsd)}<span className="text-sm font-normal text-g40"> / day</span></div>
+                        <div className="font-display font-bold text-2xl text-copper">{formatCurrency(c.rateCad)}<span className="text-sm font-normal text-g40"> / day</span></div>
                       </div>
                       <Link to="/booking/results" className="px-4 py-2 rounded-input bg-teal text-white hover:bg-teal-dark text-sm font-medium">
                         Reserve

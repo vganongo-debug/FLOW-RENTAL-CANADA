@@ -8,9 +8,9 @@ import { FlowKPICard } from '../../components/flow/FlowKPICard'
 import { FlowMapView } from '../../components/flow/FlowMapView'
 import { useApi } from '../../lib/useApi'
 import { properties, type PropertyCreateInput } from '../../lib/api'
-import { AFRICA, MARKET_STATUS } from '../../lib/africa'
+import { PROVINCES, MARKET_STATUS } from '../../lib/canada'
 import { VEHICLES } from '../../lib/sampleData'
-import type { Property, PropertyType } from '../../lib/types'
+import type { CountryCode, Property, PropertyType } from '../../lib/types'
 
 const TYPE_LABEL: Record<PropertyType, string> = {
   hotel: 'Hotel',
@@ -68,7 +68,7 @@ export default function Properties() {
         <div>
           <div className="label-caps text-g40">SuperAdmin · Network</div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">Properties</h1>
-          <p className="text-sm text-g40 dark:text-g60 mt-1">All Flow hotels and car rental agencies across Africa</p>
+          <p className="text-sm text-g40 dark:text-g60 mt-1">All Flow stations and rental desks across the network</p>
         </div>
         <button
           onClick={() => setWizardOpen(true)}
@@ -96,15 +96,15 @@ export default function Properties() {
         <section className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid p-5 shadow-card">
           <header className="mb-3">
             <h3 className="font-display text-lg text-ink dark:text-ivory">Market status</h3>
-            <p className="text-xs text-g40">Pipeline by country</p>
+            <p className="text-xs text-g40">Pipeline by province</p>
           </header>
           <ul className="space-y-1.5 max-h-[260px] overflow-y-auto flow-scroll text-sm">
             {Object.entries(MARKET_STATUS).map(([code, status]) => {
-              const c = AFRICA.find((x) => x.code === code)
+              const c = PROVINCES.find((x) => x.code === code)
               if (!c) return null
               return (
                 <li key={code} className="flex items-center justify-between">
-                  <span className="text-ink dark:text-ivory">{c.flag} {c.name}</span>
+                  <span className="text-ink dark:text-ivory">{c.code} · {c.name}</span>
                   <FlowStatusBadge tone={status === 'live' ? 'active' : status === 'pilot' ? 'info' : status === 'prospect' ? 'pending' : 'neutral'}>
                     {status}
                   </FlowStatusBadge>
@@ -142,14 +142,14 @@ export default function Properties() {
           </select>
         </div>
         <div>
-          <label className="label-caps text-g40 block mb-1">Country</label>
+          <label className="label-caps text-g40 block mb-1">Province</label>
           <select
             value={countryFilter}
             onChange={(e) => setCountryFilter(e.target.value)}
             className="px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory"
           >
-            <option value="all">All countries</option>
-            {AFRICA.map((c) => <option key={c.code} value={c.code}>{c.flag} {c.name}</option>)}
+            <option value="all">All provinces</option>
+            {PROVINCES.map((c) => <option key={c.code} value={c.code}>{c.code} · {c.name}</option>)}
           </select>
         </div>
         <div className="ml-auto label-caps text-g40">{rows.length} of {data?.length ?? 0}</div>
@@ -161,7 +161,7 @@ export default function Properties() {
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {rows.map((p) => {
             const Icon = TYPE_ICON[p.type]
-            const country = AFRICA.find((c) => c.code === p.countryCode)
+            const country = PROVINCES.find((c) => c.code === p.countryCode)
             return (
               <li key={p.id} className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid shadow-card overflow-hidden hover:border-teal/60 transition-colors">
                 <Link to={`/admin/properties/${p.id}`} className="block">
@@ -172,7 +172,7 @@ export default function Properties() {
                   )}>
                     <Icon className="h-12 w-12 text-copper opacity-80" aria-hidden="true" />
                     <span className="absolute top-2 left-2 px-2 py-0.5 rounded-badge bg-white/90 text-ink text-[10px] label-caps">
-                      {country?.flag} {country?.name}
+                      {country?.code} · {country?.name}
                     </span>
                     <span className="absolute top-2 right-2">
                       <FlowStatusBadge tone={p.status === 'live' ? 'active' : p.status === 'opening' ? 'pending' : 'info'} dot>
@@ -194,7 +194,7 @@ export default function Properties() {
                   <div className="flex items-center justify-between border-t border-g20/40 pt-3">
                     <div>
                       <div className="label-caps text-g40">MTD</div>
-                      <div className="font-display font-bold text-copper">{formatCurrency(p.monthlyRevenueUsd)}</div>
+                      <div className="font-display font-bold text-copper">{formatCurrency(p.monthlyRevenueCad)}</div>
                     </div>
                     <div className="flex gap-1">
                       <button
@@ -244,10 +244,14 @@ export default function Properties() {
   )
 }
 
+type DraftProperty = Omit<PropertyCreateInput, 'countryCode'> & { countryCode: CountryCode | '' }
+
 function AddPropertyWizard({ onClose, onCreated }: { onClose: () => void; onCreated: (p: Property) => void }) {
   const [step, setStep] = useState(0)
   const [submitting, setSubmitting] = useState(false)
-  const [form, setForm] = useState<PropertyCreateInput>({
+  // La province reste vide tant que l'utilisateur n'a pas choisi — l'étape 1
+  // ne peut pas être validée sans elle, donc la création reçoit toujours un code.
+  const [form, setForm] = useState<DraftProperty>({
     name: '',
     type: 'hotel',
     city: '',
@@ -259,7 +263,7 @@ function AddPropertyWizard({ onClose, onCreated }: { onClose: () => void; onCrea
   const STEPS = ['Type', 'Location', 'Configuration', 'Contact', 'Review']
 
   const onCountry = (code: string) => {
-    const c = AFRICA.find((x) => x.code === code)
+    const c = PROVINCES.find((x) => x.code === code)
     if (c) setForm({ ...form, countryCode: c.code, country: c.name, city: form.city || c.capital })
   }
 
@@ -271,9 +275,11 @@ function AddPropertyWizard({ onClose, onCreated }: { onClose: () => void; onCrea
     true
 
   const submit = async () => {
+    if (!form.countryCode) return
     setSubmitting(true)
     const created = await properties.create({
       ...form,
+      countryCode: form.countryCode,
       name: form.name || `Flow ${form.type === 'car_rental' ? 'Rentals' : 'Hotels'} ${form.city}`,
     })
     setSubmitting(false)
@@ -340,19 +346,19 @@ function AddPropertyWizard({ onClose, onCreated }: { onClose: () => void; onCrea
 
             {step === 1 && (
               <div className="space-y-3">
-                <Field label="Country">
+                <Field label="Province">
                   <select
                     value={form.countryCode}
                     onChange={(e) => onCountry(e.target.value)}
                     className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory"
                   >
-                    <option value="">— Choose an African country —</option>
-                    {AFRICA.map((c) => <option key={c.code} value={c.code}>{c.flag} {c.name}</option>)}
+                    <option value="">— Choose a province or territory —</option>
+                    {PROVINCES.map((c) => <option key={c.code} value={c.code}>{c.code} · {c.name}</option>)}
                   </select>
                 </Field>
                 <div className="grid sm:grid-cols-2 gap-3">
                   <Field label="City">
-                    <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" placeholder="e.g. Kampala" />
+                    <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" placeholder="ex. Sept-Îles" />
                   </Field>
                   <Field label="Address (optional)">
                     <input value={form.address ?? ''} onChange={(e) => setForm({ ...form, address: e.target.value })} className="w-full px-3 py-2 text-sm bg-ivory dark:bg-panel border border-g20/60 rounded-input text-ink dark:text-ivory" placeholder="Street, district" />

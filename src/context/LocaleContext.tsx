@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState, ReactNode } from 'react'
 import i18n from '../i18n'
 import { useAuth } from './AuthContext'
-import { AFRICA, countryByCode } from '../lib/africa'
+import { provinceByCode } from '../lib/canada'
 import type { Currency, Language } from '../lib/types'
 
 interface LocaleCtx {
   language: Language
   currency: Currency
-  /** ISO-2 of the country whose local currency should be surfaced. */
+  /** Province ou territoire dont le contexte fiscal est mis en avant. */
   focusCountry: string | null
   setLanguage: (l: Language) => void
   setCurrency: (c: Currency) => void
@@ -19,13 +19,25 @@ const KEY_LANG = 'flow-os.lang'
 const KEY_CCY = 'flow-os.ccy'
 const KEY_FOCUS = 'flow-os.focus-country'
 
+const SUPPORTED_CURRENCIES: Currency[] = ['CAD', 'USD', 'EUR']
+
+/**
+ * Lit la devise stockée, en ignorant toute valeur devenue invalide.
+ * Le réseau étant passé d'Afrique au Canada, un navigateur peut encore
+ * détenir un code comme UGX : sans ce garde-fou, la table FX renverrait
+ * undefined et tous les montants s'afficheraient en NaN.
+ */
+function readStoredCurrency(): Currency {
+  if (typeof window === 'undefined') return 'CAD'
+  const stored = window.localStorage.getItem(KEY_CCY) as Currency | null
+  return stored && SUPPORTED_CURRENCIES.includes(stored) ? stored : 'CAD'
+}
+
 export function LocaleProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() =>
     (typeof window !== 'undefined' && (window.localStorage.getItem(KEY_LANG) as Language)) || 'EN'
   )
-  const [currency, setCurrency] = useState<Currency>(() =>
-    (typeof window !== 'undefined' && (window.localStorage.getItem(KEY_CCY) as Currency)) || 'USD'
-  )
+  const [currency, setCurrency] = useState<Currency>(() => readStoredCurrency())
   const [focusCountry, setFocusCountry] = useState<string | null>(() =>
     (typeof window !== 'undefined' && window.localStorage.getItem(KEY_FOCUS)) || null
   )
@@ -75,7 +87,7 @@ function AutoFocusCountry() {
     }
     if (!focusCountry) {
       const code = auth.user?.countryCode
-      if (code && countryByCode(code)) setFocusCountry(code)
+      if (code && provinceByCode(code)) setFocusCountry(code)
     }
     if (typeof window !== 'undefined') {
       window.localStorage.setItem('flow-os.focus-country.initialised', '1')
@@ -98,12 +110,12 @@ export function useLocale() {
 }
 
 /**
- * Returns the currency code currently linked to the focused country, or
- * null when no country is focused. Used by FlowCurrencySelector.
+ * Devise rattachée à la province en focus. Le réseau étant entièrement
+ * canadien, c'est toujours CAD — la fonction est conservée pour que
+ * FlowCurrencySelector reste agnostique du nombre de devises locales.
  */
 export function useFocusCurrency(): Currency | null {
   const { focusCountry } = useLocale()
   if (!focusCountry) return null
-  const c = AFRICA.find((x) => x.code === focusCountry)
-  return (c?.primaryCurrency as Currency) ?? null
+  return (provinceByCode(focusCountry)?.primaryCurrency as Currency) ?? null
 }

@@ -91,22 +91,19 @@ function CompanySection() {
         <div className="grid md:grid-cols-2 gap-3">
           <Field label="Legal entity" defaultValue="Flow Rentals Global Inc." />
           <Field label="Parent company" defaultValue="VBMS Holdings Inc." />
-          <Field label="Registered address" defaultValue="Avenue Patrice Lumumba · Plateau · Brazzaville · Congo" />
-          <Field label="Business number" defaultValue="CG-FRG-2024-0001" />
-          <Field label="Operating regions" defaultValue="Congo · Uganda · Ethiopia · (pipeline) Kenya · Rwanda · Senegal · Nigeria" />
-          <Field label="Brand tagline" defaultValue="Stay. Drive. Africa." />
+          <Field label="Registered address" defaultValue="Route 138 · Lourdes-de-Blanc-Sablon · Québec · Canada" />
+          <Field label="Business number" defaultValue="NEQ 1179442812" />
+          <Field label="Operating regions" defaultValue="Basse-Côte-Nord · Côte-Nord · (phase 2) Labrador" />
+          <Field label="Brand tagline" defaultValue="Comfort for your journey." />
         </div>
       </Card>
       <Card title="Subsidiaries & legal entities">
         <ul className="divide-y divide-g20/40">
           {[
-            { name: 'Flow Rentals Uganda Ltd',      country: 'Uganda',    id: 'UG-2024-44182', role: 'Operating' },
-            { name: 'Flow Rentals Congo SARL',      country: 'Congo',     id: 'CG-2024-0982',  role: 'Operating' },
-            { name: 'Flow Rentals Ethiopia plc',    country: 'Ethiopia',  id: 'ET-2024-12091', role: 'Operating' },
-            { name: 'Flow Rentals Kenya Ltd',       country: 'Kenya',     id: 'KE-2026-PI-01', role: 'Pilot'     },
-            { name: 'Flow Rentals Senegal SARL',    country: 'Senegal',   id: 'SN-2026-PI-02', role: 'Pilot'     },
-            { name: 'VBMS Tunisia SUARL',           country: 'Tunisia',   id: 'TN-1287442-A',  role: 'Supply chain' },
-            { name: 'VBMS Holdings Inc.',           country: 'Parent · ex-Africa', id: 'CA 5544-6912', role: 'Holding' },
+            { name: 'Flow Rentals Quebec inc.',     country: 'Quebec',   id: 'QC-1179442-8',  role: 'Operating' },
+            { name: 'Flow Rentals Labrador Ltd.',   country: 'NL',       id: 'NL-2027-PI-01', role: 'Pilot'     },
+            { name: 'VBMS Logistique Montreal inc.', country: 'Quebec',  id: 'QC-1187442-A',  role: 'Supply chain' },
+            { name: 'VBMS Holdings Inc.',           country: 'Parent',   id: 'CA 5544-6912',  role: 'Holding' },
           ].map((e) => (
             <li key={e.id} className="py-3 flex items-center gap-3">
               <Building2 className="h-4 w-4 text-teal shrink-0" />
@@ -126,18 +123,9 @@ function CompanySection() {
 
 function CurrencySection() {
   const FX = [
-    { code: 'USD', name: 'US Dollar (continental)', base: true,  rate: 1.0,   updated: '2026-05-10 12:00 UTC' },
-    { code: 'XAF', name: 'CFA Franc · Central',     base: false, rate: 600,   updated: '2026-05-10 12:00 UTC' },
-    { code: 'XOF', name: 'CFA Franc · West',        base: false, rate: 600,   updated: '2026-05-10 12:00 UTC' },
-    { code: 'UGX', name: 'Ugandan Shilling',        base: false, rate: 3700,  updated: '2026-05-10 12:00 UTC' },
-    { code: 'ETB', name: 'Ethiopian Birr',          base: false, rate: 56,    updated: '2026-05-10 12:00 UTC' },
-    { code: 'KES', name: 'Kenyan Shilling',         base: false, rate: 130,   updated: '2026-05-10 12:00 UTC' },
-    { code: 'RWF', name: 'Rwandan Franc',           base: false, rate: 1350,  updated: '2026-05-10 12:00 UTC' },
-    { code: 'NGN', name: 'Nigerian Naira',          base: false, rate: 1500,  updated: '2026-05-10 12:00 UTC' },
-    { code: 'GHS', name: 'Ghanaian Cedi',           base: false, rate: 12,    updated: '2026-05-10 12:00 UTC' },
-    { code: 'ZAR', name: 'South African Rand',      base: false, rate: 18,    updated: '2026-05-10 12:00 UTC' },
-    { code: 'MAD', name: 'Moroccan Dirham',         base: false, rate: 10,    updated: '2026-05-10 12:00 UTC' },
-    { code: 'EGP', name: 'Egyptian Pound',          base: false, rate: 48,    updated: '2026-05-10 12:00 UTC' },
+    { code: 'CAD', name: 'Canadian Dollar (reference)', base: true,  rate: 1.0,  updated: '2026-05-10 12:00 UTC' },
+    { code: 'USD', name: 'US Dollar',                   base: false, rate: 0.73, updated: '2026-05-10 12:00 UTC' },
+    { code: 'EUR', name: 'Euro',                        base: false, rate: 0.68, updated: '2026-05-10 12:00 UTC' },
   ]
   return (
     <div className="space-y-4">
@@ -177,21 +165,22 @@ function CurrencySection() {
 
 function TaxSection() {
   const rules = [
-    { country: 'Uganda',         tax: 'VAT', rate: 18,   authority: 'URA',     scheme: 'Output VAT collected per booking' },
-    { country: 'Congo',          tax: 'TVA', rate: 18.9, authority: 'DGI',     scheme: 'Output TVA collected per booking' },
-    { country: 'Ethiopia',       tax: 'VAT', rate: 15,   authority: 'MoR',     scheme: 'Output VAT collected per booking' },
-    { country: 'Kenya',          tax: 'VAT', rate: 16,   authority: 'KRA',     scheme: 'Output VAT collected per booking · pilot launch Q3 2026' },
-    { country: 'Rwanda',         tax: 'VAT', rate: 18,   authority: 'RRA',     scheme: 'Pilot launch Q4 2026' },
-    { country: 'Senegal',        tax: 'TVA', rate: 18,   authority: 'DGID',    scheme: 'Pilot launch Q1 2027' },
-    { country: 'Nigeria',        tax: 'VAT', rate: 7.5,  authority: 'FIRS',    scheme: 'Prospect · partnership LOIs in negotiation' },
-    { country: 'South Africa',   tax: 'VAT', rate: 15,   authority: 'SARS',    scheme: 'Prospect · long-term target' },
+    { country: 'Quebec',                tax: 'GST + QST', rate: 14.975, authority: 'CRA + Revenu Quebec', scheme: 'Collected per booking · pilot network live' },
+    { country: 'Newfoundland & Labrador', tax: 'HST',       rate: 15,     authority: 'CRA',                 scheme: 'Phase 2 · Labrador stations Q1 2027' },
+    { country: 'Ontario',                 tax: 'HST',       rate: 13,     authority: 'CRA',                 scheme: 'Phase 3 · roadmap' },
+    { country: 'Nova Scotia',             tax: 'HST',       rate: 14,     authority: 'CRA',                 scheme: 'Phase 3 · roadmap' },
+    { country: 'New Brunswick',           tax: 'HST',       rate: 15,     authority: 'CRA',                 scheme: 'Phase 3 · roadmap' },
+    { country: 'Manitoba',                tax: 'GST + RST', rate: 12,     authority: 'CRA + MB Finance',    scheme: 'Phase 3 · roadmap' },
+    { country: 'British Columbia',        tax: 'GST + PST', rate: 12,     authority: 'CRA + BC Finance',    scheme: 'Phase 3 · roadmap' },
+    { country: 'Nunavut',                 tax: 'GST',       rate: 5,      authority: 'CRA',                 scheme: 'Phase 3 · roadmap' },
+    { country: 'Northwest Territories',   tax: 'GST',       rate: 5,      authority: 'CRA',                 scheme: 'Phase 3 · roadmap' },
   ]
   return (
-    <Card title="Tax configuration · per country">
+    <Card title="Tax configuration · per province">
       <table className="w-full text-sm">
         <thead>
           <tr className="bg-teal text-white">
-            {['Country','Tax','Rate','Authority','Scheme'].map((h) => (
+            {['Province','Tax','Rate','Authority','Scheme'].map((h) => (
               <th key={h} className="label-caps font-semibold px-4 py-2 text-left">{h}</th>
             ))}
           </tr>

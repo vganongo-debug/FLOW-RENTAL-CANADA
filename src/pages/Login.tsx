@@ -43,7 +43,7 @@ export default function Login() {
             <Stat value="90" label={t('login.rooms')} />
             <Stat value="40+" label={t('login.vehicles')} />
           </div>
-          <div className="text-xs text-g60 mt-8">{t('brand.subsidiary')} · Operating across Africa</div>
+          <div className="text-xs text-g60 mt-8">{t('brand.subsidiary')} · Côte-Nord, Basse-Côte-Nord et Labrador</div>
         </div>
       </div>
 

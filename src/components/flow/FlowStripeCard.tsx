@@ -22,7 +22,7 @@ import { useTheme } from '../../context/ThemeContext'
 
 interface Props {
   /** USD amount, displayed in the confirm CTA */
-  amountUsd: number
+  amountCad: number
   /** Disabled while parent is busy */
   disabled?: boolean
   /** Called with the Stripe payment_method id (pm_xxx) on success */
@@ -95,7 +95,7 @@ function StripeElementsBoundary({ children }: { children: React.ReactNode }) {
   )
 }
 
-function CardForm({ amountUsd, disabled, onPaymentMethod, onError }: Props) {
+function CardForm({ amountCad, disabled, onPaymentMethod, onError }: Props) {
   const stripe = useStripe()
   const elements = useElements()
   const { mode } = useTheme()
@@ -191,7 +191,7 @@ function CardForm({ amountUsd, disabled, onPaymentMethod, onError }: Props) {
       {success && (
         <div role="status" className="rounded-input border border-teal/40 bg-teal-light/40 dark:bg-teal-dark/20 p-2.5 text-xs text-ink dark:text-ivory">
           <strong>Tokenized.</strong> Stripe returned payment-method ID <span className="font-mono">{success}</span>.
-          A real backend would now call <code>stripe.paymentIntents.confirm()</code> with this token to settle ${amountUsd}.
+          A real backend would now call <code>stripe.paymentIntents.confirm()</code> with this token to settle ${amountCad}.
         </div>
       )}
 
@@ -208,7 +208,7 @@ function CardForm({ amountUsd, disabled, onPaymentMethod, onError }: Props) {
         ) : success ? (
           'Token issued · ready to confirm on backend'
         ) : (
-          <><Lock className="h-3.5 w-3.5" /> Pay ${amountUsd.toLocaleString()} via Stripe</>
+          <><Lock className="h-3.5 w-3.5" /> Pay ${amountCad.toLocaleString()} via Stripe</>
         )}
       </button>
 

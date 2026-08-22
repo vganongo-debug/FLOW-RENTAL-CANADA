@@ -31,8 +31,8 @@ const vehicleColumns: Column<typeof partnerVehicles[number]>[] = [
       {v.status.replace('_', ' ')}
     </FlowStatusBadge>
   )},
-  { key: 'dailyRateUsd', header: 'Rate / day', align: 'right',
-    render: (v) => <span className="text-copper font-display font-bold">{formatCurrency(v.dailyRateUsd)}</span> },
+  { key: 'dailyRateCad', header: 'Rate / day', align: 'right',
+    render: (v) => <span className="text-copper font-display font-bold">{formatCurrency(v.dailyRateCad)}</span> },
   { key: 'lastServiceDate', header: 'Last service', render: (v) => formatDate(v.lastServiceDate) },
 ]
 
@@ -42,10 +42,10 @@ const bookingColumns: Column<typeof partnerBookings[number]>[] = [
   { key: 'vehicleLabel', header: 'Vehicle' },
   { key: 'startDate', header: 'Start', render: (b) => formatDate(b.startDate) },
   { key: 'days', header: 'Days', align: 'right' },
-  { key: 'totalUsd', header: 'Gross', align: 'right',
-    render: (b) => <span className="text-copper font-display font-bold">{formatCurrency(b.totalUsd)}</span> },
-  { key: 'totalUsd', header: 'Your share', align: 'right',
-    render: (b) => formatCurrency(b.totalUsd * (1 - partner.commissionPct / 100)) },
+  { key: 'totalCad', header: 'Gross', align: 'right',
+    render: (b) => <span className="text-copper font-display font-bold">{formatCurrency(b.totalCad)}</span> },
+  { key: 'totalCad', header: 'Your share', align: 'right',
+    render: (b) => formatCurrency(b.totalCad * (1 - partner.commissionPct / 100)) },
 ]
 
 export default function PartnerPortal() {
@@ -88,7 +88,7 @@ export default function PartnerPortal() {
         />
         <FlowKPICard
           label="Pending payout"
-          value={formatCurrency(partner.pendingPayoutUsd)}
+          value={formatCurrency(partner.pendingPayoutCad)}
           hint="Releases Friday"
           icon={<Wallet className="h-4 w-4" />}
         />
@@ -115,12 +115,12 @@ export default function PartnerPortal() {
         </Card>
         <Card title="This week" subtitle="Net of commission">
           <div className="text-center py-2">
-            <div className="font-display font-bold text-4xl text-copper">{formatCurrency(partner.weeklyPayoutUsd)}</div>
+            <div className="font-display font-bold text-4xl text-copper">{formatCurrency(partner.weeklyPayoutCad)}</div>
             <div className="text-xs text-g40 mt-1">expected payout · Friday transfer</div>
           </div>
           <div className="mt-4 space-y-1.5 text-sm">
-            <Row label="Gross revenue" value={formatCurrency(partner.weeklyPayoutUsd / (1 - partner.commissionPct / 100))} />
-            <Row label="Flow commission" value={`–${formatCurrency(partner.weeklyPayoutUsd / (1 - partner.commissionPct / 100) * partner.commissionPct / 100)}`} />
+            <Row label="Gross revenue" value={formatCurrency(partner.weeklyPayoutCad / (1 - partner.commissionPct / 100))} />
+            <Row label="Flow commission" value={`–${formatCurrency(partner.weeklyPayoutCad / (1 - partner.commissionPct / 100) * partner.commissionPct / 100)}`} />
             <Row label="Bank account" value="Stanbic UG ··· 8420" />
             <Row label="Method" value="Bank transfer" />
           </div>

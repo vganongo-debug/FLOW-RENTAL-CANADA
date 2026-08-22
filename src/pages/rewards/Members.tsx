@@ -167,7 +167,7 @@ export default function Members() {
                 <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <Stat label="YTD stays"   value={String(selected.qualifyingActivityYtd.stays)} />
                   <Stat label="YTD rentals" value={String(selected.qualifyingActivityYtd.rentals)} />
-                  <Stat label="YTD spend"   value={formatCurrency(selected.qualifyingActivityYtd.spendUsd)} />
+                  <Stat label="YTD spend"   value={formatCurrency(selected.qualifyingActivityYtd.spendCad)} />
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <button onClick={() => setAdjOpen(true)} disabled={selected.frozen} className="inline-flex items-center gap-1 px-3 py-2 rounded-input bg-teal text-white text-sm font-medium disabled:opacity-40">

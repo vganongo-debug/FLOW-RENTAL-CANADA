@@ -78,8 +78,8 @@ export default function RentalDetail() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <FlowKPICard label="Days" value={r.days} hint={`${formatDate(r.startDate)} → ${formatDate(r.endDate)}`} accent="teal" />
-        <FlowKPICard label="Daily rate" value={formatCurrency(r.ratePerDayUsd)} hint={r.tier} />
-        <FlowKPICard label="Total" value={formatCurrency(r.totalUsd)} hint={`Owner: ${r.owner}`} />
+        <FlowKPICard label="Daily rate" value={formatCurrency(r.ratePerDayCad)} hint={r.tier} />
+        <FlowKPICard label="Total" value={formatCurrency(r.totalCad)} hint={`Owner: ${r.owner}`} />
         <FlowKPICard label="Pick-up" value={r.pickupLocation} hint={`Return: ${r.returnLocation}`} accent="ink" />
       </div>
 
@@ -108,7 +108,7 @@ export default function RentalDetail() {
             <Detail icon={<Calendar className="h-4 w-4" />} label="Start" value={formatDate(r.startDate)} />
             <Detail icon={<Calendar className="h-4 w-4" />} label="End" value={formatDate(r.endDate)} />
             <Detail label="Days" value={String(r.days)} />
-            <Detail label="Total" value={<span className="text-copper font-bold">{formatCurrency(r.totalUsd)}</span>} />
+            <Detail label="Total" value={<span className="text-copper font-bold">{formatCurrency(r.totalCad)}</span>} />
           </dl>
         </section>
 

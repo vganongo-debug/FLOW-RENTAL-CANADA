@@ -45,7 +45,7 @@ export default function Tiers() {
                   <div className="text-xs opacity-80 mt-1">×{t.pointsMultiplier} points multiplier</div>
                 </div>
                 <div className="p-4 space-y-2 text-sm bg-white dark:bg-panel-mid">
-                  <Row label="Min spend / yr" value={formatCurrency(t.minSpendUsd)} />
+                  <Row label="Min spend / yr" value={formatCurrency(t.minSpendCad)} />
                   <Row label="Min stays / yr" value={String(t.minStays)} />
                   <div>
                     <div className="label-caps text-g40 mt-2 mb-1">Perks</div>
@@ -110,7 +110,7 @@ export default function Tiers() {
 }
 
 function EditTierModal({ tier, staff, onClose, onSaved }: { tier: RewardsTierConfig; staff: string; onClose: () => void; onSaved: () => void }) {
-  const [minSpend, setMinSpend] = useState(tier.minSpendUsd)
+  const [minSpend, setMinSpend] = useState(tier.minSpendCad)
   const [minStays, setMinStays] = useState(tier.minStays)
   const [mult, setMult] = useState(tier.pointsMultiplier)
   const [perks, setPerks] = useState(tier.perks.join('\n'))
@@ -120,7 +120,7 @@ function EditTierModal({ tier, staff, onClose, onSaved }: { tier: RewardsTierCon
     setSubmitting(true)
     try {
       await rewards.updateTier(tier.tier, {
-        minSpendUsd: minSpend,
+        minSpendCad: minSpend,
         minStays,
         pointsMultiplier: mult,
         perks: perks.split('\n').map((p) => p.trim()).filter(Boolean),

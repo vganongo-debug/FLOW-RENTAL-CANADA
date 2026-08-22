@@ -12,9 +12,9 @@ describe('detectKind', () => {
     ['TXN-12345', 'payment'],
     ['pm_1234567890abcdef', 'stripe_pm'],
     ['pi_abcdef1234567', 'stripe_pi'],
-    ['fp-mercantile', 'partner'],
-    ['p-bzv', 'property'],
-    ['p-kla-mercantile', 'property'],
+    ['fp-nordcotier', 'partner'],
+    ['p-ybx', 'property'],
+    ['p-yzv-nc', 'property'],
     ['v-001', 'vehicle'],
     ['u-1', 'staff'],
     ['m-1', 'member'],
@@ -48,16 +48,16 @@ describe('resolveRef', () => {
   })
 
   it('resolves a property to its city + name', () => {
-    const ref = resolveRef('p-bzv')
+    const ref = resolveRef('p-ybx')
     expect(ref?.kind).toBe('property')
-    expect(ref?.href).toBe('/admin/properties/p-bzv')
-    expect(ref?.label).toMatch(/Brazzaville/)
+    expect(ref?.href).toBe('/admin/properties/p-ybx')
+    expect(ref?.label).toMatch(/Blanc-Sablon/)
   })
 
   it('resolves a partner with vehicle count in the hint', () => {
-    const ref = resolveRef('fp-mercantile')
+    const ref = resolveRef('fp-nordcotier')
     expect(ref?.kind).toBe('partner')
-    expect(ref?.label).toBe('Mercantile Car Rentals')
+    expect(ref?.label).toBe('Nord-Côtier Location')
     expect(ref?.hint).toMatch(/vehicles/)
   })
 
@@ -77,7 +77,7 @@ describe('resolveRef', () => {
   it('reads through localStorage so mutations are reflected', () => {
     window.localStorage.setItem('flow-os.properties', JSON.stringify([
       { id: 'p-test', name: 'Test Hotel', type: 'hotel', city: 'Test', country: 'Testland',
-        countryCode: 'TZ', monthlyRevenueUsd: 0, ebitdaPct: 0, status: 'live' as const },
+        countryCode: 'TZ', monthlyRevenueCad: 0, ebitdaPct: 0, status: 'live' as const },
     ]))
     const ref = resolveRef('p-test')
     expect(ref?.label).toBe('Test Hotel')
@@ -107,11 +107,11 @@ describe('linkify', () => {
   })
 
   it('handles multiple IDs of different kinds in one string', () => {
-    const result = linkify('Member m-1 booked RES-2026001 at p-kla')
+    const result = linkify('Member m-1 booked RES-2026001 at p-yna')
     const refs = result.filter((s) => s.type === 'ref')
     expect(refs).toHaveLength(3)
     const ids = refs.map((s) => s.type === 'ref' ? s.ref.id : '')
-    expect(ids).toEqual(['m-1', 'RES-2026001', 'p-kla'])
+    expect(ids).toEqual(['m-1', 'RES-2026001', 'p-yna'])
   })
 
   it('preserves adjacent punctuation outside the ID', () => {
@@ -147,9 +147,9 @@ describe('backlinksFor', () => {
   })
 
   it('returns vehicles + rentals for a partner', () => {
-    const links = backlinksFor('fp-mercantile')
+    const links = backlinksFor('fp-nordcotier')
     expect(links.vehicles.length).toBeGreaterThan(0)
-    expect(links.vehicles.every((v) => v.partnerName === 'Mercantile Car Rentals')).toBe(true)
+    expect(links.vehicles.every((v) => v.partnerName === 'Nord-Côtier Location')).toBe(true)
   })
 
   it('returns an empty result for unknown IDs', () => {

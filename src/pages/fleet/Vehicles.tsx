@@ -137,7 +137,7 @@ export default function Vehicles() {
                   <td className="px-4 py-3 text-ink dark:text-ivory">{v.location}</td>
                   <td className="px-4 py-3 text-right text-ink dark:text-ivory">{v.km.toLocaleString()} km</td>
                   <td className="px-4 py-3"><FlowStatusBadge tone={STATUS_TONE[v.status]} dot>{STATUS_LABEL[v.status]}</FlowStatusBadge></td>
-                  <td className="px-4 py-3 text-right text-copper font-display font-bold">{formatCurrency(v.dailyRateUsd)}</td>
+                  <td className="px-4 py-3 text-right text-copper font-display font-bold">{formatCurrency(v.dailyRateCad)}</td>
                 </tr>
               ))}
             </tbody>
@@ -168,7 +168,7 @@ export default function Vehicles() {
           </div>
           <div className="text-right">
             <div className="label-caps text-g40">Rate</div>
-            <div className="font-display font-bold text-3xl text-copper">{formatCurrency(selected.dailyRateUsd)}</div>
+            <div className="font-display font-bold text-3xl text-copper">{formatCurrency(selected.dailyRateCad)}</div>
             <div className="text-xs text-g40">per day</div>
           </div>
         </div>
@@ -232,7 +232,7 @@ function VehicleCard({ vehicle, selected, onSelect }: { vehicle: Vehicle; select
         </div>
         <div className="mt-3 flex items-center justify-between border-t border-g20/40 pt-3">
           <span className="text-xs text-g40">Last service · {formatDate(vehicle.lastServiceDate)}</span>
-          <span className="font-display font-bold text-copper">{formatCurrency(vehicle.dailyRateUsd)}<span className="text-[11px] font-normal text-g40">/day</span></span>
+          <span className="font-display font-bold text-copper">{formatCurrency(vehicle.dailyRateCad)}<span className="text-[11px] font-normal text-g40">/day</span></span>
         </div>
       </div>
     </button>
@@ -282,7 +282,7 @@ function OverviewTab({ vehicle }: { vehicle: Vehicle }) {
 
 function RentalsTab({ vehiclePlate }: { vehiclePlate: string }) {
   const rentals = RENTAL_BOOKINGS.filter((b) => b.vehiclePlate === vehiclePlate)
-  const total = rentals.reduce((s, b) => s + b.totalUsd, 0)
+  const total = rentals.reduce((s, b) => s + b.totalCad, 0)
   return (
     <Card title="Rental history">
       {rentals.length === 0 ? (
@@ -304,7 +304,7 @@ function RentalsTab({ vehiclePlate }: { vehiclePlate: string }) {
                   <td className="px-3 py-2 text-ink dark:text-ivory">{b.clientName}</td>
                   <td className="px-3 py-2 text-ink dark:text-ivory">{formatDate(b.startDate)}</td>
                   <td className="px-3 py-2 text-right text-ink dark:text-ivory">{b.days}</td>
-                  <td className="px-3 py-2 text-right text-copper font-display font-bold">{formatCurrency(b.totalUsd)}</td>
+                  <td className="px-3 py-2 text-right text-copper font-display font-bold">{formatCurrency(b.totalCad)}</td>
                   <td className="px-3 py-2"><FlowStatusBadge tone={b.status === 'checked_in' ? 'active' : 'info'} dot>{b.status.replace('_',' ')}</FlowStatusBadge></td>
                 </tr>
               ))}

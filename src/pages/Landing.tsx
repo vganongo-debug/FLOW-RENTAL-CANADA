@@ -27,7 +27,7 @@ import {
 } from 'lucide-react'
 import { FlowWordmark } from '../components/flow/FlowWordmark'
 import { PROPERTIES, REWARDS_TIERS, REWARDS_MEMBERS } from '../lib/sampleData'
-import { AFRICA, MARKET_STATUS, type OperatingStatus } from '../lib/africa'
+import { PROVINCES, MARKET_STATUS, AIRPORT_COUNT, AIRPORTS, type DeploymentStatus } from '../lib/canada'
 import type { RewardsTier } from '../lib/types'
 import { cn, formatCurrency } from '../lib/utils'
 
@@ -39,16 +39,17 @@ const LIVE_PROPERTIES = PROPERTIES.filter((p) => p.status === 'live')
 const LIVE_HOTELS = LIVE_PROPERTIES.filter((p) => p.type !== 'car_rental')
 const LIVE_VEHICLES_COUNT = LIVE_PROPERTIES.reduce((s, p) => s + (p.vehicles ?? 0), 0)
 const LIVE_ROOMS_COUNT = LIVE_PROPERTIES.reduce((s, p) => s + (p.rooms ?? 0), 0)
-const LIVE_COUNTRIES = new Set(LIVE_PROPERTIES.map((p) => p.countryCode)).size
+const LIVE_PROVINCES = new Set(LIVE_PROPERTIES.map((p) => p.countryCode)).size
+const NETWORK_AIRPORTS = AIRPORTS.length
 
-const STATUS_LABEL: Record<OperatingStatus, string> = {
+const STATUS_LABEL: Record<DeploymentStatus, string> = {
   live:     'Live',
-  pilot:    'Pilot 2026',
-  prospect: 'Coming 2026',
-  future:   'Roadmap',
+  pilot:    'Commissioning',
+  prospect: 'Phase 2',
+  future:   'Phase 3',
 }
 
-const STATUS_TONE: Record<OperatingStatus, string> = {
+const STATUS_TONE: Record<DeploymentStatus, string> = {
   live:     'bg-teal text-white',
   pilot:    'bg-copper text-white',
   prospect: 'bg-copper-light text-copper-dark',
@@ -94,11 +95,11 @@ function Hero() {
         <FlowWordmark size="xl" variant="dark" tagline className="mx-auto" />
         <h1 className="mt-8 font-display text-4xl sm:text-5xl lg:text-6xl leading-tight max-w-3xl mx-auto">
           One operating system for{' '}
-          <span className="text-copper">Stay &amp; Drive</span> across Africa.
+          <span className="text-copper">Stay &amp; Drive</span> across northern Canada.
         </h1>
         <p className="mt-5 text-base sm:text-lg text-g80 max-w-2xl mx-auto">
-          Book your hotel room and your airport vehicle in a single confirmation.
-          Earn one rewards balance that travels with you from Brazzaville to Kampala to Addis Ababa — and soon Lagos, Nairobi, and Dakar.
+          Book your room and your airport vehicle in a single confirmation.
+          Earn one rewards balance that travels with you from Blanc-Sablon to Natashquan to Sept-Îles — and soon Happy Valley-Goose Bay, Wabush and the whole Labrador coast.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
@@ -133,10 +134,10 @@ function TrustStrip() {
   return (
     <section className="bg-white dark:bg-panel-mid border-b border-g20/60">
       <div className="max-w-6xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <Stat value={String(LIVE_COUNTRIES)} label="Live markets" hint="Congo · Uganda · Ethiopia" />
-        <Stat value={String(LIVE_PROPERTIES.length)} label="Active locations" hint={`${LIVE_HOTELS.length} hotels + ${LIVE_PROPERTIES.length - LIVE_HOTELS.length} rental desks`} />
+        <Stat value={String(LIVE_PROVINCES)} label="Live provinces" hint="Québec · (phase 2) Labrador" />
+        <Stat value={String(LIVE_PROPERTIES.length)} label="Active locations" hint={`${LIVE_HOTELS.length} stations + ${LIVE_PROPERTIES.length - LIVE_HOTELS.length} rental desks`} />
         <Stat value={String(LIVE_VEHICLES_COUNT)} label="Vehicles on platform" hint="Flow-owned + partner fleet" />
-        <Stat value={REWARDS_MEMBERS.length.toLocaleString()} label="Rewards members" hint="Across 9 nationalities" />
+        <Stat value={REWARDS_MEMBERS.length.toLocaleString()} label="Rewards members" hint="Across the Côte-Nord network" />
       </div>
     </section>
   )
@@ -199,19 +200,19 @@ function ValueCard({ icon, title, body }: { icon: React.ReactNode; title: string
 }
 
 /* ------------------------------------------------------------------ */
-/* 4. Network · 54 countries                                           */
+/* 4. Network · provinces & regional airports                          */
 /* ------------------------------------------------------------------ */
 
 function Network() {
-  // Group by region for a clean grid · live markets first within each region.
-  const byRegion = AFRICA.reduce<Record<string, typeof AFRICA>>((acc, c) => {
-    (acc[c.region] ??= []).push(c)
+  // Regroupement par région pour une grille lisible · provinces en service d'abord.
+  const byRegion = PROVINCES.reduce<Record<string, typeof PROVINCES>>((acc, p) => {
+    (acc[p.region] ??= []).push(p)
     return acc
   }, {})
-  const regionOrder = ['Central', 'Eastern', 'Western', 'Southern', 'Northern']
-  const liveCount    = AFRICA.filter((c) => MARKET_STATUS[c.code] === 'live').length
-  const pilotCount   = AFRICA.filter((c) => MARKET_STATUS[c.code] === 'pilot').length
-  const prospectCount = AFRICA.filter((c) => MARKET_STATUS[c.code] === 'prospect').length
+  const regionOrder = ['Centre', 'Atlantique', 'Nord', 'Prairies', 'Ouest']
+  const liveCount     = PROVINCES.filter((p) => MARKET_STATUS[p.code] === 'live').length
+  const pilotCount    = PROVINCES.filter((p) => MARKET_STATUS[p.code] === 'pilot').length
+  const prospectCount = PROVINCES.filter((p) => MARKET_STATUS[p.code] === 'prospect').length
 
   return (
     <section id="network" className="bg-ivory dark:bg-panel py-20">
@@ -220,44 +221,53 @@ function Network() {
           <div>
             <span className="label-caps text-copper">The network</span>
             <h2 className="font-display text-3xl sm:text-4xl text-ink dark:text-ivory mt-2">
-              {AFRICA.length} countries. One Rewards balance.
+              {PROVINCES.length} provinces &amp; territories. {NETWORK_AIRPORTS} regional airports.
             </h2>
             <p className="text-g40 dark:text-g60 mt-2 max-w-2xl">
-              Designed for every African market. {liveCount} live today, {pilotCount} in pilot, {prospectCount} confirmed for 2026 — and every other country is on the roadmap.
+              One Rewards balance across the whole country. {liveCount} province live today,{' '}
+              {prospectCount} in phase 2 — every remaining regional airport is on the phase 3 roadmap.
             </p>
           </div>
           <div className="flex gap-2 text-xs">
             <Legend tone="live" label={`Live · ${liveCount}`} />
-            <Legend tone="pilot" label={`Pilot · ${pilotCount}`} />
-            <Legend tone="prospect" label={`2026 · ${prospectCount}`} />
-            <Legend tone="future" label="Roadmap" />
+            <Legend tone="pilot" label={`Commissioning · ${pilotCount}`} />
+            <Legend tone="prospect" label={`Phase 2 · ${prospectCount}`} />
+            <Legend tone="future" label="Phase 3" />
           </div>
         </div>
 
         <div className="space-y-6">
           {regionOrder.map((region) => {
-            const countries = (byRegion[region] ?? []).slice().sort((a, b) => {
-              const rank: Record<OperatingStatus, number> = { live: 0, pilot: 1, prospect: 2, future: 3 }
+            const provinces = (byRegion[region] ?? []).slice().sort((a, b) => {
+              const rank: Record<DeploymentStatus, number> = { live: 0, pilot: 1, prospect: 2, future: 3 }
               const sa = rank[MARKET_STATUS[a.code] ?? 'future']
               const sb = rank[MARKET_STATUS[b.code] ?? 'future']
-              return sa - sb || a.name.localeCompare(b.name)
+              return sa - sb || a.name.localeCompare(b.name, 'fr')
             })
+            const airports = provinces.reduce((sum, p) => sum + AIRPORT_COUNT[p.code], 0)
             return (
               <div key={region}>
-                <h3 className="label-caps text-g40 dark:text-g60 mb-3">{region} Africa · {countries.length} countries</h3>
-                <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-                  {countries.map((c) => {
-                    const status: OperatingStatus = MARKET_STATUS[c.code] ?? 'future'
+                <h3 className="label-caps text-g40 dark:text-g60 mb-3">
+                  {region} · {provinces.length} province{provinces.length > 1 ? 's' : ''} · {airports} regional airports
+                </h3>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {provinces.map((p) => {
+                    const status: DeploymentStatus = MARKET_STATUS[p.code] ?? 'future'
                     return (
                       <li
-                        key={c.code}
+                        key={p.code}
                         className={cn(
                           'flex items-center gap-2 rounded-input border px-3 py-2 bg-white dark:bg-panel-mid border-g20/60 text-sm',
                           status === 'live' && 'ring-2 ring-teal/30'
                         )}
                       >
-                        <span className="text-lg leading-none" aria-hidden="true">{c.flag}</span>
-                        <span className="flex-1 min-w-0 truncate text-ink dark:text-ivory">{c.name}</span>
+                        <span className="font-display font-semibold text-copper w-7 shrink-0" aria-hidden="true">{p.code}</span>
+                        <span className="flex-1 min-w-0">
+                          <span className="block truncate text-ink dark:text-ivory">{p.name}</span>
+                          <span className="block text-[10px] text-g40 dark:text-g60">
+                            {AIRPORT_COUNT[p.code]} airports · {p.taxName} {p.taxRate}%
+                          </span>
+                        </span>
                         <span className={cn('text-[9px] label-caps px-1.5 py-0.5 rounded-badge shrink-0', STATUS_TONE[status])}>
                           {STATUS_LABEL[status]}
                         </span>
@@ -274,7 +284,7 @@ function Network() {
   )
 }
 
-function Legend({ tone, label }: { tone: OperatingStatus; label: string }) {
+function Legend({ tone, label }: { tone: DeploymentStatus; label: string }) {
   return (
     <span className="inline-flex items-center gap-1 px-2 py-1 rounded-badge bg-white dark:bg-panel-mid border border-g20/60">
       <span className={cn('h-2 w-2 rounded-full', STATUS_TONE[tone].split(' ')[0])} aria-hidden="true" />
@@ -293,17 +303,17 @@ function Hotels() {
       <div className="text-center max-w-2xl mx-auto mb-12">
         <span className="label-caps text-copper">The properties</span>
         <h2 className="font-display text-3xl sm:text-4xl text-ink dark:text-ivory mt-2">
-          {LIVE_PROPERTIES.length} locations across {LIVE_COUNTRIES} live markets.
+          {LIVE_PROPERTIES.length} locations across the Basse-Côte-Nord.
         </h2>
         <p className="text-g40 dark:text-g60 mt-3">
-          City flagships paired with airport rental desks — designed for the modern African business traveller.
+          Community stations paired with regional-airport rental desks — built for how the North actually travels.
         </p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {LIVE_PROPERTIES.map((p) => {
           const Icon = p.type === 'hotel' ? Hotel : p.type === 'car_rental' ? Car : Building2
-          const country = AFRICA.find((c) => c.code === p.countryCode)
+          const province = PROVINCES.find((c) => c.code === p.countryCode)
           return (
             <article key={p.id} className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid shadow-card overflow-hidden flex flex-col">
               <div className={cn(
@@ -314,7 +324,7 @@ function Hotels() {
               )}>
                 <Icon className="h-14 w-14 text-copper opacity-80" aria-hidden="true" />
                 <span className="absolute top-3 left-3 px-2 py-0.5 rounded-badge bg-white/90 text-ink text-[10px] label-caps">
-                  {country?.flag} {country?.name}
+                  {province?.code} · {province?.name}
                 </span>
                 <span className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-badge bg-teal text-white text-[10px] label-caps">
                   <span className="h-1.5 w-1.5 rounded-full bg-ivory" aria-hidden="true" /> Live
@@ -333,7 +343,7 @@ function Hotels() {
                   <div>
                     <div className="label-caps text-g40 dark:text-g60">From</div>
                     <div className="font-display font-bold text-copper">
-                      {formatCurrency(p.type === 'car_rental' ? 55 : 95)}
+                      {formatCurrency(p.type === 'car_rental' ? 75 : 155)}
                       <span className="text-xs font-normal text-g40 dark:text-g60 ml-1">
                         / {p.type === 'car_rental' ? 'day' : 'night'}
                       </span>
@@ -366,7 +376,7 @@ function Rewards() {
         <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="label-caps text-copper">Flow Rewards</span>
           <h2 className="font-display text-3xl sm:text-4xl text-ivory mt-2">
-            Earn in Kampala. Redeem in Brazzaville.
+            Earn in Sept-Îles. Redeem in Blanc-Sablon.
           </h2>
           <p className="text-g80 mt-3">
             One programme. Every market. Points never expire while your account stays active —
@@ -401,7 +411,7 @@ function Rewards() {
                     <span className="label-caps">Qualify</span>
                     <div className="text-g80 text-sm mt-0.5">
                       {tier.minStays > 0
-                        ? <>{tier.minStays} stays · {formatCurrency(tier.minSpendUsd)} / year</>
+                        ? <>{tier.minStays} stays · {formatCurrency(tier.minSpendCad)} / year</>
                         : 'Free · sign up to start'}
                     </div>
                   </div>
@@ -451,13 +461,13 @@ function Pricing() {
           <h3 className="font-display text-xl text-ink dark:text-ivory mt-3">Stay rates</h3>
           <p className="text-xs text-g40 dark:text-g60 mt-1">Per room, per night</p>
           <ul className="mt-4 space-y-3 text-sm">
-            <RateRow label="Standard"  range="$95 – $130" />
-            <RateRow label="Deluxe"    range="$130 – $185" />
-            <RateRow label="Suite"     range="$195 – $260" />
-            <RateRow label="Executive" range="$240 – $320" />
+            <RateRow label="Standard"  range="155 $ – 179 $" />
+            <RateRow label="Deluxe"    range="185 $ – 225 $" />
+            <RateRow label="Suite"     range="245 $ – 295 $" />
+            <RateRow label="Executive" range="295 $ – 355 $" />
           </ul>
           <p className="text-[11px] text-g40 dark:text-g60 mt-4 border-t border-g20/40 pt-3">
-            Includes breakfast for Gold+ members · taxes per local jurisdiction.
+            Includes breakfast for Gold+ members · GST/QST or HST per province.
           </p>
         </article>
 
@@ -467,11 +477,11 @@ function Pricing() {
           <h3 className="font-display text-xl text-ink dark:text-ivory mt-3">Drive rates</h3>
           <p className="text-xs text-g40 dark:text-g60 mt-1">Per vehicle, per day</p>
           <ul className="mt-4 space-y-3 text-sm">
-            <RateRow label="Flow GO"       range="$55" />
-            <RateRow label="Flow Drive"    range="$85 – $95" />
-            <RateRow label="Flow Terrain"  range="$110" />
-            <RateRow label="Flow Prestige" range="$160 – $175" />
-            <RateRow label="Flow Elite"    range="$285 – $305" />
+            <RateRow label="Flow GO"       range="75 $" />
+            <RateRow label="Flow Drive"    range="105 $ – 115 $" />
+            <RateRow label="Flow Terrain"  range="145 $ – 170 $" />
+            <RateRow label="Flow Prestige" range="185 $ – 195 $" />
+            <RateRow label="Flow Elite"    range="275 $" />
           </ul>
           <p className="text-[11px] text-g40 dark:text-g60 mt-4 border-t border-g20/40 pt-3">
             Unlimited mileage in-city · airport pick-up included on all tiers.
@@ -646,7 +656,7 @@ function FinalCta() {
       <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_50%,rgba(184,115,51,0.65),transparent_55%)]" aria-hidden="true" />
       <div className="relative max-w-4xl mx-auto px-6 py-20 text-center">
         <Globe2 className="h-10 w-10 text-copper mx-auto" aria-hidden="true" />
-        <h2 className="font-display text-3xl sm:text-4xl mt-4">Your next trip across Africa starts here.</h2>
+        <h2 className="font-display text-3xl sm:text-4xl mt-4">Your next trip across the North starts here.</h2>
         <p className="text-ivory/90 mt-3 max-w-xl mx-auto">
           One booking. One account. One Rewards balance — for the whole continent.
         </p>

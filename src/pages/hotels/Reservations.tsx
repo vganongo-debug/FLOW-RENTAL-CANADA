@@ -44,10 +44,10 @@ const columns = (open: (r: Reservation) => void): Column<Reservation>[] => [
   { key: 'checkOut', header: 'Check-out', render: (r) => formatDate(r.checkOut) },
   { key: 'roomNumber', header: 'Room', render: (r) => `${r.roomNumber} · ${r.roomType}` },
   { key: 'nights', header: 'Nts', align: 'right' },
-  { key: 'rateUsd', header: 'Rate', align: 'right', render: (r) => formatCurrency(r.rateUsd) },
+  { key: 'rateCad', header: 'Rate', align: 'right', render: (r) => formatCurrency(r.rateCad) },
   {
-    key: 'totalUsd', header: 'Total', align: 'right',
-    render: (r) => <span className="text-copper font-display font-bold">{formatCurrency(r.totalUsd)}</span>,
+    key: 'totalCad', header: 'Total', align: 'right',
+    render: (r) => <span className="text-copper font-display font-bold">{formatCurrency(r.totalCad)}</span>,
   },
   { key: 'channel', header: 'Channel' },
   {

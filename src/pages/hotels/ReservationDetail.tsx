@@ -86,8 +86,8 @@ export default function ReservationDetail() {
       {/* KPI strip */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <FlowKPICard label="Nights" value={r.nights} hint={`${formatDate(r.checkIn)} → ${formatDate(r.checkOut)}`} accent="teal" />
-        <FlowKPICard label="Room rate" value={formatCurrency(r.rateUsd)} hint={`Room ${r.roomNumber} · ${r.roomType}`} />
-        <FlowKPICard label="Total" value={formatCurrency(r.totalUsd)} hint={r.paymentStatus} />
+        <FlowKPICard label="Room rate" value={formatCurrency(r.rateCad)} hint={`Room ${r.roomNumber} · ${r.roomType}`} />
+        <FlowKPICard label="Total" value={formatCurrency(r.totalCad)} hint={r.paymentStatus} />
         <FlowKPICard label="Channel" value={r.channel} hint={`${r.status.replace(/_/g, ' ')}`} accent="ink" />
       </div>
 
@@ -102,8 +102,8 @@ export default function ReservationDetail() {
             <Detail icon={<Calendar className="h-4 w-4" />} label="Check-out" value={formatDate(r.checkOut)} />
             <Detail label="Room" value={`${r.roomNumber} · ${r.roomType}`} />
             <Detail label="Nights" value={String(r.nights)} />
-            <Detail label="Rate / night" value={formatCurrency(r.rateUsd)} />
-            <Detail label="Total" value={<span className="text-copper font-bold">{formatCurrency(r.totalUsd)}</span>} />
+            <Detail label="Rate / night" value={formatCurrency(r.rateCad)} />
+            <Detail label="Total" value={<span className="text-copper font-bold">{formatCurrency(r.totalCad)}</span>} />
             <Detail icon={<CreditCard className="h-4 w-4" />} label="Payment status" value={r.paymentStatus} />
             <Detail label="Channel" value={r.channel} />
           </dl>

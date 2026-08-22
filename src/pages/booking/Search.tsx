@@ -47,9 +47,9 @@ export default function Search() {
           <p className="text-g40 dark:text-g60 mt-1">{t('booking.markets.subtitle')}</p>
           <div className="grid md:grid-cols-3 gap-4 mt-8">
             {[
-              { city: 'Brazzaville', country: 'Congo-Brazzaville', adr: '$130 / night', stat: 'Flagship · 30 rooms' },
-              { city: 'Kampala', country: 'Uganda', adr: '$110 / night', stat: 'Mercantile partner fleet' },
-              { city: 'Addis Ababa', country: 'Ethiopia', adr: '$105 / night', stat: 'Bole airport vehicles' },
+              { city: 'Blanc-Sablon', country: 'Québec', adr: '179 $ / nuit', stat: 'Station pilote · 24 chambres' },
+              { city: 'Natashquan', country: 'Québec', adr: '165 $ / nuit', stat: 'Parc partenaire Nord-Côtier' },
+              { city: 'Saint-Augustin', country: 'Québec', adr: '155 $ / nuit', stat: 'Comptoir aéroport YIF' },
             ].map((m) => (
               <div key={m.city} className="rounded-card overflow-hidden bg-white dark:bg-panel-mid border border-g20/60 shadow-card">
                 <div className="aspect-[4/3] bg-gradient-to-br from-teal to-teal-dark relative">
@@ -90,7 +90,7 @@ function StayForm() {
   const { t } = useTranslation()
   return (
     <div className="grid md:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-2 p-2">
-      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.destination')} defaultValue="Kampala, Uganda" />
+      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.destination')} defaultValue="Blanc-Sablon, QC" />
       <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.checkIn')} defaultValue="14 May 2026" />
       <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.checkOut')} defaultValue="18 May 2026" />
       <Field icon={<Users className="h-4 w-4" />} label={t('booking.hero.guests')} defaultValue="2 adults" />

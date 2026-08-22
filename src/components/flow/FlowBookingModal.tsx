@@ -102,7 +102,7 @@ export function FlowBookingModal({ open, booking, onClose }: Props) {
           </Section>
 
           <Section title="Payment">
-            <Field label="Amount" value={formatCurrency(booking.totalUsd)} highlight />
+            <Field label="Amount" value={formatCurrency(booking.totalCad)} highlight />
             <Field label="Method" value="Visa ··· 4242" />
             <Field label="Status" value={isHotel ? (booking as Reservation).paymentStatus : 'paid'} />
           </Section>

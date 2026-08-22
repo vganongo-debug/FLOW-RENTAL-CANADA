@@ -105,7 +105,7 @@ export default function FrontDesk() {
 
       <FlowPaymentModal
         open={payOpen}
-        amount={sampleBooking.totalUsd}
+        amount={sampleBooking.totalCad}
         onClose={() => setPayOpen(false)}
         onConfirm={() => setPayOpen(false)}
       />
@@ -145,7 +145,7 @@ function StepSearch() {
               <div className="text-xs text-g40 mt-1">
                 {formatDate(sampleBooking.checkIn)} → {formatDate(sampleBooking.checkOut)} · {sampleBooking.nights} nights · Room {sampleBooking.roomNumber} {sampleBooking.roomType}
               </div>
-              <div className="text-sm font-display font-bold text-copper mt-2">{formatCurrency(sampleBooking.totalUsd)}</div>
+              <div className="text-sm font-display font-bold text-copper mt-2">{formatCurrency(sampleBooking.totalCad)}</div>
             </div>
             <span className="inline-flex items-center gap-1 rounded-badge px-2 py-0.5 text-xs label-caps bg-teal text-white">
               Match
@@ -233,7 +233,7 @@ function StepRoom({ chosen, onChoose }: { chosen: string; onChoose: (n: string) 
                 </div>
                 {chosen === r.number && <Check className="h-4 w-4 text-teal" />}
               </div>
-              <div className="mt-2 text-sm text-copper font-display font-bold">{formatCurrency(r.rateUsd)}/night</div>
+              <div className="mt-2 text-sm text-copper font-display font-bold">{formatCurrency(r.rateCad)}/night</div>
             </button>
           </li>
         ))}
@@ -251,22 +251,22 @@ function StepPayment({ onOpenPay }: { onOpenPay: () => void }) {
       <div className="space-y-3">
         <Section title="Charges">
           <ul className="divide-y divide-g20/40">
-            <Charge label={`${sampleBooking.roomType} · ${sampleBooking.nights} night${sampleBooking.nights>1?'s':''}`} amount={sampleBooking.totalUsd} />
+            <Charge label={`${sampleBooking.roomType} · ${sampleBooking.nights} night${sampleBooking.nights>1?'s':''}`} amount={sampleBooking.totalCad} />
             <Charge label="Breakfast (2 pax × 2)" amount={72} />
             <Charge label="Airport transfer" amount={35} />
-            <Charge label="VAT (Uganda 18%)" amount={Math.round((sampleBooking.totalUsd + 107) * 0.18)} muted />
+            <Charge label="VAT (Uganda 18%)" amount={Math.round((sampleBooking.totalCad + 107) * 0.18)} muted />
           </ul>
         </Section>
         <div className="flex items-center justify-between rounded-card border border-g20/60 bg-ivory dark:bg-panel px-4 py-3">
           <span className="label-caps text-g40">Total due</span>
-          <span className="font-display font-bold text-3xl text-copper">{formatCurrency(sampleBooking.totalUsd + 107 + Math.round((sampleBooking.totalUsd + 107) * 0.18))}</span>
+          <span className="font-display font-bold text-3xl text-copper">{formatCurrency(sampleBooking.totalCad + 107 + Math.round((sampleBooking.totalCad + 107) * 0.18))}</span>
         </div>
       </div>
       <div className="space-y-3">
         <Section title="Payment status">
           <div className="rounded-card border border-teal/30 bg-teal-light/50 dark:bg-teal-dark/20 p-4">
             <div className="label-caps text-teal-dark">Pre-authorised</div>
-            <div className="font-display font-bold text-2xl text-ink dark:text-ivory mt-1">{formatCurrency(sampleBooking.totalUsd)}</div>
+            <div className="font-display font-bold text-2xl text-ink dark:text-ivory mt-1">{formatCurrency(sampleBooking.totalCad)}</div>
             <div className="text-xs text-g40">Visa ··· 4242 · captured at check-in</div>
           </div>
         </Section>
