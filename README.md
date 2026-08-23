@@ -1,70 +1,113 @@
 # Flow Rentals OS
 
-Integrated hotel and car rental operating system for Flow Rentals Global Inc.
-(subsidiary of VBMS Holdings Inc., Canada).
+Système d'exploitation intégré — hébergement, mobilité et services de
+proximité pour Flow Rentals Global Inc. (filiale de VBMS Holdings Inc.,
+Canada).
+
+Le réseau couvre la Basse-Côte-Nord et la Côte-Nord du Québec, avec le
+Labrador en phase 2 : des communautés desservies par vols régionaux, où
+le service au sol est rare. L'application réunit stations d'hébergement,
+location de véhicules, pods d'isolement et distributrices sur une seule
+plateforme.
 
 ## Stack
 
-- React 18 + TypeScript + Vite
-- Tailwind CSS (custom Flow brand tokens)
-- React Router v6
+- React 18 + TypeScript + Vite 8 (Rolldown)
+- Tailwind CSS (jetons de marque Flow)
+- React Router v7
 - Recharts · Lucide icons
+- i18next (français / anglais)
+- Vitest + Testing Library
 
-## Quick start
+## Démarrage
 
 ```bash
 npm install
+```
+
+```bash
 npm run dev
 ```
 
-Open http://localhost:5173 — pick a demo role on the login screen.
+Ouvrir http://localhost:5173 et choisir un profil de démonstration sur
+l'écran de connexion.
 
-## Demo roles
-
-The login screen lets you enter as any role; each redirects to its
-role-specific home.
-
-| Role | Lands on |
+| Script | Effet |
 |---|---|
-| SuperAdmin (Co-Founder) | `/admin/portfolio` |
-| Country Manager | `/hotels/dashboard` |
-| Hotel Manager | `/hotels/dashboard` |
-| Car Rental Agent | `/fleet/dashboard` |
-| Fleet Partner | `/fleet/partner-portal` |
-| Guest | `/booking/search` |
+| `npm run dev` | Serveur de développement |
+| `npm run build` | Build de production dans `dist/` |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm test` | Suite Vitest |
 
-## Phase 1 build (this drop)
+## Profils de démonstration
 
-- Full design system: tokens, typography, dark mode, responsive
-- 17+ `<Flow*>` reusable components in `src/components/flow/`
-- Six anchor screens that prove out the app's surfaces:
-  - Login + role selection
-  - SuperAdmin Global Portfolio Dashboard
-  - Hotel Manager Dashboard + Reservations Manager
-  - Fleet Dashboard + Fleet Partner Portal (the differentiator)
-  - Guest Booking Search + Search Results
-- Router wired for **all** spec routes — unbuilt screens render an
-  on-brand `Placeholder` with a description of what's coming.
+L'écran de connexion permet d'entrer sous n'importe quel profil ; chacun
+arrive sur sa page d'accueil.
 
-## Project layout
+| Profil | Arrive sur |
+|---|---|
+| SuperAdmin (co-fondateur) | `/admin/portfolio` |
+| Directeur d'hôtel | `/hotels/dashboard` |
+| Agent location | `/fleet/dashboard` |
+| Responsable Fidélité | `/rewards/members` |
+| Client | `/booking/search` |
+
+Le réseau étant limité au Canada, il n'y a pas de profil « directeur
+pays ». Les parcs partenaires restent des données métier — parc,
+commissions, versements — mais ne disposent pas d'un profil de connexion :
+le portail partenaire (`/fleet/partner-portal`) est consultable par le
+SuperAdmin.
+
+## Géographie et devise
+
+- **Provinces** — les 13 provinces et territoires, chacun avec son régime
+  de taxes de vente (TPS+TVQ, TVH, TPS+TVP…), son autorité fiscale et son
+  format d'export comptable. Voir `src/lib/canada.ts`.
+- **Aéroports** — catalogue de 445 aéroports canadiens dans
+  `src/lib/airports.ts`, dont 430 régionaux. Fichier **généré**, à ne pas
+  éditer à la main :
+
+  ```bash
+  node scripts/import-airports.mjs
+  ```
+
+  La source est le jeu de données ouvert OurAirports. Les champs propres
+  au déploiement Flow (nom d'usage, phase, sous-réseau, transporteurs)
+  sont maintenus dans `OVERRIDES` du script d'import et réappliqués à
+  chaque génération.
+- **Devise** — le dollar canadien est la devise de référence : tous les
+  montants sont stockés en CAD (`*Cad`). USD et EUR restent disponibles à
+  l'affichage pour les clients internationaux.
+
+## Données de démonstration
+
+Les jeux de données vivent dans `localStorage` sous le préfixe
+`flow-os.`. `SEED_VERSION` dans `src/lib/api.ts` les purge quand leur
+forme change — sans ce jalon, un navigateur ayant visité une version
+antérieure servirait des données incompatibles avec le schéma courant.
+
+## Arborescence
 
 ```
+scripts/
+  import-airports.mjs    Génère le catalogue des aéroports
 src/
   components/
-    flow/                Reusable Flow* component library
-    layout/              AppLayout (back-office) + PublicLayout (guest)
-  context/               Auth, Theme, Locale providers
-  lib/                   utils, types, sampleData
-  pages/                 Route pages
+    flow/                Bibliothèque de composants Flow*
+    layout/              AppLayout (back-office) + PublicLayout (public)
+  context/               Fournisseurs Auth, Theme, Locale
+  i18n/                  Catalogues fr / en
+  lib/                   canada, airports, api, types, sampleData, utils
+  pages/                 Écrans par domaine
 ```
 
-## Brand tokens
+## Marque
 
-All brand colors live in `tailwind.config.js` and `src/index.css` as
-both Tailwind utilities (`bg-teal`, `text-copper`, `bg-panel-mid`) and
-CSS variables (`--color-teal`, etc).
+Les couleurs vivent dans `tailwind.config.js` et `src/index.css`, à la
+fois en utilitaires Tailwind (`bg-teal`, `text-copper`, `bg-panel-mid`)
+et en variables CSS (`--color-teal`, etc).
 
-Typography:
-- Display / Headings: Palatino Linotype
-- Body / UI: Calibri / Segoe UI
-- Labels / Caps: Trebuchet MS, uppercase, 0.08em letter-spacing
+Typographie :
+- Titres : Palatino Linotype
+- Corps / interface : Calibri / Segoe UI
+- Étiquettes : Trebuchet MS, majuscules, interlettrage 0.08em

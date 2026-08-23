@@ -27,7 +27,7 @@ import {
 } from 'lucide-react'
 import { FlowWordmark } from '../components/flow/FlowWordmark'
 import { PROPERTIES, REWARDS_TIERS, REWARDS_MEMBERS } from '../lib/sampleData'
-import { PROVINCES, MARKET_STATUS, AIRPORT_COUNT, AIRPORTS, type DeploymentStatus } from '../lib/canada'
+import { PROVINCES, MARKET_STATUS, REGIONAL_COUNT, REGIONAL_AIRPORTS, type DeploymentStatus } from '../lib/canada'
 import type { RewardsTier } from '../lib/types'
 import { cn, formatCurrency } from '../lib/utils'
 
@@ -40,7 +40,7 @@ const LIVE_HOTELS = LIVE_PROPERTIES.filter((p) => p.type !== 'car_rental')
 const LIVE_VEHICLES_COUNT = LIVE_PROPERTIES.reduce((s, p) => s + (p.vehicles ?? 0), 0)
 const LIVE_ROOMS_COUNT = LIVE_PROPERTIES.reduce((s, p) => s + (p.rooms ?? 0), 0)
 const LIVE_PROVINCES = new Set(LIVE_PROPERTIES.map((p) => p.countryCode)).size
-const NETWORK_AIRPORTS = AIRPORTS.length
+const NETWORK_AIRPORTS = REGIONAL_AIRPORTS.length
 
 /** Clé i18n par statut — les badges reprennent les libellés de la légende. */
 const STATUS_KEY: Record<DeploymentStatus, string> = {
@@ -252,7 +252,7 @@ function Network() {
               const sb = rank[MARKET_STATUS[b.code] ?? 'future']
               return sa - sb || a.name.localeCompare(b.name, isFr ? 'fr' : 'en')
             })
-            const airports = provinces.reduce((sum, p) => sum + AIRPORT_COUNT[p.code], 0)
+            const airports = provinces.reduce((sum, p) => sum + REGIONAL_COUNT[p.code], 0)
             return (
               <div key={region}>
                 <h3 className="label-caps text-g40 dark:text-g60 mb-3">
@@ -273,7 +273,7 @@ function Network() {
                         <span className="flex-1 min-w-0">
                           <span className="block truncate text-ink dark:text-ivory">{isFr ? p.name : p.nameEn}</span>
                           <span className="block text-[10px] text-g40 dark:text-g60">
-                            {t('landing.network.airportsTax', { airports: AIRPORT_COUNT[p.code], tax: isFr ? p.taxName : p.taxNameEn, rate: p.taxRate.toLocaleString(isFr ? 'fr-CA' : 'en-CA') })}
+                            {t('landing.network.airportsTax', { airports: REGIONAL_COUNT[p.code], tax: isFr ? p.taxName : p.taxNameEn, rate: p.taxRate.toLocaleString(isFr ? 'fr-CA' : 'en-CA') })}
                           </span>
                         </span>
                         <span className={cn('text-[9px] label-caps px-1.5 py-0.5 rounded-badge shrink-0', STATUS_TONE[status])}>
