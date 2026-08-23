@@ -42,8 +42,6 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   fnb: 'F&B',
   reports: 'Reports',
   inventory: 'Inventory',
-  country: 'Country',
-  locations: 'Locations',
   fleet: 'Fleet',
   vehicles: 'Vehicles',
   bookings: 'Rentals',

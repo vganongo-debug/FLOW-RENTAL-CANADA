@@ -4,7 +4,7 @@ import {
   LayoutDashboard, Hotel, Car, CreditCard, Award, Globe2,
   BarChart3, Settings, Users, Map, Package, Building2,
   ChevronLeft, ChevronRight, BellPlus, Headphones, ChevronDown,
-  MapPin, Boxes, AlertCircle, Handshake, FileText, ShieldCheck,
+  Boxes, AlertCircle, Handshake, FileText, ShieldCheck,
   MessageSquare, DoorClosed, Truck,
 } from 'lucide-react'
 import { useState } from 'react'
@@ -28,13 +28,6 @@ const NAV: Section[] = [
       { to: '/admin/procurement', key: 'procurement', icon: Package },
       { to: '/admin/security', key: 'security', icon: ShieldCheck },
       { to: '/admin/settings', key: 'settings', icon: Settings },
-    ],
-  },
-  {
-    roles: ['superadmin'],
-    titleKey: 'country',
-    items: [
-      { to: '/country/locations', key: 'locations', icon: MapPin },
     ],
   },
   {

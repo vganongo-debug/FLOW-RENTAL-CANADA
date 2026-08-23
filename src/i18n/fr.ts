@@ -140,7 +140,6 @@ export const fr = {
     currencyIntl: 'Affichage international',
     sections: {
       global: 'Global',
-      country: 'Réseau',
       pods: 'Pods',
       vending: 'Distributrices',
       hotels: 'Hôtels',
@@ -178,7 +177,6 @@ export const fr = {
       accounting: 'Comptabilité',
       rewards: 'Flow Rewards',
       inventory: 'Inventaire',
-      locations: 'Emplacements',
       podsOverview: 'Pods d\'isolement',
       vendingMachines: 'Machines',
       vendingRestock: 'Réassort',

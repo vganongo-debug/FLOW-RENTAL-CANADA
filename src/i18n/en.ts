@@ -140,7 +140,6 @@ export const en = {
     currencyIntl: 'International display',
     sections: {
       global: 'Global',
-      country: 'Network',
       pods: 'Pods',
       vending: 'Vending',
       hotels: 'Hotels',
@@ -178,7 +177,6 @@ export const en = {
       accounting: 'Accounting',
       rewards: 'Flow Rewards',
       inventory: 'Inventory',
-      locations: 'Locations',
       podsOverview: 'Isolation pods',
       vendingMachines: 'Machines',
       vendingRestock: 'Restock',

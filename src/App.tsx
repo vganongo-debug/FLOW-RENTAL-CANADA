@@ -40,9 +40,6 @@ const FnB = lazy(() => import('./pages/hotels/FnB'))
 const HotelReports = lazy(() => import('./pages/hotels/Reports'))
 const Inventory = lazy(() => import('./pages/hotels/Inventory'))
 
-// Country
-const CountryLocations = lazy(() => import('./pages/country/Locations'))
-
 // Pods (isolement)
 const Pods = lazy(() => import('./pages/pods/Pods'))
 
@@ -159,8 +156,6 @@ export default function App() {
           <Route path="/hotels/fnb" element={<FnB />} />
           <Route path="/hotels/reports" element={<HotelReports />} />
           <Route path="/hotels/inventory" element={<Inventory />} />
-
-          <Route path="/country/locations" element={<CountryLocations />} />
 
           <Route path="/pods" element={<Pods />} />
 
