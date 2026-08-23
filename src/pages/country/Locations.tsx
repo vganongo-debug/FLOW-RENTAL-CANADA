@@ -55,9 +55,9 @@ export default function CountryLocations() {
     <div className="space-y-5">
       <header className="flex items-end justify-between flex-wrap gap-3">
         <div>
-          <div className="label-caps text-g40">Country Manager · {country?.code} · {country?.name}</div>
+          <div className="label-caps text-g40">Réseau · {country?.code} · {country?.name}</div>
           <h1 className="font-display text-3xl text-ink dark:text-ivory">Locations</h1>
-          <p className="text-sm text-g40 dark:text-g60 mt-1">All Flow properties under your responsibility · add or close locations directly here.</p>
+          <p className="text-sm text-g40 dark:text-g60 mt-1">Toutes les stations Flow de la province · ajoutez ou fermez un emplacement directement ici.</p>
         </div>
         <button
           onClick={() => setAddOpen(true)}

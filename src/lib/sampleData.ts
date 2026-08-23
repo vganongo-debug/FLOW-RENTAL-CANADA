@@ -11,20 +11,16 @@ import type {
 
 export const ROLE_LABELS: Record<Role, string> = {
   superadmin: 'SuperAdmin · Co-Founder',
-  country_manager: 'Country Manager',
   hotel_manager: 'Hotel Manager',
   car_agent: 'Car Rental Agent',
-  fleet_partner: 'Fleet Partner',
   reward_manager: 'Rewards Manager',
   guest: 'Guest',
 }
 
 export const ROLE_HOMES: Record<Role, string> = {
   superadmin: '/admin/portfolio',
-  country_manager: '/hotels/dashboard',
   hotel_manager: '/hotels/dashboard',
   car_agent: '/fleet/dashboard',
-  fleet_partner: '/fleet/partner-portal',
   reward_manager: '/rewards/members',
   guest: '/booking/search',
 }
@@ -48,8 +44,9 @@ export const SAMPLE_USERS: User[] = [
     id: 'u-3',
     name: 'Marie-Claude Boudreau',
     email: 'marie-claude@flowrentals.com',
-    role: 'country_manager',
+    role: 'hotel_manager',
     countryCode: 'QC',
+    propertyId: 'p-yna',
     avatarInitials: 'MB',
   },
   {
@@ -68,15 +65,6 @@ export const SAMPLE_USERS: User[] = [
     role: 'car_agent',
     countryCode: 'QC',
     avatarInitials: 'SL',
-  },
-  {
-    id: 'u-6',
-    name: 'Nord-Côtier Location inc.',
-    email: 'partenaires@nordcotier.ca',
-    role: 'fleet_partner',
-    countryCode: 'QC',
-    partnerId: 'fp-nordcotier',
-    avatarInitials: 'NC',
   },
   {
     id: 'u-7',
@@ -663,7 +651,7 @@ import type { Participant, Conversation, Message } from './types'
 export const PARTICIPANTS: Participant[] = [
   { id:'u-1', kind:'staff',  name:'Vistel Ganongo',           initials:'VG', role:'superadmin',       lastSeenAt:'2026-05-10T13:42:00Z' },
   { id:'u-2', kind:'staff',  name:'Maye Samoiel',             initials:'MS', role:'superadmin',       lastSeenAt:'2026-05-10T11:08:00Z' },
-  { id:'u-3', kind:'staff',  name:'Marie-Claude Boudreau',        initials:'MB', role:'country_manager',  countryCode:'QC', lastSeenAt:'2026-05-10T13:55:00Z' },
+  { id:'u-3', kind:'staff',  name:'Marie-Claude Boudreau',        initials:'MB', role:'hotel_manager',    countryCode:'QC', lastSeenAt:'2026-05-10T13:55:00Z' },
   { id:'u-4', kind:'staff',  name:'Jean-Philippe Bouchard',       initials:'JB', role:'hotel_manager',    countryCode:'QC', propertyId:'p-ybx', lastSeenAt:'2026-05-10T13:30:00Z' },
   { id:'u-5', kind:'staff',  name:'Simon Lapierre',               initials:'SL', role:'car_agent',        countryCode:'QC', lastSeenAt:'2026-05-10T13:48:00Z' },
   { id:'u-8', kind:'staff',  name:'Karine Lévesque',              initials:'KL', role:'reward_manager',   lastSeenAt:'2026-05-10T12:11:00Z' },

@@ -15,7 +15,7 @@ const LIVE_STATIONS = LIVE.length
 const LIVE_ROOMS = LIVE.reduce((n, p) => n + (p.rooms ?? 0), 0)
 const LIVE_VEHICLES = LIVE.reduce((n, p) => n + (p.vehicles ?? 0), 0)
 
-const ROLE_OPTIONS: Role[] = ['superadmin', 'country_manager', 'hotel_manager', 'car_agent', 'fleet_partner', 'reward_manager', 'guest']
+const ROLE_OPTIONS: Role[] = ['superadmin', 'hotel_manager', 'car_agent', 'reward_manager', 'guest']
 
 export default function Login() {
   const { t } = useTranslation()

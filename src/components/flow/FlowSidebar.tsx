@@ -31,14 +31,14 @@ const NAV: Section[] = [
     ],
   },
   {
-    roles: ['country_manager'],
+    roles: ['superadmin'],
     titleKey: 'country',
     items: [
       { to: '/country/locations', key: 'locations', icon: MapPin },
     ],
   },
   {
-    roles: ['superadmin', 'country_manager', 'hotel_manager'],
+    roles: ['superadmin', 'hotel_manager'],
     titleKey: 'hotels',
     items: [
       { to: '/hotels/dashboard', key: 'dashboard', icon: LayoutDashboard },
@@ -53,14 +53,14 @@ const NAV: Section[] = [
     ],
   },
   {
-    roles: ['superadmin', 'country_manager', 'hotel_manager', 'car_agent'],
+    roles: ['superadmin', 'hotel_manager', 'car_agent'],
     titleKey: 'pods',
     items: [
       { to: '/pods', key: 'podsOverview', icon: DoorClosed },
     ],
   },
   {
-    roles: ['superadmin', 'country_manager', 'hotel_manager', 'car_agent'],
+    roles: ['superadmin', 'hotel_manager', 'car_agent'],
     titleKey: 'vending',
     items: [
       { to: '/vending/machines', key: 'vendingMachines', icon: Boxes },
@@ -68,7 +68,7 @@ const NAV: Section[] = [
     ],
   },
   {
-    roles: ['superadmin', 'country_manager', 'car_agent'],
+    roles: ['superadmin', 'car_agent'],
     titleKey: 'fleet',
     items: [
       { to: '/fleet/dashboard', key: 'dashboard', icon: LayoutDashboard },
@@ -81,14 +81,14 @@ const NAV: Section[] = [
     ],
   },
   {
-    roles: ['fleet_partner'],
+    roles: ['superadmin'],
     titleKey: 'partner',
     items: [
       { to: '/fleet/partner-portal', key: 'dashboard', icon: LayoutDashboard },
     ],
   },
   {
-    roles: ['superadmin', 'country_manager'],
+    roles: ['superadmin'],
     titleKey: 'finance',
     items: [
       { to: '/payments/dashboard', key: 'pay', icon: CreditCard },
@@ -109,14 +109,14 @@ const NAV: Section[] = [
     ],
   },
   {
-    roles: ['superadmin', 'country_manager', 'hotel_manager', 'car_agent', 'fleet_partner', 'reward_manager'],
+    roles: ['superadmin', 'hotel_manager', 'car_agent', 'reward_manager'],
     titleKey: 'comms',
     items: [
       { to: '/messages', key: 'messages', icon: MessageSquare },
     ],
   },
   {
-    roles: ['superadmin', 'country_manager', 'hotel_manager', 'car_agent'],
+    roles: ['superadmin', 'hotel_manager', 'car_agent'],
     titleKey: 'insights',
     items: [{ to: '/reports', key: 'reports', icon: BarChart3 }],
   },

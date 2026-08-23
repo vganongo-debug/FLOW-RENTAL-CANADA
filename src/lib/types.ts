@@ -2,10 +2,8 @@ import type { ProvinceCode } from './canada'
 
 export type Role =
   | 'superadmin'
-  | 'country_manager'
   | 'hotel_manager'
   | 'car_agent'
-  | 'fleet_partner'
   | 'reward_manager'
   | 'guest'
 
