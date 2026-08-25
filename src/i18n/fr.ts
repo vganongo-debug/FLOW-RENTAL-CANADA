@@ -121,6 +121,7 @@ export const fr = {
     guest_sub: 'Public · séjour et conduite',
   },
   login: {
+    invalid: "Courriel ou mot de passe incorrect.",
     title: 'Connexion à Flow OS',
     subtitle: 'Choisissez un rôle de démonstration pour entrer dans l\'expérience adaptée.',
     continueAs: 'Continuer en tant que {{role}}',

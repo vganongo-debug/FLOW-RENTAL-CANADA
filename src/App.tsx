@@ -13,6 +13,7 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './components/layout/AppLayout'
+import { RequireRole } from './components/layout/RequireRole'
 import { PublicLayout } from './components/layout/PublicLayout'
 import Login from './pages/Login'
 import { useAuth } from './context/AuthContext'
@@ -135,58 +136,70 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/dashboard" element={<Root />} />
 
-          <Route path="/admin/portfolio" element={<Portfolio />} />
-          <Route path="/admin/properties" element={<Properties />} />
-          <Route path="/admin/properties/:id" element={<PropertyDetail />} />
-          <Route path="/admin/users" element={<Users />} />
-          <Route path="/admin/channels" element={<Channels />} />
-          <Route path="/admin/procurement" element={<Procurement />} />
-          <Route path="/admin/settings" element={<Settings />} />
-          <Route path="/admin/security" element={<SecurityDashboard />} />
+          <Route element={<RequireRole roles={['superadmin']} />}>
+            <Route path="/admin/portfolio" element={<Portfolio />} />
+            <Route path="/admin/properties" element={<Properties />} />
+            <Route path="/admin/properties/:id" element={<PropertyDetail />} />
+            <Route path="/admin/users" element={<Users />} />
+            <Route path="/admin/channels" element={<Channels />} />
+            <Route path="/admin/procurement" element={<Procurement />} />
+            <Route path="/admin/settings" element={<Settings />} />
+            <Route path="/admin/security" element={<SecurityDashboard />} />
 
-          <Route path="/messages" element={<Messages />} />
+            <Route path="/payments/dashboard" element={<PaymentsDashboard />} />
+            <Route path="/payments/invoices" element={<Invoices />} />
+            <Route path="/payments/payouts" element={<Payouts />} />
+            <Route path="/payments/accounting" element={<Accounting />} />
 
-          <Route path="/hotels/dashboard" element={<HotelDashboard />} />
-          <Route path="/hotels/reservations" element={<Reservations />} />
-          <Route path="/hotels/reservations/:id" element={<ReservationDetail />} />
-          <Route path="/hotels/rooms" element={<Rooms />} />
-          <Route path="/hotels/housekeeping" element={<Housekeeping />} />
-          <Route path="/hotels/front-desk" element={<FrontDesk />} />
-          <Route path="/hotels/guests" element={<Guests />} />
-          <Route path="/hotels/fnb" element={<FnB />} />
-          <Route path="/hotels/reports" element={<HotelReports />} />
-          <Route path="/hotels/inventory" element={<Inventory />} />
-
-          <Route path="/pods" element={<Pods />} />
-
-          <Route path="/vending/machines" element={<VendingMachines />} />
-          <Route path="/vending/restock" element={<VendingRestock />} />
-
-          <Route path="/fleet/dashboard" element={<FleetDashboard />} />
-          <Route path="/fleet/partner-portal" element={<PartnerPortal />} />
-          <Route path="/fleet/vehicles" element={<Vehicles />} />
-          <Route path="/fleet/bookings" element={<Rentals />} />
-          <Route path="/fleet/bookings/:id" element={<RentalDetail />} />
-          <Route path="/fleet/kiosk" element={<Kiosk />} />
-          <Route path="/fleet/drivers" element={<Drivers />} />
-          <Route path="/fleet/gps" element={<Gps />} />
-          <Route path="/fleet/reports" element={<FleetReports />} />
-
-          <Route path="/payments/dashboard" element={<PaymentsDashboard />} />
-          <Route path="/payments/invoices" element={<Invoices />} />
-          <Route path="/payments/payouts" element={<Payouts />} />
-          <Route path="/payments/accounting" element={<Accounting />} />
-
-          <Route path="/rewards" element={<RewardsLayout />}>
-            <Route index element={<Navigate to="/rewards/members" replace />} />
-            <Route path="members" element={<RewardsMembers />} />
-            <Route path="members/:id" element={<RewardsMemberDetail />} />
-            <Route path="disputes" element={<RewardsDisputes />} />
-            <Route path="partnerships" element={<RewardsPartnerships />} />
-            <Route path="audit" element={<RewardsAuditLog />} />
-            <Route path="tiers" element={<RewardsTiers />} />
+            <Route path="/fleet/partner-portal" element={<PartnerPortal />} />
           </Route>
-          <Route path="/reports" element={<Reports />} />
+
+          <Route element={<RequireRole roles={['superadmin', 'hotel_manager', 'car_agent', 'reward_manager']} />}>
+            <Route path="/messages" element={<Messages />} />
+          </Route>
+
+          <Route element={<RequireRole roles={['superadmin', 'hotel_manager']} />}>
+            <Route path="/hotels/dashboard" element={<HotelDashboard />} />
+            <Route path="/hotels/reservations" element={<Reservations />} />
+            <Route path="/hotels/reservations/:id" element={<ReservationDetail />} />
+            <Route path="/hotels/rooms" element={<Rooms />} />
+            <Route path="/hotels/housekeeping" element={<Housekeeping />} />
+            <Route path="/hotels/front-desk" element={<FrontDesk />} />
+            <Route path="/hotels/guests" element={<Guests />} />
+            <Route path="/hotels/fnb" element={<FnB />} />
+            <Route path="/hotels/reports" element={<HotelReports />} />
+            <Route path="/hotels/inventory" element={<Inventory />} />
+          </Route>
+
+          <Route element={<RequireRole roles={['superadmin', 'hotel_manager', 'car_agent']} />}>
+            <Route path="/pods" element={<Pods />} />
+            <Route path="/vending/machines" element={<VendingMachines />} />
+            <Route path="/vending/restock" element={<VendingRestock />} />
+            <Route path="/reports" element={<Reports />} />
+          </Route>
+
+          <Route element={<RequireRole roles={['superadmin', 'car_agent']} />}>
+            <Route path="/fleet/dashboard" element={<FleetDashboard />} />
+            <Route path="/fleet/vehicles" element={<Vehicles />} />
+            <Route path="/fleet/bookings" element={<Rentals />} />
+            <Route path="/fleet/bookings/:id" element={<RentalDetail />} />
+            <Route path="/fleet/kiosk" element={<Kiosk />} />
+            <Route path="/fleet/drivers" element={<Drivers />} />
+            <Route path="/fleet/gps" element={<Gps />} />
+            <Route path="/fleet/reports" element={<FleetReports />} />
+          </Route>
+
+          <Route element={<RequireRole roles={['superadmin', 'reward_manager']} />}>
+            <Route path="/rewards" element={<RewardsLayout />}>
+              <Route index element={<Navigate to="/rewards/members" replace />} />
+              <Route path="members" element={<RewardsMembers />} />
+              <Route path="members/:id" element={<RewardsMemberDetail />} />
+              <Route path="disputes" element={<RewardsDisputes />} />
+              <Route path="partnerships" element={<RewardsPartnerships />} />
+              <Route path="audit" element={<RewardsAuditLog />} />
+              <Route path="tiers" element={<RewardsTiers />} />
+            </Route>
+          </Route>
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

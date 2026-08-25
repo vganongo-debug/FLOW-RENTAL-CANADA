@@ -97,17 +97,56 @@ export interface Session { token: string; user: User; expiresAt: number }
 
 const SESSION_KEY = 'flow-os.session'
 
+/**
+ * Mot de passe des comptes de demonstration. Volontairement public et
+ * documente : il ne protege rien, il rend seulement le formulaire honnete.
+ */
+export const DEMO_PASSWORD = 'demo-flow-2026'
+
+/** Duree de session selon que l'utilisateur a coche « Se souvenir ». */
+const SESSION_HOURS_REMEMBERED = 8
+const SESSION_HOURS_TRANSIENT = 1
+
+function startSession(user: User, remember = true): Promise<Session> {
+  const hours = remember ? SESSION_HOURS_REMEMBERED : SESSION_HOURS_TRANSIENT
+  const session: Session = {
+    token: `tok_${user.role}_${Date.now().toString(36)}`,
+    user,
+    expiresAt: Date.now() + hours * 3600 * 1000,
+  }
+  setCached(SESSION_KEY, session)
+  return delay(session)
+}
+
 export const auth = {
   async loginAs(role: Role): Promise<Session> {
     const user = SAMPLE_USERS.find((u) => u.role === role)
     if (!user) throw new Error(`No demo user for role: ${role}`)
-    const session: Session = {
-      token: `tok_${role}_${Date.now().toString(36)}`,
-      user,
-      expiresAt: Date.now() + 8 * 3600 * 1000, // 8 hours
+    return startSession(user)
+  },
+
+  /**
+   * Connexion par courriel et mot de passe.
+   *
+   * Ce n'est PAS une authentification : le mot de passe est public, la
+   * verification a lieu dans le navigateur, et n'importe qui peut forger une
+   * session en editant localStorage. La fonction existe pour que l'ecran de
+   * connexion cesse de mentir — les champs affiches sont reellement lus — et
+   * pour que le point de bascule vers un vrai backend soit evident : cette
+   * methode est la seule a remplacer.
+   *
+   * Le courriel selectionne l'utilisateur, ce qui rend joignables les comptes
+   * qui partagent un meme profil : `loginAs('superadmin')` ne renvoyait que
+   * le premier des deux.
+   */
+  async login(input: { email: string; password: string; remember?: boolean }): Promise<Session> {
+    const email = input.email.trim().toLowerCase()
+    const user = SAMPLE_USERS.find((u) => u.email.toLowerCase() === email)
+    if (!user || input.password !== DEMO_PASSWORD) {
+      // Message unique : ne pas indiquer lequel des deux champs est en cause.
+      throw new Error('INVALID_CREDENTIALS')
     }
-    setCached(SESSION_KEY, session)
-    return delay(session)
+    return startSession(user, input.remember ?? true)
   },
   async logout(): Promise<void> {
     if (typeof window !== 'undefined') window.localStorage.removeItem(SESSION_KEY)
@@ -265,7 +304,7 @@ export interface PaymentResult {
   id: string
   amountCad: number
   method: PaymentMethod
-  status: 'captured' | 'queued' | 'failed'
+  status: 'captured' | 'queued' | 'failed' | 'requires_action'
   ref: string
   capturedAt: string
   /** Stripe payment-method id (pm_xxx). Present when method === 'card'. */
@@ -280,6 +319,13 @@ export interface ChargeInput {
   ref?: string
   /** Required when method === 'card'; obtained from <FlowStripeCard>. */
   stripePaymentMethodId?: string
+  /**
+   * Clé d'idempotence. Deux tentatives portant la même clé ne produisent
+   * qu'un seul débit chez Stripe. Laisser vide pour qu'elle soit dérivée
+   * de la référence, du montant et du moyen de paiement — c'est ce qui
+   * rend un nouvel essai sûr après une coupure réseau.
+   */
+  idempotencyKey?: string
 }
 
 /**
@@ -293,10 +339,26 @@ export interface ChargeInput {
  *
  * Set to an empty string at build time to force the mock confirmer · useful
  * for storybook and integration tests that should never reach real Stripe.
+ * C'est le SEUL moyen d'obtenir le simulateur : une panne réseau ne bascule
+ * plus dessus, sans quoi un débit échoué serait rapporté comme encaissé.
  */
-const PAYMENT_INTENTS_URL =
-  (import.meta as { env?: Record<string, string | undefined> }).env?.VITE_PAYMENT_INTENTS_URL ??
-  '/api/payment-intents'
+function paymentIntentsUrl(): string {
+  // Lu a chaque appel plutot que fige au chargement du module, pour que les
+  // tests puissent basculer en mode maquette.
+  //
+  // Les deux sources sont consultees : Vite remplace import.meta.env a la
+  // compilation, tandis que vi.stubEnv agit sur process.env. Sans la seconde,
+  // un test ne peut pas choisir le mode maquette et retombe sur l'appel
+  // reseau — c'est exactement ce qui rendait la suite verte a tort.
+  const viteEnv = (import.meta as { env?: Record<string, string | undefined> }).env
+  // Passe par globalThis : `process` n'existe pas dans le navigateur et
+  // n'est pas type cote frontend (pas de @types/node dans ce tsconfig).
+  const nodeEnv = (globalThis as { process?: { env?: Record<string, string | undefined> } })
+    .process?.env
+  const configured =
+    viteEnv?.VITE_PAYMENT_INTENTS_URL ?? nodeEnv?.VITE_PAYMENT_INTENTS_URL
+  return configured ?? '/api/payment-intents'
+}
 
 export const payments = {
   /**
@@ -358,24 +420,31 @@ export const payments = {
  * Calls the server-side Stripe bridge. Returns the captured/failed status
  * plus the pi_xxx id when successful.
  *
- * Falls back to `simulateBackendConfirm` when:
- *   - `fetch` is unavailable (vitest jsdom without polyfill)
- *   - PAYMENT_INTENTS_URL is empty (explicit mock-mode build flag)
- *   - the fetch throws (network error · degrades to the mock so the demo
- *     still completes end-to-end even without a backend)
+ * Le simulateur n'est utilisé que dans deux cas explicites : `fetch` absent
+ * de l'environnement, ou PAYMENT_INTENTS_URL vidée au build (mode maquette).
+ *
+ * Une panne réseau ne bascule PAS sur le simulateur. C'était le cas avant,
+ * et n'importe quelle coupure — DNS, CORS, 404, fonction non déployée —
+ * produisait un « encaissé » pour un débit qui n'avait jamais eu lieu.
+ * Une erreur réseau est désormais un échec, et rien d'autre.
  */
-async function confirmCardCharge(input: ChargeInput): Promise<{ status: 'captured' | 'failed'; paymentIntentId?: string }> {
+type ConfirmOutcome = {
+  status: 'captured' | 'failed' | 'requires_action'
+  paymentIntentId?: string
+}
+
+async function confirmCardCharge(input: ChargeInput): Promise<ConfirmOutcome> {
+  const url = paymentIntentsUrl()
   const noFetch = typeof fetch === 'undefined'
-  if (noFetch || !PAYMENT_INTENTS_URL) {
+  if (noFetch || !url) {
     return mockConfirm(input.stripePaymentMethodId!)
   }
   try {
-    const response = await fetch(PAYMENT_INTENTS_URL, {
+    const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Idempotency: retrying the same charge produces the same intent.
-        'Idempotency-Key': cryptoUuid(),
+        'Idempotency-Key': idempotencyKeyFor(input),
       },
       body: JSON.stringify({
         amountCad: input.amountCad,
@@ -384,23 +453,42 @@ async function confirmCardCharge(input: ChargeInput): Promise<{ status: 'capture
       }),
     })
     if (!response.ok) {
-      // 4xx with a JSON body containing `error`. Surface as a failed charge.
+      // 4xx / 5xx avec un corps JSON portant `error`. Débit non abouti.
       return { status: 'failed' }
     }
     const data: { ok: boolean; status?: string; paymentIntentId?: string } = await response.json()
     if (!data.ok) return { status: 'failed' }
-    // Stripe statuses: 'succeeded' | 'requires_action' | 'processing' | ...
-    // We only treat `succeeded` as captured · everything else is failed
-    // (the demo doesn't render the 3DS challenge UI yet).
-    return {
-      status: data.status === 'succeeded' ? 'captured' : 'failed',
-      paymentIntentId: data.paymentIntentId,
+    // Statuts Stripe : 'succeeded' | 'requires_action' | 'processing' | …
+    // `requires_action` signale une authentification 3-D Secure à présenter
+    // au porteur : ce n'est pas un refus, et l'annoncer comme tel ferait
+    // renoncer un client dont la carte est parfaitement valide.
+    if (data.status === 'succeeded') {
+      return { status: 'captured', paymentIntentId: data.paymentIntentId }
     }
+    if (data.status === 'requires_action') {
+      return { status: 'requires_action', paymentIntentId: data.paymentIntentId }
+    }
+    return { status: 'failed', paymentIntentId: data.paymentIntentId }
   } catch {
-    // Network outage · fall back to the deterministic mock so the demo
-    // still completes end-to-end (and unit tests stay hermetic).
-    return mockConfirm(input.stripePaymentMethodId!)
+    // Panne réseau : échec franc. Surtout pas une capture fictive.
+    return { status: 'failed' }
   }
+}
+
+/**
+ * Clé d'idempotence dérivée du débit lui-même : deux tentatives identiques
+ * portent la même clé, donc Stripe ne facture qu'une fois. Une clé aléatoire
+ * par tentative — ce qui était le cas — transforme chaque nouvel essai en
+ * second débit.
+ */
+function idempotencyKeyFor(input: ChargeInput): string {
+  if (input.idempotencyKey) return input.idempotencyKey
+  const seed = [input.ref ?? '', input.amountCad, input.stripePaymentMethodId ?? ''].join('|')
+  let hash = 0
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash * 31 + seed.charCodeAt(i)) | 0
+  }
+  return `flow-${Math.abs(hash).toString(36)}-${seed.length}`
 }
 
 /**
@@ -409,21 +497,12 @@ async function confirmCardCharge(input: ChargeInput): Promise<{ status: 'capture
  * URL is unreachable. Mints a synthetic `pi_xxx` so downstream consumers
  * (receipts, ledger entries) get a populated identifier in either path.
  */
-async function mockConfirm(stripePaymentMethodId: string): Promise<{ status: 'captured' | 'failed'; paymentIntentId?: string }> {
+async function mockConfirm(stripePaymentMethodId: string): Promise<ConfirmOutcome> {
   const status = await simulateBackendConfirm(stripePaymentMethodId)
   return {
     status,
     paymentIntentId: status === 'captured' ? `pi_${Math.random().toString(36).slice(2, 12)}` : undefined,
   }
-}
-
-function cryptoUuid(): string {
-  // Browser crypto when available, else a non-cryptographic fallback.
-  // The Idempotency-Key only needs to be unique-per-request to Stripe.
-  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
-    return crypto.randomUUID()
-  }
-  return `idem-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
 }
 
 /**

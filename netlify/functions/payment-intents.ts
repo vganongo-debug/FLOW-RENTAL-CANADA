@@ -16,27 +16,45 @@
  * keeps card PANs entirely outside our origin. See SECURITY.md §5 (PCI-3,
  * PCI-3b) for full context.
  *
+ * Currency
+ * ---------
+ * Flow settles in Canadian dollars. The request carries `amountCad` and the
+ * intent is created with `currency: 'cad'`. There is no conversion step:
+ * the number the guest sees is the number Stripe charges.
+ *
  * Required env vars
  * ------------------
  *   STRIPE_SECRET_KEY     · sk_test_… for staging, sk_live_… for production.
  *                           Set in Netlify → Site settings → Environment vars.
+ *   PAYMENTS_ENABLED      · must be exactly "true" or every request is
+ *                           refused with 503. See "Closed by default" below.
  *
  * Optional env vars
  * ------------------
  *   STRIPE_API_VERSION    · defaults to 2024-06-20 · pin to a specific
  *                           version to opt out of automatic upgrades.
+ *   ALLOWED_ORIGIN        · overrides the CORS origin. Defaults to the
+ *                           Netlify deploy URL. Never falls back to "*".
  *
  * Idempotency
  * ------------
- * The frontend should send a UUID in the `Idempotency-Key` header. If the
- * client retries (e.g. flaky network) Stripe returns the same intent rather
- * than charging twice. See: https://stripe.com/docs/api/idempotent_requests
+ * The frontend sends a key derived from the charge itself (reference,
+ * amount, payment-method) in the `Idempotency-Key` header, so a retry of
+ * the same charge reuses the same intent instead of billing twice.
+ * See: https://stripe.com/docs/api/idempotent_requests
  *
- * Auth (TODO)
- * ------------
- * In production this function MUST verify the caller's session before
- * accepting a charge request. The demo deliberately omits this so the
- * Stripe end-to-end flow can be exercised — search for "AUTH-TODO" below.
+ * Closed by default — READ THIS BEFORE ENABLING
+ * ----------------------------------------------
+ * This function has NO caller authentication. It cannot have any until
+ * sessions are verified server-side: the SPA mints its own session token in
+ * localStorage, and any secret shipped in the bundle is readable by anyone
+ * who opens devtools. Without a check, whoever can tokenise a card can ask
+ * this endpoint to charge any amount.
+ *
+ * So it refuses everything unless PAYMENTS_ENABLED === "true". Do not set
+ * that variable until the AUTH-TODO below is done: verify the caller's
+ * session against a server-side store and attach the authenticated user id
+ * to the intent metadata.
  */
 import Stripe from 'stripe'
 
@@ -57,7 +75,7 @@ interface NetlifyResponse {
 }
 
 interface ChargeRequest {
-  amountUsd: number
+  amountCad: number
   stripePaymentMethodId: string
   ref?: string
 }
@@ -79,14 +97,18 @@ interface ChargeFailure {
 /* Constants                                                          */
 /* ------------------------------------------------------------------ */
 
-const MAX_AMOUNT_USD = 100_000 // $100k upper bound · raises flag for review
-const MIN_AMOUNT_USD = 0.5     // Stripe minimum charge
+const MAX_AMOUNT_CAD = 100_000 // 100 k$ CA upper bound · raises flag for review
+const MIN_AMOUNT_CAD = 0.5     // Stripe minimum charge
+
+/**
+ * Origine autorisée. Le repli précédent était "*", ce qui ouvrait l'endpoint
+ * à n'importe quel site. En l'absence d'origine connue on renvoie une valeur
+ * qui ne correspond à rien plutôt que de tout autoriser.
+ */
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN ?? process.env.URL ?? 'null'
 
 const CORS_HEADERS: Record<string, string> = {
-  // The Netlify Function and the SPA share the same origin in production,
-  // but during `netlify dev` the SPA runs on :8888 and functions on :3999.
-  // Allow same-origin and the local dev origin only.
-  'Access-Control-Allow-Origin': process.env.URL ?? '*',
+  'Access-Control-Allow-Origin': ALLOWED_ORIGIN,
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Idempotency-Key',
   'Content-Type': 'application/json',
@@ -101,15 +123,15 @@ function validate(input: unknown): ChargeRequest | { error: string } {
   if (!input || typeof input !== 'object') return { error: 'Body must be JSON' }
   const obj = input as Record<string, unknown>
 
-  const amountUsd = obj.amountUsd
+  const amountCad = obj.amountCad
   const stripePaymentMethodId = obj.stripePaymentMethodId
   const ref = obj.ref
 
-  if (typeof amountUsd !== 'number' || !Number.isFinite(amountUsd)) {
-    return { error: 'amountUsd must be a finite number' }
+  if (typeof amountCad !== 'number' || !Number.isFinite(amountCad)) {
+    return { error: 'amountCad must be a finite number' }
   }
-  if (amountUsd < MIN_AMOUNT_USD || amountUsd > MAX_AMOUNT_USD) {
-    return { error: `amountUsd must be between $${MIN_AMOUNT_USD} and $${MAX_AMOUNT_USD}` }
+  if (amountCad < MIN_AMOUNT_CAD || amountCad > MAX_AMOUNT_CAD) {
+    return { error: `amountCad must be between ${MIN_AMOUNT_CAD} and ${MAX_AMOUNT_CAD} CAD` }
   }
   if (typeof stripePaymentMethodId !== 'string' || !/^pm_[a-zA-Z0-9]+$/.test(stripePaymentMethodId)) {
     return { error: 'stripePaymentMethodId must be a pm_xxx token from Stripe.js' }
@@ -118,7 +140,7 @@ function validate(input: unknown): ChargeRequest | { error: string } {
     return { error: 'ref must be a string ≤ 64 chars' }
   }
 
-  return { amountUsd, stripePaymentMethodId, ref: typeof ref === 'string' ? ref : undefined }
+  return { amountCad, stripePaymentMethodId, ref: typeof ref === 'string' ? ref : undefined }
 }
 
 /* ------------------------------------------------------------------ */
@@ -135,6 +157,18 @@ export const handler = async (event: NetlifyEvent): Promise<NetlifyResponse> => 
       statusCode: 405,
       headers: CORS_HEADERS,
       body: JSON.stringify({ ok: false, error: 'Method not allowed' } satisfies ChargeFailure),
+    }
+  }
+
+  // Fermé par défaut : sans vérification de session côté serveur, cet
+  // endpoint permettrait à quiconque sait tokeniser une carte de déclencher
+  // un débit. Voir « Closed by default » en tête de fichier.
+  if (process.env.PAYMENTS_ENABLED !== 'true') {
+    console.error('PAYMENTS_ENABLED is not "true" · refusing charge request')
+    return {
+      statusCode: 503,
+      headers: CORS_HEADERS,
+      body: JSON.stringify({ ok: false, error: 'Payments are disabled' } satisfies ChargeFailure),
     }
   }
 
@@ -184,8 +218,8 @@ export const handler = async (event: NetlifyEvent): Promise<NetlifyResponse> => 
   try {
     const intent = await stripe.paymentIntents.create(
       {
-        amount: Math.round(validation.amountUsd * 100),
-        currency: 'usd',
+        amount: Math.round(validation.amountCad * 100),
+        currency: 'cad',
         payment_method: validation.stripePaymentMethodId,
         confirmation_method: 'automatic',
         confirm: true,
@@ -213,11 +247,10 @@ export const handler = async (event: NetlifyEvent): Promise<NetlifyResponse> => 
       const body: ChargeFailure = { ok: false, error: err.message, code: err.code }
       return { statusCode: 402, headers: CORS_HEADERS, body: JSON.stringify(body) }
     }
+    // Le détail part dans les journaux, pas au client : les messages Stripe
+    // peuvent révéler la configuration du compte.
     console.error('Stripe charge failed', err)
-    const body: ChargeFailure = {
-      ok: false,
-      error: err instanceof Error ? err.message : 'Internal error',
-    }
+    const body: ChargeFailure = { ok: false, error: 'Payment could not be processed' }
     return { statusCode: 500, headers: CORS_HEADERS, body: JSON.stringify(body) }
   }
 }

@@ -7,6 +7,7 @@ interface AuthCtx {
   session: Session | null
   loading: boolean
   loginAs: (role: Role) => Promise<void>
+  login: (input: { email: string; password: string; remember?: boolean }) => Promise<void>
   logout: () => Promise<void>
 }
 
@@ -29,6 +30,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loading,
       loginAs: async (role) => {
         const next = await auth.loginAs(role)
+        setSession(next)
+      },
+      login: async (input) => {
+        const next = await auth.login(input)
         setSession(next)
       },
       logout: async () => {

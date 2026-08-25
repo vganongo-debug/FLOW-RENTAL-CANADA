@@ -24,6 +24,9 @@ export function AppLayout() {
     )
   }
   if (!user) return <Navigate to="/login" replace />
+  // Un client n'a rien a faire dans le back-office. Sans ce test, il suffisait
+  // d'une session — n'importe laquelle — pour atteindre les ecrans internes.
+  if (user.role === 'guest') return <Navigate to="/booking/search" replace />
 
   return (
     <div className="flex bg-ivory dark:bg-coal min-h-screen text-ink dark:text-ivory">

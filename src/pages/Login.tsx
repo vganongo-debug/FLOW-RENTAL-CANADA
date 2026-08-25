@@ -5,7 +5,8 @@ import { ArrowRight, Eye, EyeOff } from 'lucide-react'
 import { FlowWordmark } from '../components/flow/FlowWordmark'
 import { FlowLanguageToggle } from '../components/flow/FlowLanguageToggle'
 import { useAuth } from '../context/AuthContext'
-import { PROPERTIES, ROLE_HOMES } from '../lib/sampleData'
+import { DEMO_PASSWORD } from '../lib/api'
+import { PROPERTIES, ROLE_HOMES, SAMPLE_USERS } from '../lib/sampleData'
 import type { Role } from '../lib/types'
 import { cn } from '../lib/utils'
 
@@ -17,22 +18,44 @@ const LIVE_VEHICLES = LIVE.reduce((n, p) => n + (p.vehicles ?? 0), 0)
 
 const ROLE_OPTIONS: Role[] = ['superadmin', 'hotel_manager', 'car_agent', 'reward_manager', 'guest']
 
+/** Courriel du compte de démonstration rattaché à un profil. */
+function demoEmailFor(role: Role): string {
+  return SAMPLE_USERS.find((u) => u.role === role)?.email ?? ''
+}
+
 export default function Login() {
   const { t } = useTranslation()
-  const { loginAs } = useAuth()
+  const { login } = useAuth()
   const navigate = useNavigate()
   const [role, setRole] = useState<Role>('superadmin')
   const [showPwd, setShowPwd] = useState(false)
   const [remember, setRemember] = useState(true)
-  const [email, setEmail] = useState('vistel@flowrentals.com')
+  const [email, setEmail] = useState(demoEmailFor('superadmin'))
+  const [password, setPassword] = useState(DEMO_PASSWORD)
+  const [error, setError] = useState<string | null>(null)
+
+  // Choisir un profil pré-remplit son courriel ; le champ reste modifiable,
+  // ce qui rend joignables les comptes partageant un même profil.
+  const pickRole = (r: Role) => {
+    setRole(r)
+    setEmail(demoEmailFor(r))
+    setError(null)
+  }
 
   const [submitting, setSubmitting] = useState(false)
   const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
-    await loginAs(role)
-    setSubmitting(false)
-    navigate(ROLE_HOMES[role], { replace: true })
+    setError(null)
+    try {
+      await login({ email, password, remember })
+      const signedIn = SAMPLE_USERS.find((u) => u.email.toLowerCase() === email.trim().toLowerCase())
+      navigate(ROLE_HOMES[signedIn?.role ?? role], { replace: true })
+    } catch {
+      setError(t('login.invalid'))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -72,7 +95,7 @@ export default function Login() {
               <button
                 type="button"
                 key={r}
-                onClick={() => setRole(r)}
+                onClick={() => pickRole(r)}
                 className={cn(
                   'text-left px-3 py-2.5 rounded-input border transition',
                   role === r
@@ -101,7 +124,9 @@ export default function Login() {
               <div className="relative">
                 <input
                   type={showPwd ? 'text' : 'password'}
-                  defaultValue="demo-flow-2026"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
                   className="w-full px-3 py-2 pr-10 bg-white border border-g20/60 rounded-input focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal text-ink"
                 />
                 <button
@@ -127,6 +152,12 @@ export default function Login() {
               <a className="text-teal hover:text-teal-dark" href="#">{t('common.forgotPassword')}</a>
             </div>
           </div>
+
+          {error && (
+            <p role="alert" className="mt-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-input px-3 py-2">
+              {error}
+            </p>
+          )}
 
           <button
             type="submit"

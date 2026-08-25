@@ -121,6 +121,7 @@ export const en = {
     guest_sub: 'Public · book stay & drive',
   },
   login: {
+    invalid: 'Incorrect email or password.',
     title: 'Sign in to Flow OS',
     subtitle: 'Choose a demo role to enter the experience tailored to that user.',
     continueAs: 'Continue as {{role}}',
