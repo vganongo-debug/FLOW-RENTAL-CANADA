@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap"
+      rel="stylesheet"
+    />
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0B6E6E" />
+    <meta name="theme-color" content="#2E503E" />
 
     <!--
       Defence-in-depth security meta tags.
@@ -19,7 +25,7 @@
       js.stripe.com hooks.stripe.com, connect-src api.stripe.com.
       Ref: https://stripe.com/docs/security/guide#content-security-policy
     -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; connect-src 'self' ws: wss: https: https://api.stripe.com; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; font-src 'self' data: https://js.stripe.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; connect-src 'self' ws: wss: https: https://api.stripe.com; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; font-src 'self' data: https://fonts.gstatic.com https://js.stripe.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=()" />

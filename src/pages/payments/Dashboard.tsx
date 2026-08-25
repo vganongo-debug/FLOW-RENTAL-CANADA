@@ -8,12 +8,12 @@ import { COUNTRY_PERFORMANCE, REVENUE_30D } from '../../lib/sampleData'
 import { cn, formatCurrency } from '../../lib/utils'
 
 const PAYMENT_METHODS = [
-  { method: 'Visa / Mastercard', amount: 142_840, share: 38, color: '#0B6E6E', icon: CreditCard },
-  { method: 'Interac',   amount:  88_220, share: 23, color: '#0D8888', icon: Smartphone },
-  { method: 'Apple Pay',       amount:  48_180, share: 13, color: '#B87333', icon: Smartphone },
-  { method: 'Google Pay',             amount:  32_980, share:  9, color: '#7A4B20', icon: Smartphone },
-  { method: 'Banque Nordia',          amount:  28_640, share:  8, color: '#5A7070', icon: CreditCard },
-  { method: 'Cash',               amount:  33_240, share:  9, color: '#8FA0A0', icon: Banknote },
+  { method: 'Visa / Mastercard', amount: 142_840, share: 38, color: '#2E503E', icon: CreditCard },
+  { method: 'Interac',   amount:  88_220, share: 23, color: '#4E7260', icon: Smartphone },
+  { method: 'Apple Pay',       amount:  48_180, share: 13, color: '#AA5830', icon: Smartphone },
+  { method: 'Google Pay',             amount:  32_980, share:  9, color: '#8B492A', icon: Smartphone },
+  { method: 'Banque Nordia',          amount:  28_640, share:  8, color: '#4F5C54', icon: CreditCard },
+  { method: 'Cash',               amount:  33_240, share:  9, color: '#909C92', icon: Banknote },
 ]
 
 const RECENT_TRANSACTIONS = [
@@ -66,13 +66,13 @@ export default function PaymentsDashboard() {
         <Card title="Daily revenue · last 30 days" subtitle="Hotels vs. car rental" className="lg:col-span-2">
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={REVENUE_30D} barCategoryGap={2}>
-              <CartesianGrid stroke="#E0F2F2" vertical={false} />
-              <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#5A7070' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#5A7070' }} />
+              <CartesianGrid stroke="#E0F0E7" vertical={false} />
+              <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#4F5C54' }} />
+              <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} />
               <Tooltip />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="hotels" name="Hotels" fill="#0B6E6E" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="cars" name="Car rental" fill="#B87333" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="hotels" name="Hotels" fill="#2E503E" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="cars" name="Car rental" fill="#AA5830" radius={[2, 2, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </Card>

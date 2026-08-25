@@ -27,7 +27,7 @@ const METRICS: Field<Metric>[] = [
 ]
 
 const COUNTRIES = ['Québec', 'Québec', 'Québec']
-const COLORS = ['#0B6E6E', '#B87333', '#0D8888', '#7A4B20', '#5A7070', '#8FA0A0']
+const COLORS = ['#2E503E', '#AA5830', '#4E7260', '#8B492A', '#4F5C54', '#909C92']
 
 export default function Reports() {
   const [chartType, setChartType] = useState<'bar' | 'line'>('bar')
@@ -176,9 +176,9 @@ export default function Reports() {
             <ResponsiveContainer width="100%" height={300}>
               {chartType === 'bar' ? (
                 <BarChart data={data}>
-                  <CartesianGrid stroke="#E0F2F2" vertical={false} />
-                  <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#5A7070' }} />
-                  <YAxis tick={{ fontSize: 11, fill: '#5A7070' }} />
+                  <CartesianGrid stroke="#E0F0E7" vertical={false} />
+                  <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#4F5C54' }} />
+                  <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} />
                   <Tooltip />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   {metrics.map((m, i) => (
@@ -189,9 +189,9 @@ export default function Reports() {
                 </BarChart>
               ) : (
                 <LineChart data={data}>
-                  <CartesianGrid stroke="#E0F2F2" vertical={false} />
-                  <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#5A7070' }} />
-                  <YAxis tick={{ fontSize: 11, fill: '#5A7070' }} />
+                  <CartesianGrid stroke="#E0F0E7" vertical={false} />
+                  <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#4F5C54' }} />
+                  <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} />
                   <Tooltip />
                   <Legend wrapperStyle={{ fontSize: 11 }} />
                   {metrics.map((m, i) => (

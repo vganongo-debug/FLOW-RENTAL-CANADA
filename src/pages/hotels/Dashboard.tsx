@@ -83,13 +83,13 @@ export default function HotelDashboard() {
           <Card title={t('card.occupancyTrend')} subtitle="With ADR overlay">
             <ResponsiveContainer width="100%" height={240}>
               <LineChart data={OCCUPANCY_TREND_7D}>
-                <CartesianGrid stroke="#E0F2F2" vertical={false} />
-                <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#5A7070' }} />
-                <YAxis yAxisId="left" tick={{ fontSize: 11, fill: '#5A7070' }} unit="%" />
-                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11, fill: '#5A7070' }} />
+                <CartesianGrid stroke="#E0F0E7" vertical={false} />
+                <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#4F5C54' }} />
+                <YAxis yAxisId="left" tick={{ fontSize: 11, fill: '#4F5C54' }} unit="%" />
+                <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11, fill: '#4F5C54' }} />
                 <Tooltip />
-                <Line yAxisId="left" type="monotone" dataKey="occupancy" stroke="#0B6E6E" strokeWidth={2.5} dot={{ r: 3 }} />
-                <Line yAxisId="right" type="monotone" dataKey="adr" stroke="#B87333" strokeWidth={2} strokeDasharray="4 3" dot={{ r: 3 }} />
+                <Line yAxisId="left" type="monotone" dataKey="occupancy" stroke="#2E503E" strokeWidth={2.5} dot={{ r: 3 }} />
+                <Line yAxisId="right" type="monotone" dataKey="adr" stroke="#AA5830" strokeWidth={2} strokeDasharray="4 3" dot={{ r: 3 }} />
               </LineChart>
             </ResponsiveContainer>
           </Card>

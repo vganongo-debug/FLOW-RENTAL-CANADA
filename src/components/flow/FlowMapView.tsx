@@ -36,22 +36,22 @@ export function FlowMapView({ vehicles, className, height = 380 }: Props) {
       >
         <defs>
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#0B6E6E" strokeOpacity="0.08" strokeWidth="1" />
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2E503E" strokeOpacity="0.08" strokeWidth="1" />
           </pattern>
         </defs>
         <rect width="600" height="400" fill="url(#grid)" />
         {/* Stylised coastline silhouette */}
         <path
           d="M 60 330 C 130 300, 200 285, 265 265 C 330 245, 385 225, 440 195 C 480 172, 515 150, 545 120 C 560 105, 570 88, 575 70 L 575 20 L 500 20 C 470 55, 430 90, 380 120 C 320 155, 250 185, 180 215 C 130 236, 85 262, 55 292 Z"
-          fill="#0B6E6E"
+          fill="#2E503E"
           fillOpacity="0.15"
-          stroke="#0B6E6E"
+          stroke="#2E503E"
           strokeOpacity="0.4"
           strokeWidth="1.5"
         />
         {vehicles.map((v) => {
           const { x, y } = project(v.gps.lat, v.gps.lng)
-          const color = v.owner === 'flow' ? '#0B6E6E' : '#B87333'
+          const color = v.owner === 'flow' ? '#2E503E' : '#AA5830'
           return (
             <g key={v.id} transform={`translate(${x},${y})`}>
               <circle r="14" fill={color} fillOpacity="0.18" />

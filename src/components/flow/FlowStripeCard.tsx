@@ -78,15 +78,22 @@ function StripeElementsBoundary({ children }: { children: React.ReactNode }) {
 
   return (
     <Elements stripe={stripe} options={{
+      // Le champ carte vit dans une iframe servie par Stripe : la police du
+      // document hote ne s'y applique pas, il faut la lui fournir.
+      fonts: [{
+        cssSrc: 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap',
+      }],
       appearance: {
         theme: mode === 'dark' ? 'night' : 'stripe',
         variables: {
-          colorPrimary: '#0B6E6E',
-          colorBackground: mode === 'dark' ? '#1E2A2A' : '#F4EFE6',
-          colorText: mode === 'dark' ? '#F4EFE6' : '#0C1A1A',
-          colorDanger: '#B87333',
-          fontFamily: 'Calibri, "Segoe UI", system-ui, sans-serif',
-          borderRadius: '4px',
+          colorPrimary: '#2E503E',
+          colorBackground: mode === 'dark' ? '#1B3727' : '#FCFAF4',
+          colorText: mode === 'dark' ? '#F6F4EB' : '#12271B',
+          // Le rouge signale l'erreur. C'etait l'accent de la marque, qui
+          // rendait un champ en faute indiscernable d'un champ actif.
+          colorDanger: '#A8412C',
+          fontFamily: '"Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          borderRadius: '6px',
         },
       },
     }}>
@@ -108,12 +115,12 @@ function CardForm({ amountCad, disabled, onPaymentMethod, onError }: Props) {
     hidePostalCode: false,
     style: {
       base: {
-        fontFamily: 'Calibri, "Segoe UI", system-ui, sans-serif',
+        fontFamily: '"Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif',
         fontSize: '14px',
-        color: mode === 'dark' ? '#F4EFE6' : '#0C1A1A',
-        '::placeholder': { color: mode === 'dark' ? '#8FA0A0' : '#5A7070' },
+        color: mode === 'dark' ? '#F6F4EB' : '#12271B',
+        '::placeholder': { color: mode === 'dark' ? '#909C92' : '#4F5C54' },
       },
-      invalid: { color: '#B87333' },
+      invalid: { color: '#A8412C' },
     },
   }
 

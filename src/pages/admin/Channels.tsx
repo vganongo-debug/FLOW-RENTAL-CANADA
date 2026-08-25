@@ -41,12 +41,12 @@ const PARITY_ALERTS = [
 ]
 
 const REVENUE_SHARE = [
-  { name: 'Direct',     value: 38, color: '#0B6E6E' },
-  { name: 'Booking.com', value: 31, color: '#0D8888' },
-  { name: 'Expedia',    value: 14, color: '#B87333' },
-  { name: 'Airbnb',     value:  4, color: '#7A4B20' },
-  { name: 'Hotelbeds',  value:  2, color: '#5A7070' },
-  { name: 'Walk-in',    value: 11, color: '#8FA0A0' },
+  { name: 'Direct',     value: 38, color: '#2E503E' },
+  { name: 'Booking.com', value: 31, color: '#4E7260' },
+  { name: 'Expedia',    value: 14, color: '#AA5830' },
+  { name: 'Airbnb',     value:  4, color: '#8B492A' },
+  { name: 'Hotelbeds',  value:  2, color: '#4F5C54' },
+  { name: 'Walk-in',    value: 11, color: '#909C92' },
 ]
 
 export default function Channels() {

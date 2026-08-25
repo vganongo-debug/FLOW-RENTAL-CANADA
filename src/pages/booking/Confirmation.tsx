@@ -142,14 +142,14 @@ function QrPlaceholder({ text }: { text: string }) {
         const y = Math.floor(i / cells)
         if (isFinder(x, y)) return null
         if (!on) return null
-        return <rect key={i} x={x} y={y} width="1" height="1" fill="#0C1A1A" />
+        return <rect key={i} x={x} y={y} width="1" height="1" fill="#12271B" />
       })}
       {/* Finder patterns */}
       {[[0, 0], [cells - 7, 0], [0, cells - 7]].map(([fx, fy]) => (
         <g key={`f-${fx}-${fy}`}>
-          <rect x={fx} y={fy} width={7} height={7} fill="#0C1A1A" />
+          <rect x={fx} y={fy} width={7} height={7} fill="#12271B" />
           <rect x={fx + 1} y={fy + 1} width={5} height={5} fill="#fff" />
-          <rect x={fx + 2} y={fy + 2} width={3} height={3} fill="#0C1A1A" />
+          <rect x={fx + 2} y={fy + 2} width={3} height={3} fill="#12271B" />
         </g>
       ))}
     </svg>

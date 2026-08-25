@@ -19,7 +19,7 @@ export function PublicLayout() {
       <header className="bg-white dark:bg-panel-mid border-b border-g20/60">
         <div className="max-w-7xl mx-auto h-16 px-4 sm:px-6 flex items-center justify-between">
           <Link to="/" className="flex items-center" aria-label="Flow Rentals — home">
-            <FlowWordmark size="md" variant="dark" />
+            <FlowWordmark size="md" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">

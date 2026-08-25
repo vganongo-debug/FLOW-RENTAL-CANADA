@@ -4,27 +4,27 @@
 
 :root {
   /* Brand */
-  --color-teal: #0B6E6E;
-  --color-teal-dark: #084F4F;
-  --color-teal-mid: #0D8888;
-  --color-teal-light: #E0F2F2;
-  --color-copper: #B87333;
-  --color-copper-dark: #7A4B20;
-  --color-copper-light: #F2D9B8;
+  --color-teal: #2E503E;
+  --color-teal-dark: #12271B;
+  --color-teal-mid: #4E7260;
+  --color-teal-light: #E0F0E7;
+  --color-copper: #AA5830;
+  --color-copper-dark: #8B492A;
+  --color-copper-light: #F5D8C1;
 
   /* Neutrals */
-  --color-ink: #0C1A1A;
-  --color-coal: #111A1A;
-  --color-panel: #162020;
-  --color-panel-mid: #1E2A2A;
-  --color-card: #243030;
-  --color-ivory: #F4EFE6;
-  --color-sand: #F5EDD8;
-  --color-g80: #C8D0D0;
-  --color-g60: #8FA0A0;
-  --color-g40: #5A7070;
-  --color-g20: #2A3A3A;
-  --color-white: #FFFFFF;
+  --color-ink: #12271B;
+  --color-coal: #0B1C13;
+  --color-panel: #193124;
+  --color-panel-mid: #1B3727;
+  --color-card: #233C2D;
+  --color-ivory: #F6F4EB;
+  --color-sand: #E8E3D4;
+  --color-g80: #C9CDBE;
+  --color-g60: #909C92;
+  --color-g40: #4F5C54;
+  --color-g20: #213328;
+  --color-white: #FCFAF4;
 
   /* Semantic surface tokens (light) */
   --bg-page: var(--color-ivory);
@@ -39,7 +39,7 @@
   --bg-surface: var(--color-panel-mid);
   --text-primary: var(--color-ivory);
   --text-muted: var(--color-g60);
-  --border-subtle: #2A3A3A;
+  --border-subtle: #213328;
 }
 
 html, body, #root {
@@ -48,7 +48,7 @@ html, body, #root {
 
 body {
   margin: 0;
-  font-family: 'Calibri', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'Hanken Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: var(--text-primary);
   background-color: var(--bg-page);
   -webkit-font-smoothing: antialiased;
@@ -56,17 +56,17 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Palatino Linotype', Georgia, serif;
+  font-family: 'Hanken Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 .label-caps {
-  font-family: 'Trebuchet MS', Arial, sans-serif;
+  font-family: 'Hanken Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .flow-scroll {

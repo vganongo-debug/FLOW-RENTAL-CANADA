@@ -26,24 +26,24 @@ const OCCUPANCY_30D = Array.from({ length: 30 }, (_, i) => {
 }).map((d) => ({ ...d, revpar: Math.round((d.occupancy / 100) * d.adr) }))
 
 const CHANNEL_DATA = [
-  { name: 'Direct / Flow App', bookings: 142, revenue: 38_400, fill: '#0B6E6E' },
-  { name: 'Booking.com',       bookings: 118, revenue: 31_220, fill: '#0D8888' },
-  { name: 'Expedia',           bookings:  52, revenue: 14_180, fill: '#B87333' },
-  { name: 'Walk-in',           bookings:  34, revenue:  9_080, fill: '#7A4B20' },
-  { name: 'Corporate / UN',    bookings:  28, revenue: 12_950, fill: '#5A7070' },
+  { name: 'Direct / Flow App', bookings: 142, revenue: 38_400, fill: '#2E503E' },
+  { name: 'Booking.com',       bookings: 118, revenue: 31_220, fill: '#4E7260' },
+  { name: 'Expedia',           bookings:  52, revenue: 14_180, fill: '#AA5830' },
+  { name: 'Walk-in',           bookings:  34, revenue:  9_080, fill: '#8B492A' },
+  { name: 'Corporate / UN',    bookings:  28, revenue: 12_950, fill: '#4F5C54' },
 ]
 
 const NATIONALITIES = [
-  { country: 'Québec',                 arrivals: 142, fill: '#0B6E6E' },
-  { country: 'Terre-Neuve-et-Labrador', arrivals:  88, fill: '#0D8888' },
-  { country: 'Ontario',                arrivals:  62, fill: '#B87333' },
-  { country: 'France',                 arrivals:  41, fill: '#0B6E6E' },
-  { country: 'United States',          arrivals:  38, fill: '#0D8888' },
-  { country: 'Nouveau-Brunswick',      arrivals:  31, fill: '#B87333' },
-  { country: 'Nouvelle-Écosse',        arrivals:  28, fill: '#0B6E6E' },
-  { country: 'United Kingdom',         arrivals:  19, fill: '#7A4B20' },
-  { country: 'Alberta',                arrivals:  17, fill: '#5A7070' },
-  { country: 'Colombie-Britannique',   arrivals:  14, fill: '#0D8888' },
+  { country: 'Québec',                 arrivals: 142, fill: '#2E503E' },
+  { country: 'Terre-Neuve-et-Labrador', arrivals:  88, fill: '#4E7260' },
+  { country: 'Ontario',                arrivals:  62, fill: '#AA5830' },
+  { country: 'France',                 arrivals:  41, fill: '#2E503E' },
+  { country: 'United States',          arrivals:  38, fill: '#4E7260' },
+  { country: 'Nouveau-Brunswick',      arrivals:  31, fill: '#AA5830' },
+  { country: 'Nouvelle-Écosse',        arrivals:  28, fill: '#2E503E' },
+  { country: 'United Kingdom',         arrivals:  19, fill: '#8B492A' },
+  { country: 'Alberta',                arrivals:  17, fill: '#4F5C54' },
+  { country: 'Colombie-Britannique',   arrivals:  14, fill: '#4E7260' },
 ]
 
 const AR_AGING = [
@@ -148,14 +148,14 @@ function OccupancyReport() {
       <ReportShell title="Occupancy & ADR · last 30 days" subtitle="Daily occupancy % overlaid with ADR">
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={OCCUPANCY_30D}>
-            <CartesianGrid stroke="#E0F2F2" vertical={false} />
-            <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#5A7070' }} />
-            <YAxis yAxisId="left" tick={{ fontSize: 11, fill: '#5A7070' }} unit="%" />
-            <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11, fill: '#5A7070' }} />
+            <CartesianGrid stroke="#E0F0E7" vertical={false} />
+            <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#4F5C54' }} />
+            <YAxis yAxisId="left" tick={{ fontSize: 11, fill: '#4F5C54' }} unit="%" />
+            <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11, fill: '#4F5C54' }} />
             <Tooltip />
             <Legend wrapperStyle={{ fontSize: 11 }} />
-            <Line yAxisId="left" type="monotone" dataKey="occupancy" name="Occupancy %" stroke="#0B6E6E" strokeWidth={2.5} dot={false} />
-            <Line yAxisId="right" type="monotone" dataKey="adr" name="ADR (USD)" stroke="#B87333" strokeWidth={2} strokeDasharray="4 3" dot={false} />
+            <Line yAxisId="left" type="monotone" dataKey="occupancy" name="Occupancy %" stroke="#2E503E" strokeWidth={2.5} dot={false} />
+            <Line yAxisId="right" type="monotone" dataKey="adr" name="ADR (USD)" stroke="#AA5830" strokeWidth={2} strokeDasharray="4 3" dot={false} />
           </LineChart>
         </ResponsiveContainer>
       </ReportShell>
@@ -209,14 +209,14 @@ function RevenueReport() {
       <ReportShell title="Revenue mix · last 30 days" subtitle="Stacked daily revenue by source">
         <ResponsiveContainer width="100%" height={320}>
           <BarChart data={data}>
-            <CartesianGrid stroke="#E0F2F2" vertical={false} />
-            <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#5A7070' }} />
-            <YAxis tick={{ fontSize: 11, fill: '#5A7070' }} />
+            <CartesianGrid stroke="#E0F0E7" vertical={false} />
+            <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#4F5C54' }} />
+            <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} />
             <Tooltip />
             <Legend wrapperStyle={{ fontSize: 11 }} />
-            <Bar dataKey="rooms" stackId="r" name="Rooms" fill="#0B6E6E" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="fnb" stackId="r" name="F&B" fill="#0D8888" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="addons" stackId="r" name="Add-ons" fill="#B87333" radius={[2, 2, 0, 0]} />
+            <Bar dataKey="rooms" stackId="r" name="Rooms" fill="#2E503E" radius={[0, 0, 0, 0]} />
+            <Bar dataKey="fnb" stackId="r" name="F&B" fill="#4E7260" radius={[0, 0, 0, 0]} />
+            <Bar dataKey="addons" stackId="r" name="Add-ons" fill="#AA5830" radius={[2, 2, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </ReportShell>
@@ -283,9 +283,9 @@ function OriginReport() {
       <ReportShell title="Top 10 guest nationalities" subtitle="Arrivals · last 30 days">
         <ResponsiveContainer width="100%" height={360}>
           <BarChart data={NATIONALITIES} layout="vertical" margin={{ left: 20 }}>
-            <CartesianGrid stroke="#E0F2F2" horizontal={false} />
-            <XAxis type="number" tick={{ fontSize: 11, fill: '#5A7070' }} />
-            <YAxis dataKey="country" type="category" tick={{ fontSize: 11, fill: '#5A7070' }} width={120} />
+            <CartesianGrid stroke="#E0F0E7" horizontal={false} />
+            <XAxis type="number" tick={{ fontSize: 11, fill: '#4F5C54' }} />
+            <YAxis dataKey="country" type="category" tick={{ fontSize: 11, fill: '#4F5C54' }} width={120} />
             <Tooltip />
             <Bar dataKey="arrivals" radius={[0, 3, 3, 0]}>
               {NATIONALITIES.map((n) => <Cell key={n.country} fill={n.fill} />)}
