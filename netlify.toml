@@ -20,6 +20,16 @@
   # de la version de Node 20 que Netlify résout au moment du build.
   NODE_VERSION = "22"
 
+  # Le site publie est une demonstration : le parcours carte utilise le
+  # simulateur deterministe, et il le fait de facon declaree.
+  #
+  # C'est le pendant du correctif P0 : une panne reseau ne bascule plus sur
+  # le simulateur, donc sans ce reglage le paiement echouerait ici faute de
+  # cle Stripe. Vider cette variable et definir STRIPE_SECRET_KEY puis
+  # PAYMENTS_ENABLED = "true" fait passer le site aux debits reels — a ne
+  # faire qu'une fois la session verifiee cote serveur (AUTH-TODO).
+  VITE_PAYMENT_INTENTS_URL = ""
+
 # ------------------------------------------------------------------ #
 # API · pretty alias for the Stripe Payment Intents function.        #
 # Must come BEFORE the SPA catch-all.                                #
