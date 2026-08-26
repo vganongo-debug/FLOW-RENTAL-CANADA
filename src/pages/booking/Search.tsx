@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Hotel, Car, Search as SearchIcon, MapPin, Calendar, Users, Sparkles, ShieldCheck, Zap } from 'lucide-react'
 import { FlowWordmark } from '../../components/flow/FlowWordmark'
@@ -88,47 +88,85 @@ function Tab({ active, onClick, icon, label }: { active: boolean; onClick: () =>
 
 function StayForm() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  // Champs controles : ils etaient en `defaultValue`, donc ce que le
+  // visiteur tapait n'existait nulle part et le bouton menait a une page
+  // de resultats sans le moindre critere.
+  const [destination, setDestination] = useState('Blanc-Sablon, QC')
+  const [checkIn, setCheckIn] = useState('2026-05-14')
+  const [checkOut, setCheckOut] = useState('2026-05-18')
+  const [adults, setAdults] = useState('2')
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const params = new URLSearchParams({ mode: 'stay', dest: destination, in: checkIn, out: checkOut, adults })
+    navigate(`/booking/results?${params}`)
+  }
+
   return (
-    <div className="grid md:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-2 p-2">
-      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.destination')} defaultValue="Blanc-Sablon, QC" />
-      <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.checkIn')} defaultValue="14 May 2026" />
-      <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.checkOut')} defaultValue="18 May 2026" />
-      <Field icon={<Users className="h-4 w-4" />} label={t('booking.hero.guests')} defaultValue="2 adults" />
-      <Link
-        to="/booking/results"
+    <form onSubmit={submit} className="grid md:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-2 p-2">
+      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.destination')} value={destination} onChange={setDestination} />
+      <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.checkIn')} value={checkIn} onChange={setCheckIn} type="date" />
+      <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.checkOut')} value={checkOut} onChange={setCheckOut} type="date" />
+      <Field icon={<Users className="h-4 w-4" />} label={t('booking.hero.guests')} value={adults} onChange={setAdults} type="number" />
+      <button
+        type="submit"
         className="inline-flex items-center justify-center gap-1 px-5 rounded-input bg-copper text-white hover:bg-copper-dark text-sm font-medium"
       >
         <SearchIcon className="h-4 w-4" /> {t('booking.hero.search')}
-      </Link>
-    </div>
+      </button>
+    </form>
   )
 }
 
 function DriveForm() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [pickUp, setPickUp] = useState('Aéroport YZV')
+  const [dropOff, setDropOff] = useState('Same as pick-up')
+  const [from, setFrom] = useState('2026-05-14')
+  const [to, setTo] = useState('2026-05-18')
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const params = new URLSearchParams({ mode: 'drive', dest: pickUp, ret: dropOff, in: from, out: to })
+    navigate(`/booking/results?${params}`)
+  }
+
   return (
-    <div className="grid md:grid-cols-[2fr_2fr_1.2fr_auto] gap-2 p-2">
-      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.pickUp')} defaultValue="Aéroport YZV" />
-      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.return')} defaultValue="Same as pick-up" />
-      <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.dates')} defaultValue="14 – 18 May" />
-      <Link
-        to="/booking/results"
+    <form onSubmit={submit} className="grid md:grid-cols-[2fr_2fr_1fr_1fr_auto] gap-2 p-2">
+      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.pickUp')} value={pickUp} onChange={setPickUp} />
+      <Field icon={<MapPin className="h-4 w-4" />} label={t('booking.hero.return')} value={dropOff} onChange={setDropOff} />
+      <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.checkIn')} value={from} onChange={setFrom} type="date" />
+      <Field icon={<Calendar className="h-4 w-4" />} label={t('booking.hero.checkOut')} value={to} onChange={setTo} type="date" />
+      <button
+        type="submit"
         className="inline-flex items-center justify-center gap-1 px-5 rounded-input bg-copper text-white hover:bg-copper-dark text-sm font-medium"
       >
         <SearchIcon className="h-4 w-4" /> {t('booking.hero.search')}
-      </Link>
-    </div>
+      </button>
+    </form>
   )
 }
 
-function Field({ icon, label, defaultValue }: { icon: React.ReactNode; label: string; defaultValue: string }) {
+function Field({ icon, label, value, onChange, type = 'text' }: {
+  icon: React.ReactNode
+  label: string
+  value: string
+  onChange: (v: string) => void
+  type?: string
+}) {
   return (
     <label className="flex items-center gap-2 px-3 py-2 rounded-input border border-g20/60 bg-ivory dark:bg-panel">
       <span className="text-teal">{icon}</span>
       <span className="flex-1">
         <span className="block label-caps text-g40">{label}</span>
         <input
-          defaultValue={defaultValue}
+          type={type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          aria-label={label}
+          min={type === 'number' ? 1 : undefined}
           className="bg-transparent w-full text-sm text-ink dark:text-ivory focus:outline-none"
         />
       </span>

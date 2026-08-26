@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Check, ChevronLeft, ChevronRight, Hotel, Calendar, Users, CreditCard, Smartphone, Banknote, ShieldCheck, Coffee, Plane, Clock, Award } from 'lucide-react'
 import { cn } from '../../lib/utils'
@@ -30,10 +30,23 @@ export default function Checkout() {
   const [method, setMethod] = useState<Method>('card')
   const [agreed, setAgreed] = useState(false)
 
+  // Selection venue des resultats. Sans elle — acces direct a l'URL — on
+  // retombe sur un sejour type plutot que d'afficher une page vide.
+  const { state } = useLocation()
+  const chosen = state as {
+    offer?: { label: string; rateCad: number }
+    criteria?: { destination: string; nights: number; adults: string; checkIn: string; checkOut: string }
+  } | null
+
   // Un seul calcul pour tout l'ecran : le montant affiche, le montant remis
   // a Stripe et le montant du recu sont la meme valeur.
-  const nights = 4
-  const baseRate = 155
+  const nights = chosen?.criteria?.nights ?? 4
+  const baseRate = chosen?.offer?.rateCad ?? 155
+  const propertyName = chosen?.offer?.label ?? 'Flow Station Natashquan'
+  const stayDates = chosen?.criteria
+    ? `${chosen.criteria.checkIn} → ${chosen.criteria.checkOut}`
+    : '14 – 18 May 2026'
+  const guests = chosen?.criteria?.adults ?? '2'
   const quote = quoteStay({
     nights,
     nightlyRateCad: baseRate,
@@ -100,7 +113,7 @@ export default function Checkout() {
       <h1 className="font-display text-3xl text-ink dark:text-ivory mt-2">
         {t('booking.checkout.title', { defaultValue: 'Complete your booking' })}
       </h1>
-      <p className="text-sm text-g40 mt-1">Flow Station Natashquan · 14–18 May 2026 · {nights} nights</p>
+      <p className="text-sm text-g40 mt-1">{propertyName} · {nights} nights</p>
 
       {/* Progress */}
       <ol className="mt-6 flex items-center gap-1 overflow-x-auto flow-scroll">
@@ -184,14 +197,14 @@ export default function Checkout() {
           <div className="aspect-[16/9] bg-gradient-to-br from-teal to-teal-dark relative">
             <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle,rgba(184,115,51,0.6),transparent_60%)]" />
             <div className="absolute bottom-3 left-4 text-ivory">
-              <div className="font-display text-xl">Flow Station Natashquan</div>
+              <div className="font-display text-xl">{propertyName}</div>
               <div className="text-xs opacity-80">Deluxe · King · City view</div>
             </div>
           </div>
           <div className="p-4 space-y-3">
-            <Summary icon={<Calendar className="h-3.5 w-3.5 text-teal" />} label="14 – 18 May 2026" />
+            <Summary icon={<Calendar className="h-3.5 w-3.5 text-teal" />} label={stayDates} />
             <Summary icon={<Hotel className="h-3.5 w-3.5 text-teal" />} label={`${nights} nights · Deluxe`} />
-            <Summary icon={<Users className="h-3.5 w-3.5 text-teal" />} label="2 adults" />
+            <Summary icon={<Users className="h-3.5 w-3.5 text-teal" />} label={`${guests} guest${guests === '1' ? '' : 's'}`} />
             <hr className="border-g20/60" />
             <Line label={`${format(quote.nightlyRateCad, undefined, { cents: true })} × ${nights} nights`} amount={format(quote.subtotalCad, undefined, { cents: true })} />
             {quote.addonsCad > 0 && <Line label="Add-ons" amount={format(quote.addonsCad, undefined, { cents: true })} />}

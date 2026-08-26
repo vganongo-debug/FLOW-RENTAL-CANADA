@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useMemo, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Hotel, Car, Star, Wifi, Coffee, Plane, MapPin, Users, ShieldCheck, Award } from 'lucide-react'
 import { SEARCH_RESULTS_HOTELS, SEARCH_RESULTS_CARS } from '../../lib/sampleData'
 import { cn } from '../../lib/utils'
@@ -8,17 +8,52 @@ import { useCurrencyFormatter } from '../../lib/useCurrencyFormatter'
 type Mode = 'stay' | 'drive'
 
 export default function Results() {
-  const [mode, setMode] = useState<Mode>('stay')
-  const [priceMax, setPriceMax] = useState(300)
-  const [tier, setTier] = useState<string>('all')
+  const [params] = useSearchParams()
+  const navigate = useNavigate()
   const formatCurrency = useCurrencyFormatter()
+
+  // Criteres venus de la recherche. Ils n'etaient pas transmis du tout :
+  // la page affichait des dates et une destination ecrites en dur.
+  const destination = params.get('dest') ?? 'Natashquan, Québec'
+  const checkIn = params.get('in') ?? '2026-05-14'
+  const checkOut = params.get('out') ?? '2026-05-18'
+  const adults = params.get('adults') ?? '2'
+  const nights = Math.max(1, Math.round(
+    (new Date(checkOut).getTime() - new Date(checkIn).getTime()) / 86_400_000
+  ) || 1)
+
+  const [mode, setMode] = useState<Mode>((params.get('mode') as Mode) ?? 'stay')
+  const [priceMax, setPriceMax] = useState(400)
+  const [tier, setTier] = useState<string>('all')
+
+  // Les filtres ne filtraient rien : la liste complete etait rendue quelle
+  // que soit la position du curseur ou du selecteur.
+  const hotels = useMemo(
+    () => SEARCH_RESULTS_HOTELS.filter((h) => h.rateCad <= priceMax),
+    [priceMax]
+  )
+  const cars = useMemo(
+    () => SEARCH_RESULTS_CARS.filter((c) => c.rateCad <= priceMax && (tier === 'all' || c.tier === tier)),
+    [priceMax, tier]
+  )
+
+  /** Emmene la selection au paiement, avec de quoi calculer le devis. */
+  const choose = (offer: { id: string; label: string; rateCad: number; kind: Mode }) => {
+    navigate('/booking/checkout', {
+      state: { offer, criteria: { destination, checkIn, checkOut, adults, nights } },
+    })
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
       <header className="flex items-center justify-between flex-wrap gap-3 mb-6">
         <div>
-          <h1 className="font-display text-3xl text-ink dark:text-ivory">Available · 14 – 18 May 2026</h1>
-          <p className="text-sm text-g40">Natashquan, Québec · 2 guests</p>
+          <h1 className="font-display text-3xl text-ink dark:text-ivory">
+            Available · {checkIn} → {checkOut}
+          </h1>
+          <p className="text-sm text-g40">
+            {destination} · {adults} guest{adults === '1' ? '' : 's'} · {nights} night{nights === 1 ? '' : 's'}
+          </p>
         </div>
         <div className="inline-flex bg-white dark:bg-panel-mid border border-g20/60 rounded-input p-1">
           <ModeBtn active={mode === 'stay'} onClick={() => setMode('stay')} icon={<Hotel className="h-4 w-4" />} label="Stays" />
@@ -30,7 +65,8 @@ export default function Results() {
         <aside className="space-y-4">
           <Filter title="Price · per night">
             <input
-              type="range" min={50} max={400} value={priceMax}
+              type="range" min={50} max={400} step={5} value={priceMax}
+              aria-label="Prix maximum par nuit"
               onChange={(e) => setPriceMax(Number(e.target.value))}
               className="w-full accent-teal"
             />
@@ -78,7 +114,7 @@ export default function Results() {
 
         <main className="space-y-4">
           {mode === 'stay'
-            ? SEARCH_RESULTS_HOTELS.map((h) => (
+            ? hotels.map((h) => (
                 <article key={h.id} className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid shadow-card overflow-hidden grid md:grid-cols-[280px_1fr]">
                   <div className="aspect-[4/3] md:aspect-auto bg-gradient-to-br from-teal to-teal-dark relative">
                     <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle,rgba(184,115,51,0.7),transparent_60%)]" />
@@ -117,14 +153,17 @@ export default function Results() {
                         <div className="text-xs text-g40">From</div>
                         <div className="font-display font-bold text-2xl text-copper">{formatCurrency(h.rateCad)}<span className="text-sm font-normal text-g40"> / night</span></div>
                       </div>
-                      <Link to="/booking/results" className="px-4 py-2 rounded-input bg-teal text-white hover:bg-teal-dark text-sm font-medium">
+                      <button
+                        onClick={() => choose({ id: h.id, label: h.name, rateCad: h.rateCad, kind: 'stay' })}
+                        className="px-4 py-2 rounded-input bg-teal text-white hover:bg-teal-dark text-sm font-medium"
+                      >
                         Book now
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </article>
               ))
-            : SEARCH_RESULTS_CARS.map((c) => (
+            : cars.map((c) => (
                 <article key={c.id} className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid shadow-card overflow-hidden grid md:grid-cols-[260px_1fr]">
                   <div className="aspect-[4/3] md:aspect-auto bg-gradient-to-br from-ink to-coal relative flex items-center justify-center">
                     <Car className="h-16 w-16 text-copper opacity-90" />
@@ -147,9 +186,12 @@ export default function Results() {
                         <div className="text-xs text-g40">From</div>
                         <div className="font-display font-bold text-2xl text-copper">{formatCurrency(c.rateCad)}<span className="text-sm font-normal text-g40"> / day</span></div>
                       </div>
-                      <Link to="/booking/results" className="px-4 py-2 rounded-input bg-teal text-white hover:bg-teal-dark text-sm font-medium">
+                      <button
+                        onClick={() => choose({ id: c.id, label: c.label, rateCad: c.rateCad, kind: 'drive' })}
+                        className="px-4 py-2 rounded-input bg-teal text-white hover:bg-teal-dark text-sm font-medium"
+                      >
                         Reserve
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </article>
