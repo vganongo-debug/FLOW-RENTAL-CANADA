@@ -1,12 +1,37 @@
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { CheckCircle2, Calendar, Hotel, MapPin, Users, Plane, Coffee, Award, Mail, Download, Smartphone } from 'lucide-react'
 import { useCurrencyFormatter } from '../../lib/useCurrencyFormatter'
+import type { Quote } from '../../lib/booking'
+import type { PaymentResult } from '../../lib/api'
+
+/** Etat transmis par le paiement. Cette page ne calcule plus rien. */
+interface ConfirmationState {
+  ref: string
+  quote: Quote
+  result: PaymentResult
+  method: string
+}
 
 export default function Confirmation() {
   const { t } = useTranslation()
   const format = useCurrencyFormatter()
-  const bookingRef = 'FRG-2026-' + (Math.floor(Math.random() * 9000) + 1000).toString()
+  const { state } = useLocation()
+  const booking = state as ConfirmationState | null
+
+  // Sans paiement aboutit, il n'y a rien a confirmer. La page affichait
+  // auparavant un encaissement et une reference tires au hasard a chaque
+  // rendu — rafraichir donnait un autre numero.
+  //
+  // « queued » vaut confirmation : c'est le paiement sur place, du au
+  // moment de l'arrivee. Seuls un refus et une authentification en attente
+  // empechent la reservation.
+  const settled = booking?.result?.status === 'captured' || booking?.result?.status === 'queued'
+  if (!booking?.ref || !booking.quote || !settled) {
+    return <Navigate to="/booking/search" replace />
+  }
+
+  const { ref: bookingRef, quote, result } = booking
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
@@ -33,9 +58,9 @@ export default function Confirmation() {
             <div className="font-mono text-2xl mt-1">{bookingRef}</div>
             <div className="mt-3 space-y-1 text-sm">
               <div className="flex items-center gap-2"><Hotel className="h-3.5 w-3.5 text-copper" /> Flow Station Natashquan · Deluxe King</div>
-              <div className="flex items-center gap-2"><Calendar className="h-3.5 w-3.5 text-copper" /> 14 – 18 May 2026 · 4 nights</div>
+              <div className="flex items-center gap-2"><Calendar className="h-3.5 w-3.5 text-copper" /> 14 – 18 May 2026 · {quote.nights} nights</div>
               <div className="flex items-center gap-2"><Users className="h-3.5 w-3.5 text-copper" /> 2 adults · Sarah Bennett</div>
-              <div className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-copper" /> Plot 12 Lumumba Ave · Natashquan</div>
+              <div className="flex items-center gap-2"><MapPin className="h-3.5 w-3.5 text-copper" /> Chemin d’en Haut · Natashquan, QC</div>
             </div>
           </div>
 
@@ -49,7 +74,7 @@ export default function Confirmation() {
         <div className="bg-panel border-t border-g20/30 px-6 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
           <span className="text-g80">Free cancellation until 13 May 14:00 EST</span>
           <span className="text-copper-light flex items-center gap-1">
-            <Award className="h-3 w-3" /> {(520 * 4).toLocaleString()} Flow Rewards points pending
+            <Award className="h-3 w-3" /> {quote.pointsEarned.toLocaleString()} Flow Rewards points pending
           </span>
         </div>
       </section>
@@ -59,16 +84,20 @@ export default function Confirmation() {
         <div className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid p-5 shadow-card">
           <h2 className="label-caps text-g40 mb-3">{t('booking.confirmation.payment', { defaultValue: 'Payment' })}</h2>
           <ul className="space-y-1.5 text-sm">
-            <Line label="Deluxe room · 4 nights" amount={format(520)} />
-            <Line label="Breakfast (2 pax × 4 nights)" amount={format(144)} />
-            <Line label="Airport transfer · arrival" amount={format(35)} />
-            <Line label="TPS + TVQ (14,975 %)" amount={format(105)} muted />
+            <Line label={`Deluxe room · ${quote.nights} nights`} amount={format(quote.subtotalCad, undefined, { cents: true })} />
+            {quote.addonsCad > 0 && <Line label="Add-ons" amount={format(quote.addonsCad, undefined, { cents: true })} />}
+            <Line label={`${quote.taxName} (${quote.taxRatePct} %)`} amount={format(quote.taxCad, undefined, { cents: true })} muted />
           </ul>
           <div className="mt-3 flex items-center justify-between border-t border-g20/60 pt-3">
             <span className="label-caps text-g40">{t('common.total')}</span>
-            <span className="font-display font-bold text-2xl text-copper">{format(804)}</span>
+            <span className="font-display font-bold text-2xl text-copper">{format(quote.totalCad, undefined, { cents: true })}</span>
           </div>
-          <div className="text-xs text-g40 mt-2">Visa ··· 4242 · captured 10 May 2026 13:14 UTC</div>
+          <div className="text-xs text-g40 mt-2">
+            {result.method === 'card' ? 'Card' : result.method} ·{' '}
+            {result.status === 'queued' ? 'due on arrival' : 'captured'}{' '}
+            {new Date(result.capturedAt).toLocaleString('fr-CA')}
+            {result.stripePaymentIntentId ? ` · ${result.stripePaymentIntentId}` : ''}
+          </div>
         </div>
 
         <div className="rounded-card border border-g20/60 bg-white dark:bg-panel-mid p-5 shadow-card space-y-3">

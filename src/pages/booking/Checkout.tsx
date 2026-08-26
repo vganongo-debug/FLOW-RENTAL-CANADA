@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Check, ChevronLeft, ChevronRight, Hotel, Calendar, Users, CreditCard, Smartphone, Banknote, ShieldCheck, Coffee, Plane, Clock, Award } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { useCurrencyFormatter } from '../../lib/useCurrencyFormatter'
+import { quoteStay, STAY_ADDONS, newBookingRef } from '../../lib/booking'
+import { payments } from '../../lib/api'
 import { FlowSignaturePad } from '../../components/flow/FlowSignaturePad'
 import { FlowStripeCard } from '../../components/flow/FlowStripeCard'
 
@@ -18,12 +20,6 @@ const METHODS: { id: Method; label: string; icon: React.ComponentType<{ classNam
   { id: 'cash',   label: 'Pay at property',     icon: Banknote,   sub: 'On arrival' },
 ]
 
-const ADDONS_STAY = [
-  { id: 'breakfast', label: 'Breakfast (per night, 2 pax)', price: 18 },
-  { id: 'transfer',  label: 'Airport transfer (one way)',   price: 35 },
-  { id: 'late',      label: 'Late check-out (4pm)',         price: 25 },
-]
-
 export default function Checkout() {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -34,16 +30,60 @@ export default function Checkout() {
   const [method, setMethod] = useState<Method>('card')
   const [agreed, setAgreed] = useState(false)
 
+  // Un seul calcul pour tout l'ecran : le montant affiche, le montant remis
+  // a Stripe et le montant du recu sont la meme valeur.
   const nights = 4
-  const baseRate = 130
-  const subtotal = baseRate * nights
-  const addonsTotal = ADDONS_STAY.filter((a) => addons[a.id]).reduce((s, a) => s + a.price * (a.id === 'breakfast' ? nights : 1), 0)
-  const tax = Math.round((subtotal + addonsTotal) * 0.14975)
-  const total = subtotal + addonsTotal + tax
+  const baseRate = 155
+  const quote = quoteStay({
+    nights,
+    nightlyRateCad: baseRate,
+    addonIds: Object.keys(addons).filter((id) => addons[id]),
+    province: 'QC',
+  })
+  const total = quote.totalCad
+
+  const [paying, setPaying] = useState(false)
+  const [payError, setPayError] = useState<string | null>(null)
+  const [cardToken, setCardToken] = useState<string | null>(null)
 
   const next = () => setStep((s) => Math.min(3, s + 1))
   const back = () => setStep((s) => Math.max(0, s - 1))
-  const finalise = () => navigate('/booking/confirmation')
+
+  /**
+   * Confirme et debite. Auparavant ce bouton ne faisait que naviguer : la
+   * page de confirmation annoncait un encaissement qui n'avait jamais eu
+   * lieu, quel que soit le moyen de paiement.
+   */
+  const finalise = async () => {
+    if (paying) return
+    setPaying(true)
+    setPayError(null)
+    const ref = newBookingRef(Date.now())
+    try {
+      const result = await payments.charge({
+        amountCad: total,
+        method,
+        ref,
+        stripePaymentMethodId: method === 'card' ? cardToken ?? undefined : undefined,
+      })
+      if (result.status === 'failed') {
+        setPayError('Payment was declined. No charge was made — please try another method.')
+        return
+      }
+      if (result.status === 'requires_action') {
+        setPayError('Your bank asked for additional authentication. The booking is not confirmed yet.')
+        return
+      }
+      navigate('/booking/confirmation', {
+        replace: true,
+        state: { ref, quote, result, method },
+      })
+    } catch {
+      setPayError('Payment could not be completed. No charge was made.')
+    } finally {
+      setPaying(false)
+    }
+  }
 
   const STEPS = [
     { key: 'options',  label: t('booking.checkout.steps.options',  { defaultValue: 'Stay details' }) },
@@ -94,7 +134,14 @@ export default function Checkout() {
           {step === 0 && <StepOptions nights={nights} />}
           {step === 1 && <StepGuest agreed={agreed} setAgreed={setAgreed} />}
           {step === 2 && <StepAddons addons={addons} setAddons={setAddons} nights={nights} format={format} />}
-          {step === 3 && <StepPayment method={method} setMethod={setMethod} />}
+          {step === 3 && (
+            <StepPayment
+              method={method}
+              setMethod={setMethod}
+              amountCad={total}
+              onCardToken={setCardToken}
+            />
+          )}
 
           <footer className="mt-6 flex items-center justify-between">
             <button
@@ -115,10 +162,19 @@ export default function Checkout() {
             ) : (
               <button
                 onClick={finalise}
-                className="inline-flex items-center gap-1 px-5 py-2.5 rounded-input bg-copper text-white hover:bg-copper-dark text-sm font-medium"
+                disabled={paying || (method === 'card' && !cardToken)}
+                className="inline-flex items-center gap-1 px-5 py-2.5 rounded-input bg-copper text-white hover:bg-copper-dark text-sm font-medium disabled:opacity-40"
               >
-                <Check className="h-4 w-4" /> {t('booking.checkout.confirm', { defaultValue: 'Confirm & pay' })} {format(total)}
+                <Check className="h-4 w-4" />
+                {paying
+                  ? t('booking.checkout.paying', { defaultValue: 'Charging…' })
+                  : `${t('booking.checkout.confirm', { defaultValue: 'Confirm & pay' })} ${format(total, undefined, { cents: true })}`}
               </button>
+            )}
+            {payError && (
+              <p role="alert" className="w-full mt-3 text-sm text-copper-dark dark:text-copper-light">
+                {payError}
+              </p>
             )}
           </footer>
         </main>
@@ -137,16 +193,16 @@ export default function Checkout() {
             <Summary icon={<Hotel className="h-3.5 w-3.5 text-teal" />} label={`${nights} nights · Deluxe`} />
             <Summary icon={<Users className="h-3.5 w-3.5 text-teal" />} label="2 adults" />
             <hr className="border-g20/60" />
-            <Line label={`${format(baseRate)} × ${nights} nights`} amount={format(subtotal)} />
-            {addonsTotal > 0 && <Line label="Add-ons" amount={format(addonsTotal)} />}
-            <Line label="TPS + TVQ (14,975 %)" amount={format(tax)} muted />
+            <Line label={`${format(quote.nightlyRateCad, undefined, { cents: true })} × ${nights} nights`} amount={format(quote.subtotalCad, undefined, { cents: true })} />
+            {quote.addonsCad > 0 && <Line label="Add-ons" amount={format(quote.addonsCad, undefined, { cents: true })} />}
+            <Line label={`${quote.taxName} (${quote.taxRatePct} %)`} amount={format(quote.taxCad, undefined, { cents: true })} muted />
             <div className="flex items-center justify-between pt-2 border-t border-g20/60">
               <span className="label-caps text-g40">{t('common.total')}</span>
-              <span className="font-display font-bold text-2xl text-copper">{format(total)}</span>
+              <span className="font-display font-bold text-2xl text-copper">{format(total, undefined, { cents: true })}</span>
             </div>
             <div className="flex items-start gap-2 text-xs text-g40 mt-2">
               <Award className="h-3.5 w-3.5 text-copper mt-0.5 shrink-0" />
-              <span>You'll earn {(subtotal * 4).toLocaleString()} Flow Rewards points on this stay.</span>
+              <span>You'll earn {quote.pointsEarned.toLocaleString()} Flow Rewards points on this stay.</span>
             </div>
             <div className="flex items-start gap-2 text-xs text-g40">
               <ShieldCheck className="h-3.5 w-3.5 text-teal mt-0.5 shrink-0" />
@@ -219,8 +275,8 @@ function StepAddons({ addons, setAddons, nights, format }: { addons: Record<stri
       <h2 className="font-display text-xl text-ink dark:text-ivory mb-1">Step 3 · {t('booking.checkout.steps.addons', { defaultValue: 'Add-ons' })}</h2>
       <p className="text-sm text-g40 mb-4">Tailor your stay — all add-ons are billed with the room.</p>
       <ul className="space-y-2">
-        {ADDONS_STAY.map((a) => {
-          const each = a.id === 'breakfast' ? a.price * nights : a.price
+        {STAY_ADDONS.map((a) => {
+          const each = a.perNight ? a.priceCad * nights : a.priceCad
           return (
             <li key={a.id}>
               <label className={cn(
@@ -237,7 +293,7 @@ function StepAddons({ addons, setAddons, nights, format }: { addons: Record<stri
                   <div className="font-medium text-ink dark:text-ivory">{a.label}</div>
                   <div className="text-xs text-g40">
                     {a.id === 'breakfast'
-                      ? <>{format(a.price)} per night · {nights} nights · <Coffee className="inline h-3 w-3" /></>
+                      ? <>{format(a.priceCad)} per night · {nights} nights · <Coffee className="inline h-3 w-3" /></>
                       : a.id === 'transfer'
                         ? <>One-time fee · <Plane className="inline h-3 w-3" /></>
                         : <>Subject to availability · <Clock className="inline h-3 w-3" /></>}
@@ -253,7 +309,13 @@ function StepAddons({ addons, setAddons, nights, format }: { addons: Record<stri
   )
 }
 
-function StepPayment({ method, setMethod }: { method: Method; setMethod: (m: Method) => void }) {
+function StepPayment({ method, setMethod, amountCad, onCardToken }: {
+  method: Method
+  setMethod: (m: Method) => void
+  /** Montant reellement debite · le meme que celui du recapitulatif */
+  amountCad: number
+  onCardToken: (pmId: string) => void
+}) {
   const { t } = useTranslation()
   return (
     <div>
@@ -283,15 +345,8 @@ function StepPayment({ method, setMethod }: { method: Method; setMethod: (m: Met
 
       {method === 'card' && (
         <FlowStripeCard
-          amountCad={825}
-          onPaymentMethod={(pmId) => {
-            // In production, hand off to the backend at this point:
-            //   await fetch('/api/payment-intents', { method: 'POST', body: JSON.stringify({ amountCad, stripePaymentMethodId: pmId, ref }) })
-            // Today the booking confirmation page is the next route — the
-            // payment-method token gets passed along via router state in a
-            // production build.
-            console.info('[Stripe] Tokenized payment method:', pmId)
-          }}
+          amountCad={amountCad}
+          onPaymentMethod={onCardToken}
         />
       )}
       {method === 'transfer' && (

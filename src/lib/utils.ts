@@ -30,14 +30,20 @@ export function convertFromCad(amountCad: number, currency: Currency) {
 export function formatCurrency(
   amountCad: number,
   currency: Currency = 'CAD',
-  locale = CURRENCY_LOCALE[currency] ?? 'fr-CA'
+  locale = CURRENCY_LOCALE[currency] ?? 'fr-CA',
+  opts: { cents?: boolean } = {}
 ) {
   const value = convertFromCad(amountCad, currency)
+  // Les tableaux de bord se lisent mieux sans centimes, mais un devis ou un
+  // recu doit afficher le montant exact : arrondir a l'unite partout faisait
+  // qu'un total de 835,86 $ s'affichait 836 $, sans correspondre au debit.
+  const digits = opts.cents ? 2 : 0
   try {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
     }).format(value)
   } catch {
     return `${currency} ${value.toLocaleString()}`
