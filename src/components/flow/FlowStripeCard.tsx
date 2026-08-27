@@ -86,12 +86,12 @@ function StripeElementsBoundary({ children }: { children: React.ReactNode }) {
       appearance: {
         theme: mode === 'dark' ? 'night' : 'stripe',
         variables: {
-          colorPrimary: '#2E503E',
-          colorBackground: mode === 'dark' ? '#1B3727' : '#FCFAF4',
-          colorText: mode === 'dark' ? '#F6F4EB' : '#12271B',
+          colorPrimary: '#015FC4',
+          colorBackground: mode === 'dark' ? '#263850' : '#FFFFFF',
+          colorText: mode === 'dark' ? '#F4F7FB' : '#081D38',
           // Le rouge signale l'erreur. C'etait l'accent de la marque, qui
           // rendait un champ en faute indiscernable d'un champ actif.
-          colorDanger: '#A8412C',
+          colorDanger: '#8E0003',
           fontFamily: '"Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif',
           borderRadius: '6px',
         },
@@ -117,10 +117,10 @@ function CardForm({ amountCad, disabled, onPaymentMethod, onError }: Props) {
       base: {
         fontFamily: '"Hanken Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif',
         fontSize: '14px',
-        color: mode === 'dark' ? '#F6F4EB' : '#12271B',
-        '::placeholder': { color: mode === 'dark' ? '#909C92' : '#4F5C54' },
+        color: mode === 'dark' ? '#F4F7FB' : '#081D38',
+        '::placeholder': { color: mode === 'dark' ? '#8497AE' : '#4A5C74' },
       },
-      invalid: { color: '#A8412C' },
+      invalid: { color: '#8E0003' },
     },
   }
 

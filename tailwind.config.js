@@ -5,40 +5,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Vert forêt en couleur primaire (ex-teal). Le nom de jeton est
-        // conservé pour ne pas réécrire tous les composants.
+        // Bleu du logo en couleur primaire. Le nom de jeton reste `teal`
+        // pour ne pas réécrire tous les composants.
         teal: {
-          DEFAULT: '#2E503E',
-          dark: '#12271B',
-          mid: '#4E7260',
-          light: '#E0F0E7',
+          DEFAULT: '#015FC4',
+          dark: '#081D38',
+          mid: '#347FCC',
+          light: '#E6EFF9',
         },
-        // Terracotta en accent (ex-cuivre). Assombrie par rapport a la
-        // reference (#BC6F4C) : sur un bouton plein en texte papier elle ne
-        // donnait que 3,65:1, sous le seuil AA de 4,5. A 4,85:1 elle passe,
-        // en bouton comme en texte d'accent sur creme.
+        // Rouge de la feuille d'érable en accent. 7,16:1 sur texte blanc,
+        // donc AAA en bouton plein comme en texte.
         copper: {
-          DEFAULT: '#AA5830',
-          dark: '#8B492A',
-          light: '#F5D8C1',
+          DEFAULT: '#B30307',
+          dark: '#7D0205',
+          light: '#F6E1E1',
         },
-        ink: '#12271B',
-        coal: '#0B1C13',
+        ink: '#081D38',
+        coal: '#050E23',
         panel: {
-          DEFAULT: '#193124',
-          mid: '#1B3727',
+          DEFAULT: '#142842',
+          mid: '#263850',
         },
-        card: '#233C2D',
-        ivory: '#F6F4EB',
-        sand: '#E8E3D4',
-        g80: '#C9CDBE',
-        g60: '#909C92',
-        g40: '#4F5C54',
-        g20: '#213328',
-        // Le blanc pur cède la place au ton papier de la référence : c'est
-        // lui qui donne la chaleur des cartes. `bg-white` et `text-white`
-        // sont utilisés partout, les remapper suffit.
-        white: '#FCFAF4',
+        card: '#37485E',
+        ivory: '#F4F7FB',
+        sand: '#E4EAF2',
+        g80: '#C6D3E2',
+        g60: '#8497AE',
+        g40: '#4A5C74',
+        g20: '#1B3252',
+        // Blanc franc : c'est ce qui donne la netteté au couple marine/bleu.
+        white: '#FFFFFF',
       },
       fontFamily: {
         // Une seule famille pour titres, texte et étiquettes : c'est de là

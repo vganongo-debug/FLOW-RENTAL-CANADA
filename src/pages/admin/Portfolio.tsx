@@ -9,11 +9,11 @@ import { COUNTRY_PERFORMANCE, REVENUE_30D, VEHICLES } from '../../lib/sampleData
 import { formatCurrency } from '../../lib/utils'
 
 const channelMix = [
-  { name: 'Direct / Flow App', value: 38, fill: '#2E503E' },
-  { name: 'Booking.com', value: 31, fill: '#4E7260' },
-  { name: 'Expedia', value: 14, fill: '#AA5830' },
-  { name: 'Walk-in', value: 9, fill: '#8B492A' },
-  { name: 'Corporate / UN', value: 8, fill: '#4F5C54' },
+  { name: 'Direct / Flow App', value: 38, fill: '#015FC4' },
+  { name: 'Booking.com', value: 31, fill: '#347FCC' },
+  { name: 'Expedia', value: 14, fill: '#B30307' },
+  { name: 'Walk-in', value: 9, fill: '#7D0205' },
+  { name: 'Corporate / UN', value: 8, fill: '#4A5C74' },
 ]
 
 type CountryRow = (typeof COUNTRY_PERFORMANCE)[number]
@@ -116,13 +116,13 @@ export default function Portfolio() {
         <Card title={t('card.dailyRevenue')} subtitle="Hotels vs. Car Rental" className="lg:col-span-2">
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={REVENUE_30D} barCategoryGap={2}>
-              <CartesianGrid stroke="#E0F0E7" vertical={false} />
-              <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#4F5C54' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} />
+              <CartesianGrid stroke="#E6EFF9" vertical={false} />
+              <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#4A5C74' }} />
+              <YAxis tick={{ fontSize: 11, fill: '#4A5C74' }} />
               <Tooltip cursor={{ fill: 'rgba(11,110,110,0.05)' }} />
               <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Bar dataKey="hotels" name="Hotels" fill="#2E503E" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="cars" name="Car Rental" fill="#AA5830" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="hotels" name="Hotels" fill="#015FC4" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="cars" name="Car Rental" fill="#B30307" radius={[2, 2, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </Card>

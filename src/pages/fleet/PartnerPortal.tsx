@@ -105,11 +105,11 @@ export default function PartnerPortal() {
         <Card title="Payout history" subtitle="Last 5 weeks · USD" className="lg:col-span-2">
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={PAYOUT_HISTORY}>
-              <CartesianGrid stroke="#E0F0E7" vertical={false} />
-              <XAxis dataKey="week" tick={{ fontSize: 11, fill: '#4F5C54' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} />
+              <CartesianGrid stroke="#E6EFF9" vertical={false} />
+              <XAxis dataKey="week" tick={{ fontSize: 11, fill: '#4A5C74' }} />
+              <YAxis tick={{ fontSize: 11, fill: '#4A5C74' }} />
               <Tooltip />
-              <Bar dataKey="amount" fill="#AA5830" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="amount" fill="#B30307" radius={[3, 3, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </Card>

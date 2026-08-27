@@ -102,12 +102,12 @@ export default function Accounting() {
         <Card title={`${c.taxName} collected · 6 months`} subtitle={`${c.name} · taxable revenue and tax payable`} className="lg:col-span-2">
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={monthly}>
-              <CartesianGrid stroke="#E0F0E7" vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#4F5C54' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} />
+              <CartesianGrid stroke="#E6EFF9" vertical={false} />
+              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#4A5C74' }} />
+              <YAxis tick={{ fontSize: 11, fill: '#4A5C74' }} />
               <Tooltip />
-              <Bar dataKey="taxable" name="Taxable revenue" fill="#2E503E" radius={[2, 2, 0, 0]} />
-              <Bar dataKey="tax" name={`${c.taxName} payable`} fill="#AA5830" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="taxable" name="Taxable revenue" fill="#015FC4" radius={[2, 2, 0, 0]} />
+              <Bar dataKey="tax" name={`${c.taxName} payable`} fill="#B30307" radius={[2, 2, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </Card>

@@ -16,7 +16,7 @@ export function FlowSignaturePad({ className, label = 'Sign here' }: Props) {
     if (!ctx) return
     ctx.lineWidth = 1.6
     ctx.lineCap = 'round'
-    ctx.strokeStyle = '#12271B'
+    ctx.strokeStyle = '#081D38'
   }, [])
 
   const point = (e: React.PointerEvent<HTMLCanvasElement>) => {

@@ -4,27 +4,27 @@
 
 :root {
   /* Brand */
-  --color-teal: #2E503E;
-  --color-teal-dark: #12271B;
-  --color-teal-mid: #4E7260;
-  --color-teal-light: #E0F0E7;
-  --color-copper: #AA5830;
-  --color-copper-dark: #8B492A;
-  --color-copper-light: #F5D8C1;
+  --color-teal: #015FC4;
+  --color-teal-dark: #081D38;
+  --color-teal-mid: #347FCC;
+  --color-teal-light: #E6EFF9;
+  --color-copper: #B30307;
+  --color-copper-dark: #7D0205;
+  --color-copper-light: #F6E1E1;
 
   /* Neutrals */
-  --color-ink: #12271B;
-  --color-coal: #0B1C13;
-  --color-panel: #193124;
-  --color-panel-mid: #1B3727;
-  --color-card: #233C2D;
-  --color-ivory: #F6F4EB;
-  --color-sand: #E8E3D4;
-  --color-g80: #C9CDBE;
-  --color-g60: #909C92;
-  --color-g40: #4F5C54;
-  --color-g20: #213328;
-  --color-white: #FCFAF4;
+  --color-ink: #081D38;
+  --color-coal: #050E23;
+  --color-panel: #142842;
+  --color-panel-mid: #263850;
+  --color-card: #37485E;
+  --color-ivory: #F4F7FB;
+  --color-sand: #E4EAF2;
+  --color-g80: #C6D3E2;
+  --color-g60: #8497AE;
+  --color-g40: #4A5C74;
+  --color-g20: #1B3252;
+  --color-white: #FFFFFF;
 
   /* Semantic surface tokens (light) */
   --bg-page: var(--color-ivory);
@@ -39,7 +39,7 @@
   --bg-surface: var(--color-panel-mid);
   --text-primary: var(--color-ivory);
   --text-muted: var(--color-g60);
-  --border-subtle: #213328;
+  --border-subtle: #1B3252;
 }
 
 html, body, #root {

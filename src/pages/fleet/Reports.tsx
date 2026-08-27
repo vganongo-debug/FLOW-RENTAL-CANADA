@@ -22,7 +22,7 @@ const UTILISATION_BY_VEHICLE = VEHICLES.slice(0, 10).map((v, i) => {
     label: `${v.plate}`,
     rentedDays,
     pct: Math.round(rentedDays / 28 * 100),
-    fill: v.owner === 'flow' ? '#2E503E' : '#AA5830',
+    fill: v.owner === 'flow' ? '#015FC4' : '#B30307',
   }
 })
 
@@ -32,11 +32,11 @@ const UTILISATION_TREND = Array.from({ length: 30 }, (_, i) => ({
 }))
 
 const TIER_REV = [
-  { tier: 'Flow GO',       revenue:  6_120, fill: '#4E7260' },
-  { tier: 'Flow Drive',    revenue: 14_440, fill: '#2E503E' },
-  { tier: 'Flow Terrain',  revenue: 18_220, fill: '#8B492A' },
-  { tier: 'Flow Prestige', revenue: 23_180, fill: '#AA5830' },
-  { tier: 'Flow Elite',    revenue: 29_640, fill: '#12271B' },
+  { tier: 'Flow GO',       revenue:  6_120, fill: '#347FCC' },
+  { tier: 'Flow Drive',    revenue: 14_440, fill: '#015FC4' },
+  { tier: 'Flow Terrain',  revenue: 18_220, fill: '#7D0205' },
+  { tier: 'Flow Prestige', revenue: 23_180, fill: '#B30307' },
+  { tier: 'Flow Elite',    revenue: 29_640, fill: '#081D38' },
 ]
 
 const ADDONS = [
@@ -149,9 +149,9 @@ function UtilisationReport() {
       <ReportShell title="Utilisation by vehicle" subtitle="Days on rent / 28 days · teal = Flow, copper = Partner">
         <ResponsiveContainer width="100%" height={360}>
           <BarChart data={UTILISATION_BY_VEHICLE} layout="vertical" margin={{ left: 30 }}>
-            <CartesianGrid stroke="#E0F0E7" horizontal={false} />
-            <XAxis type="number" tick={{ fontSize: 11, fill: '#4F5C54' }} unit="%" />
-            <YAxis dataKey="label" type="category" tick={{ fontSize: 11, fill: '#4F5C54' }} width={100} />
+            <CartesianGrid stroke="#E6EFF9" horizontal={false} />
+            <XAxis type="number" tick={{ fontSize: 11, fill: '#4A5C74' }} unit="%" />
+            <YAxis dataKey="label" type="category" tick={{ fontSize: 11, fill: '#4A5C74' }} width={100} />
             <Tooltip />
             <Bar dataKey="pct" radius={[0, 3, 3, 0]}>
               {UTILISATION_BY_VEHICLE.map((u) => <Cell key={u.label} fill={u.fill} />)}
@@ -162,11 +162,11 @@ function UtilisationReport() {
       <ReportShell title="Utilisation trend · last 30 days" subtitle="Fleet-wide daily utilisation %">
         <ResponsiveContainer width="100%" height={240}>
           <LineChart data={UTILISATION_TREND}>
-            <CartesianGrid stroke="#E0F0E7" vertical={false} />
-            <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#4F5C54' }} />
-            <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} unit="%" />
+            <CartesianGrid stroke="#E6EFF9" vertical={false} />
+            <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#4A5C74' }} />
+            <YAxis tick={{ fontSize: 11, fill: '#4A5C74' }} unit="%" />
             <Tooltip />
-            <Line type="monotone" dataKey="utilisation" stroke="#2E503E" strokeWidth={2.5} dot={false} />
+            <Line type="monotone" dataKey="utilisation" stroke="#015FC4" strokeWidth={2.5} dot={false} />
           </LineChart>
         </ResponsiveContainer>
       </ReportShell>
@@ -275,11 +275,11 @@ function AddonsReport() {
       <ReportShell title="Add-ons revenue" subtitle="Last 30 days · including attach rate">
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={ADDONS}>
-            <CartesianGrid stroke="#E0F0E7" vertical={false} />
-            <XAxis dataKey="addon" tick={{ fontSize: 11, fill: '#4F5C54' }} />
-            <YAxis tick={{ fontSize: 11, fill: '#4F5C54' }} />
+            <CartesianGrid stroke="#E6EFF9" vertical={false} />
+            <XAxis dataKey="addon" tick={{ fontSize: 11, fill: '#4A5C74' }} />
+            <YAxis tick={{ fontSize: 11, fill: '#4A5C74' }} />
             <Tooltip />
-            <Bar dataKey="revenue" fill="#AA5830" radius={[3, 3, 0, 0]} />
+            <Bar dataKey="revenue" fill="#B30307" radius={[3, 3, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </ReportShell>
